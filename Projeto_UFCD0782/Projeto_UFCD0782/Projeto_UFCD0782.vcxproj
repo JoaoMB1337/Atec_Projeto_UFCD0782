@@ -127,7 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cliente.cpp" />
+    <ClCompile Include="Gerecliente.cpp" />
     <ClCompile Include="Projeto_UFCD0782.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Gerecliente.h" />
+    <ClInclude Include="Cliente.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
