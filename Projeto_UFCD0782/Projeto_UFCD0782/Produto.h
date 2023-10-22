@@ -12,11 +12,11 @@ class Produto {
         void mostrarInformacoes();
 
         // Métodos "GET"
-        int getId() ;
-        string getNome() ;
-        int getStock() ;
-        double getPrecoCusto() ;
-        int getIva() ;
+        int getId();
+        string getNome();
+        int getStock();
+        double getPrecoCusto();
+        int getIva();
 
         // Métodos SET
         void setId(int id);

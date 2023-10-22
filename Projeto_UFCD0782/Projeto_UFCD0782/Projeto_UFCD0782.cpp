@@ -1,30 +1,85 @@
-#include "GerirProduto.h"
+#include <iostream>
 #include <string>
-using namespace std;
+#include "GerirProduto.h"
+
 int main() {
+    GerirProduto gerenciador;
+    int opcao;
 
-    GerirProduto gestor;
+    do {
+        std::cout << "Menu de Gerenciamento de Produtos:" << std::endl;
+        std::cout << "1. Adicionar Produto" << std::endl;
+        std::cout << "2. Remover Produto" << std::endl;
+        std::cout << "3. Modificar Produto" << std::endl;
+        std::cout << "4. Mostrar Produtos" << std::endl;
+        std::cout << "5. Sair" << std::endl;
+        std::cout << "Escolha uma opção: ";
+        std::cin >> opcao;
 
-    gestor.adicionarProduto(1, "Produto 1", 10, 10.0, 0.23);
-    gestor.adicionarProduto(2, "Produto 2", 20, 15.0, 0.23);
+        switch (opcao) {
+        case 1: {
+            int id, stock;
+            double precoCusto, iva;
+            std::string nome;
 
+            std::cout << "Informe o ID do produto: ";
+            std::cin >> id;
+            std::cin.ignore(); // Limpar o buffer de entrada
+            std::cout << "Informe o nome do produto: ";
+            std::getline(std::cin, nome);
+            std::cout << "Informe o estoque do produto: ";
+            std::cin >> stock;
+            std::cout << "Informe o preço de custo do produto: ";
+            std::cin >> precoCusto;
+            std::cout << "Informe o IVA do produto: ";
+            std::cin >> iva;
 
-    std::cout << "Lista de Produtos:" << std::endl;
-    gestor.mostrarProdutos();
-    cout << "\n";
+            gerenciador.adicionarProduto(id, nome, stock, precoCusto, iva);
+            break;
+        }
 
-    gestor.modificarProduto(1, 15, 12.0, 0.20);
+        case 2: {
+            std::string nome;
+            std::cout << "Informe o nome do produto a ser removido: ";
+            std::cin.ignore();
+            std::getline(std::cin, nome);
+            gerenciador.removerProduto(nome);
+            break;
+        }
 
-    std::cout << "Lista de Produtos Apos Modificacao:" << std::endl;
-    gestor.mostrarProdutos();
+        case 3: {
+            std::string nome;
+            int novoStock;
+            double novoPrecoCusto, novoIva;
 
-    gestor.removerProduto("Produto 2");
-    cout << "\n";
+            std::cout << "Informe o nome do produto a ser modificado: ";
+            std::cin.ignore();
+            std::getline(std::cin, nome);
+            std::cout << "Informe o novo estoque: ";
+            std::cin >> novoStock;
+            std::cout << "Informe o novo preço de custo: ";
+            std::cin >> novoPrecoCusto;
+            std::cout << "Informe o novo IVA: ";
+            std::cin >> novoIva;
 
+            gerenciador.modificarProduto(nome, novoStock, novoPrecoCusto, novoIva);
+            break;
+        }
 
-    std::cout << "Lista de Produtos Apos Remocao:" << std::endl;
-    gestor.mostrarProdutos();
+        case 4:
+            gerenciador.mostrarProdutos();
+            break;
+
+        case 5:
+            std::cout << "Saindo do programa." << std::endl;
+            break;
+
+        default:
+            std::cout << "Opção inválida. Tente novamente." << std::endl;
+            break;
+        }
+
+    } while (opcao != 5);
 
     return 0;
 }
-

@@ -3,13 +3,15 @@
 
 class GerirProduto {
     public:
-        
+        GerirProduto();
         void adicionarProduto(int id,string nome, int stock, double precoCusto, double iva);
         void removerProduto(string nome);
-        void modificarProduto(int id,int novoStock, double novoPrecoCusto, double novoIva);
+        void modificarProduto(string nome,int novoStock, double novoPrecoCusto, double novoIva);
         void mostrarProdutos();
 
     private:
-        Produto item[10];
-        int numItem = 0;
+        bool verificaNoCsv(int id,string nome);
+        void guardarInformacoes();
+        Produto* item;
+        int numItem;
 };
