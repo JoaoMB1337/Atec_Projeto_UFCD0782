@@ -7,10 +7,10 @@ Cliente::Cliente()
 	this->telefone = "";
 	this->email = "";
 	this->nif = "";
-	this->id = "";
+	this->id = 0;
 }
 
-Cliente::Cliente(string nome, string morada, string telefone, string email,string nif, string id)
+Cliente::Cliente(string nome, string morada, string telefone, string email,string nif, int id)
 {
 	this->nome = nome;
 	this->morada = morada;
@@ -45,7 +45,7 @@ string Cliente::getNif()
 	return nif;
 }
 
-string Cliente::getId()
+int Cliente::getId()
 {
 	return id;
 }
@@ -76,7 +76,7 @@ void Cliente::setNif(string nif)
 }
 
 
-void Cliente::setId(string id)
+void Cliente::setId(int id)
 {
 	this->id = id;	
 }
@@ -89,7 +89,7 @@ string Cliente::to_String()
 		"\nTelefone: " + this->telefone +
 		"\nEmail: " +this->email +
 		"\nNIF :" + this->nif +
-		"\n ID: " + this->id + "\n";
+		"\nID: " + to_string(id) + "\n";
 }
 
 

@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string>
 #include <iostream>
 using namespace std;
 
@@ -11,22 +11,22 @@ private:
 	string telefone;
 	string email;
 	string nif;
-	string id;
+	int id;
 
 public:
 	Cliente();
-	Cliente(string nome, string morada, string telefone, string email,string nif, string id);
+	Cliente(string nome, string morada, string telefone, string email,string nif, int id);
 	string getNome();
 	string getMorada();
 	string getTelefone();
 	string getEmail();
 	string getNif();
-	string getId();
+	int getId();
 	void setNome(string nome);
 	void setMorada(string morada);
 	void setTelefone(string telefone);
 	void setEmail(string email);
 	void setNif(string nif);
-	void setId(string id);
+	void setId(int id);
 	string to_String();
 };

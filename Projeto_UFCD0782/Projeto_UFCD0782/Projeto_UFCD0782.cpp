@@ -23,7 +23,7 @@ int main()
             A.removeCliente();
             break;
         case 3:
-            A.modificanomeCliente();
+            A.modificadadoCliente();
             break;
         case 4:
 			A.listaClientes();
@@ -31,7 +31,7 @@ int main()
         case 5:
             return 0;
         default:
-            cout << "Opção inválida. Tente novamente." << endl;
+            cout << "Opçao invalida. Tente novamente." << endl;
         }
     }
 
