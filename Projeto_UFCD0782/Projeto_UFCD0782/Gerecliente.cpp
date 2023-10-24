@@ -1,6 +1,9 @@
 #include "Gerecliente.h"
 #include <cctype>
-//Validações//////////////////////////////////////////////
+#include <fstream>
+#include <sstream>
+
+#pragma region  Validaçoes 
 
 //verifica nome sem numeros e caracteres especiais
 bool Gerecliente::validaNome(string nome) {
@@ -9,12 +12,13 @@ bool Gerecliente::validaNome(string nome) {
 		//verifica se tem numeros ou caracteres especiais respetivamente
 		if (isdigit(c) || ispunct(c))
 		{
-			cout << "Nome nao pode conter numeros ou caracteres especiais!"<<endl<<"Insira novamente: ";
+			cout << "Nome nao pode conter numeros ou caracteres especiais!" << endl << "Insira novamente: ";
 			return false;
 		}
 	}
 	return true;
 }
+
 //verifica se telefone apenas tem numeros
 bool Gerecliente::validaTelefone(string telefone)
 {
@@ -22,18 +26,19 @@ bool Gerecliente::validaTelefone(string telefone)
 	{
 		if (!isdigit(c))
 		{
-			cout << "Telefone so pode conter numeros!"<<endl<<"Insira novamente: ";
+			cout << "Telefone so pode conter numeros!" << endl << "Insira novamente: ";
 			return false;
 		}
 	}
 	return true;
 }
+
 //valida email e verifica se já existe
 bool Gerecliente::validaEmail(string email)
 {
-	if (email.find("@") == string::npos || email.find(".") ==string::npos)
+	if (email.find("@") == string::npos || email.find(".") == string::npos)
 	{
-		cout << "Email tem de conter @ e . !"<<endl<<"Insira novamente: ";
+		cout << "Email tem de conter @ e . !" << endl << "Insira novamente: ";
 		return false;
 	}
 	else
@@ -53,12 +58,13 @@ bool Gerecliente::validaEmail(string email)
 		}
 	}
 }
+
 //Valida NIF (9digitos) e não pode ter letras
 bool Gerecliente::validaNif(string nif)
 {
 	if (nif.length() != 9)
 	{
-		cout << "Nif tem de ter 9 digitos!"<<endl<<"Insira novamente: ";
+		cout << "Nif tem de ter 9 digitos!" << endl << "Insira novamente: ";
 		return false;
 	}
 	else
@@ -67,7 +73,7 @@ bool Gerecliente::validaNif(string nif)
 		{
 			if (!isdigit(c))
 			{
-				cout << "Nif e composto por 9 digitos!"<<endl<<"Insira novamente: ";
+				cout << "Nif e composto por 9 digitos!" << endl << "Insira novamente: ";
 				return false;
 			}
 		}
@@ -106,6 +112,7 @@ bool Gerecliente::verificaNif(string nif)
 	}
 }
 //verifica email (modificar dados)
+
 bool Gerecliente::verificaEmail(string email)
 {
 	if (email.find("@") == string::npos || email.find(".") == string::npos)
@@ -119,43 +126,109 @@ bool Gerecliente::verificaEmail(string email)
 	}
 }
 
-//Fim das validações///////////////////////////////////////
+#pragma endregion
+
+
+void Gerecliente::guardaInformacoes(){
+	ofstream arquivo("cliente.csv", ios::out);
+
+	if (!arquivo.is_open()) {
+		cout << "Erro ao abrir o arquivo cliente.csv." << endl;
+		return;
+	}
+
+	for (int i = 0; i < contador; i++) {
+		arquivo << pessoa[i].getNome() << "," << pessoa[i].getMorada() << ","
+			<< pessoa[i].getTelefone() << "," << pessoa[i].getEmail() << ","
+			<< pessoa[i].getNif() <<"," << pessoa[i].getId();
+		if (i < contador - 1) {
+			arquivo << endl; // Evita uma linha em branco no final
+		}
+	}
+	arquivo.close();
+}
+
+Gerecliente::Gerecliente(){
+	ifstream arquivo("cliente.csv");
+	if (!arquivo.is_open()) {
+		cout << "Arquivo de clientes não encontrado." << endl;
+		contador = 0;
+		pessoa = nullptr;
+		return;
+	}
+
+	string linha;
+	contador = 0;
+
+	// Ler quantas linhas tem o csv
+	while (getline(arquivo, linha)) {
+		contador++;
+	}
+
+	arquivo.close();
+
+	pessoa = new Cliente[contador];
+
+	arquivo.open("cliente.csv");
+	contador = 0;
+
+	while (getline(arquivo, linha)) {
+		stringstream ss(linha);
+		string idCSV, nomeCSV,morada,telefone,email,nif;
+		getline(ss, nomeCSV, ',');
+		getline(ss, morada, ',');
+		getline(ss, telefone, ',');
+		getline(ss, email, ',');
+		getline(ss, nif, ',');
+		getline(ss, idCSV, ',');
+
+		int id = stoi(idCSV);
+		pessoa[contador] = Cliente(nomeCSV,morada,telefone,email,nif,id);
+		contador++;
+	}
+	arquivo.close();
+}
 
 //Adiciona um cliente
 void  Gerecliente::adicionaCliente() {
-	if (contador < 100) {
-		string nome, morada, telefone, email, nif;
-		cout << "Nome: ";
-		do {
-			cin >> nome;
-		} while (!validaNome(nome));
+int id;
+string nome, morada, telefone, email, nif;
 
-		cout << "Morada: ";
-		cin >> morada;
+	cout << "Nome: ";
+	do {
+		cin >> nome;
+	} while (!validaNome(nome));
 
-		cout << "Telefone: ";
-		do {
-			cin >> telefone;
-		} while (!validaTelefone(telefone));
+	cout << "Morada: ";
+	cin >> morada;
 
-		cout << "Email: ";
-		do {
-			cin >> email;
-		} while (!validaEmail(email));
+	cout << "Telefone: ";
+	do {
+		cin >> telefone;
+	} while (!validaTelefone(telefone));
 
-		cout << "Nif: ";
-		do {
-			cin >> nif;
-		} while (!validaNif(nif));
+	cout << "Email: ";
+	do {
+		cin >> email;
+	} while (!validaEmail(email));
 
-		id = id++;
-		pessoa[contador] = Cliente(nome, morada, telefone, email, nif, id);
-		contador++;
+	cout << "Nif: ";
+	do {
+		cin >> nif;
+	} while (!validaNif(nif));
+
+	Cliente* newpessoa = new Cliente[contador + 1];
+	for (int i = 0; i < contador; i++) {
+		newpessoa[i] = pessoa[i];
 	}
-	else
-	{
-		cout << "Limite de clientes atingido!" << endl;
+	id = contador;
+	newpessoa[contador] = Cliente(nome, morada, telefone, email, nif, id);
+	if (pessoa != nullptr) {
+		delete[] pessoa;
 	}
+	pessoa = newpessoa;
+	contador++;
+	guardaInformacoes();
 }
 
 //Remove um cliente pelo nome e nif
@@ -174,7 +247,8 @@ void Gerecliente::removeCliente()
 			pessoa[i] = pessoa[contador - 1];
 			contador--;
 			existe = true;
-			break;
+			guardaInformacoes();
+			return;
 		}
 	}
 	if (existe == false)
@@ -227,7 +301,8 @@ void Gerecliente::modificadadoCliente()
 			pessoa[i].setEmail(email);
 			pessoa[i].setNif(nif);
 			existe = true;
-			break;
+			guardaInformacoes();
+			return;
 		}
 	}
 	if (existe == false)

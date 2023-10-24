@@ -5,7 +5,7 @@
 bool GerirProduto::verificaNoCsv(int id, string nome){
     ifstream arquivo("produtos.csv");
     string linha;
-    while (getline(arquivo, linha)) {
+    while (getline(arquivo, linha)) { 
         stringstream ss(linha);
         string idCSV, nomeCSV, stock, precoCusto, iva;
         getline(ss, idCSV, ',');
