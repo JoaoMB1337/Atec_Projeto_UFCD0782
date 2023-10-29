@@ -41,22 +41,15 @@ bool Gerecliente::validaEmail(string email)
 		cout << "Email tem de conter @ e . !" << endl << "Insira novamente: ";
 		return false;
 	}
-	else
+	for (int i = 0; i < contador; i++)
 	{
-		//verifica se email já existe
-		for (int i = 0; i < contador; i++)
+		if (pessoa[i].getEmail() == email)
 		{
-			if (pessoa[i].getEmail() == email)
-			{
-				cout << "Email ja existe!" << endl << "Insira novamente: ";
-				return false;
-			}
-			else
-			{
-				return true;
-			}
+			cout << "Email ja existe!" << endl << "Insira novamente: ";
+			return false;
 		}
 	}
+	return true;
 }
 
 //Valida NIF (9digitos) e não pode ter letras
@@ -145,6 +138,7 @@ void Gerecliente::guardaInformacoes(){
 			arquivo << endl; // Evita uma linha em branco no final
 		}
 	}
+
 	arquivo.close();
 }
 
@@ -181,11 +175,15 @@ Gerecliente::Gerecliente(){
 		getline(ss, email, ',');
 		getline(ss, nif, ',');
 		getline(ss, idCSV, ',');
+		
+		
 
 		int id = stoi(idCSV);
+		
 		pessoa[contador] = Cliente(nomeCSV,morada,telefone,email,nif,id);
 		contador++;
 	}
+	
 	arquivo.close();
 }
 
@@ -217,11 +215,34 @@ string nome, morada, telefone, email, nif;
 		cin >> nif;
 	} while (!validaNif(nif));
 
+
+
 	Cliente* newpessoa = new Cliente[contador + 1];
 	for (int i = 0; i < contador; i++) {
 		newpessoa[i] = pessoa[i];
 	}
-	id = contador;
+	//ordenar por id
+	Cliente aux;
+	for (int i = 0; i < contador; i++)
+	{
+		for (int j = i + 1; j < contador; j++)
+		{
+			if (pessoa[i].getId() > pessoa[j].getId())
+			{
+				aux = pessoa[i];
+				pessoa[i] = pessoa[j];
+				pessoa[j] = aux;
+			}
+		}
+	}
+	//cria id unico que não pode ser alterado mesmo que o cliente seja removido
+	if (contador == 0) {
+		id = 1;
+	}
+	else {
+		id = pessoa[contador - 1].getId() + 1;
+	}
+
 	newpessoa[contador] = Cliente(nome, morada, telefone, email, nif, id);
 	if (pessoa != nullptr) {
 		delete[] pessoa;

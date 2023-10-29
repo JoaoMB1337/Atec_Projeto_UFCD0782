@@ -13,7 +13,7 @@ class Gerecliente
 		void guardaInformacoes();
 		Cliente* pessoa;
 		int contador ;
-		int id;
+		int id=1;
 	public:
 		Gerecliente();
 		void adicionaCliente();
