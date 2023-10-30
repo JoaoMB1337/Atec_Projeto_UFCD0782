@@ -83,17 +83,17 @@ void Interface::menuCliente(Gerecliente gerirCliente){
 		system("cls");
 		switch (opcaoInt) {
 		case 1:
-			//gerirCliente.adicionaCliente();
+			gerirCliente.adicionaCliente();
 			system("cls");
 
 			break;
 		case 2:
-			//gerirCliente.removeCliente();
+			gerirCliente.removeCliente();
 			system("cls");
 
 			break;
 		case 3:
-			//gerirCliente.modificadadoCliente();
+			gerirCliente.modificadadoCliente();
 			system("cls");
 			break;
 
