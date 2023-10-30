@@ -28,5 +28,5 @@ public:
 	void setEmail(string email);
 	void setNif(string nif);
 	void setId(int id);
-	string to_String();
+	void mostrarClientes();
 };

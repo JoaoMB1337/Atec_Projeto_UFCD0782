@@ -81,16 +81,14 @@ void Cliente::setId(int id)
 	this->id = id;	
 }
 
-string Cliente::to_String()
-{
-
-	return "Nome: " + this->nome + 
-		"\nMorada: " + this->morada +
-		"\nTelefone: " + this->telefone +
-		"\nEmail: " +this->email +
-		"\nNIF :" + this->nif +
-		"\nID: " + to_string(id) + "\n";
+void Cliente::mostrarClientes(){
+	cout << "ID: " << this->id << "\n";
+	cout << "Nome: " << this->nome << "\n";
+	cout << "Morada: " << this->morada << "\n";
+	cout << "Telefone: " << this->telefone << "\n";
+	cout << "Email: " << this->email << "\n";
+	cout << "NIF: " << this->nif << "\n";
+	cout << "+------------------------------------+ \n";
 }
-
 
 

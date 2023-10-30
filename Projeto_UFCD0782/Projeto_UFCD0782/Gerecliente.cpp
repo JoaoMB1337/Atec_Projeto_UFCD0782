@@ -333,6 +333,6 @@ void Gerecliente::modificadadoCliente(){
 void Gerecliente::listaClientes(){
 	for (int i = 0; i < contador; i++)
 	{
-		cout << pessoa[i].to_String() << endl;
+		pessoa[i].mostrarClientes();
 	}
 }
