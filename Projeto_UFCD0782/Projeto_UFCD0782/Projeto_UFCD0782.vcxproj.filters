@@ -24,10 +24,13 @@
     <ClCompile Include="Gerecliente.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-     <ClCompile Include="Produto.cpp">
+    <ClCompile Include="Produto.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-     <ClCompile Include="GerirProduto.cpp">
+    <ClCompile Include="GerirProduto.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
   </ItemGroup>
@@ -42,6 +45,9 @@
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
     <ClInclude Include="GerirProduto.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>

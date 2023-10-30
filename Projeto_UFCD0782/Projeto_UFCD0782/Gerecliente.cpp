@@ -104,8 +104,8 @@ bool Gerecliente::verificaNif(string nif)
 		return true;
 	}
 }
-//verifica email (modificar dados)
 
+//verifica email (modificar dados)
 bool Gerecliente::verificaEmail(string email)
 {
 	if (email.find("@") == string::npos || email.find(".") == string::npos)
@@ -120,7 +120,6 @@ bool Gerecliente::verificaEmail(string email)
 }
 
 #pragma endregion
-
 
 void Gerecliente::guardaInformacoes(){
 	ofstream arquivo("cliente.csv", ios::out);
@@ -143,6 +142,7 @@ void Gerecliente::guardaInformacoes(){
 }
 
 Gerecliente::Gerecliente(){
+
 	ifstream arquivo("cliente.csv");
 	if (!arquivo.is_open()) {
 		cout << "Arquivo de clientes não encontrado." << endl;
@@ -175,15 +175,11 @@ Gerecliente::Gerecliente(){
 		getline(ss, email, ',');
 		getline(ss, nif, ',');
 		getline(ss, idCSV, ',');
-		
-		
 
 		int id = stoi(idCSV);
-		
 		pessoa[contador] = Cliente(nomeCSV,morada,telefone,email,nif,id);
 		contador++;
 	}
-	
 	arquivo.close();
 }
 
@@ -253,8 +249,7 @@ string nome, morada, telefone, email, nif;
 }
 
 //Remove um cliente pelo nome e nif
-void Gerecliente::removeCliente()
-{
+void Gerecliente::removeCliente(){
 	string nome, nif;
 	bool existe = false;
 	cout << "Nome: ";
@@ -281,8 +276,8 @@ void Gerecliente::removeCliente()
 	}
 }
 
-void Gerecliente::modificadadoCliente()
-{
+//Modifica o procurando o cliente por o nome e o NIF cliente 
+void Gerecliente::modificadadoCliente(){
 	string nome,nif;
 	bool existe = false;
 	cout << "Insira o nome do cliente que pretende modificar: ";
@@ -335,8 +330,7 @@ void Gerecliente::modificadadoCliente()
 	}
 }
 
-void Gerecliente::listaClientes()
-{
+void Gerecliente::listaClientes(){
 	for (int i = 0; i < contador; i++)
 	{
 		cout << pessoa[i].to_String() << endl;
