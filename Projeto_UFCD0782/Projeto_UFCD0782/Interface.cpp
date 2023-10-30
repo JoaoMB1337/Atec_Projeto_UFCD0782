@@ -53,7 +53,8 @@ void Interface::menuProduto(GerirProduto gerirProduto) {
 			return;
 
 		default:
-			return menuProduto(gerirProduto);
+			cout << "!!Opção Invalida!! \n";
+			break;
 		}
 
 	} while (true);
@@ -82,17 +83,17 @@ void Interface::menuCliente(Gerecliente gerirCliente){
 		system("cls");
 		switch (opcaoInt) {
 		case 1:
-			gerirCliente.adicionaCliente();
+			//gerirCliente.adicionaCliente();
 			system("cls");
 
 			break;
 		case 2:
-			gerirCliente.removeCliente();
+			//gerirCliente.removeCliente();
 			system("cls");
 
 			break;
 		case 3:
-			gerirCliente.modificadadoCliente();
+			//gerirCliente.modificadadoCliente();
 			system("cls");
 			break;
 
@@ -106,7 +107,8 @@ void Interface::menuCliente(Gerecliente gerirCliente){
 			return;
 
 		default:
-			return menuCliente(gerirCliente);
+			cout << "!!Opção Invalida!! \n";
+			break;
 		}
 
 	} while (true);
@@ -155,6 +157,7 @@ void Interface::menuPrincipal(){
 				cout << "Nothing \n";
 				system("cls");
 				break;
+
 			case 5:
 				return;
 
