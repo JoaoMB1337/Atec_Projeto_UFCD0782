@@ -129,17 +129,21 @@
   <ItemGroup>
     <ClCompile Include="cliente.cpp" />
     <ClCompile Include="Gerecliente.cpp" />
+    <ClCompile Include="GerirVenda.cpp" />
     <ClCompile Include="Interface.cpp" />
     <ClCompile Include="Produto.cpp" />
     <ClCompile Include="GerirProduto.cpp" />
     <ClCompile Include="Projeto_UFCD0782.cpp" />
+    <ClCompile Include="Venda.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gerecliente.h" />
     <ClInclude Include="Cliente.h" />
     <ClInclude Include="GerirProduto.h" />
+    <ClInclude Include="GerirVenda.h" />
     <ClInclude Include="Interface.h" />
     <ClInclude Include="Produto.h" />
+    <ClInclude Include="Venda.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

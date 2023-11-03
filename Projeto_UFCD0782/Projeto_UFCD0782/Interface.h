@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <cctype>
 #include <string>
+#include "GerirVenda.h"
 class Interface
 {
 public:
@@ -13,5 +14,6 @@ private:
 	int converteStringParaInt(string opcao);
 	void menuProduto(GerirProduto gerirProduto);
 	void menuCliente(Gerecliente gerirCliente);
+	void menuVenda(GerirVenda gerirVenda);
 
 };

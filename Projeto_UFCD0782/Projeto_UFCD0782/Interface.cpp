@@ -114,6 +114,58 @@ void Interface::menuCliente(Gerecliente gerirCliente){
 	} while (true);
 }
 
+void Interface::menuVenda(GerirVenda gerirVenda) {
+	string opcaoString;
+	int opcaoInt;
+	do {
+		cout << "+----------------------------+\n";
+		cout << "|       MENU VENDAS          |\n";
+		cout << "+----------------------------+\n";
+		cout << "|  (1) - Adicionar           |\n";
+		cout << "|                            |\n";
+		cout << "|  (2) - Remover             |\n";
+		cout << "|                            |\n";
+		cout << "|  (3) - Modificar           |\n";
+		cout << "|                            |\n";
+		cout << "|  (4) - Listar              |\n";
+		cout << "|                            |\n";
+		cout << "|  (5) - Sair                |\n";
+		cout << "+----------------------------+\n";
+		cin >> opcaoString;
+		opcaoInt = converteStringParaInt(opcaoString);
+		system("cls");
+		switch (opcaoInt) {
+		case 1:
+			gerirVenda.adicionaVenda();
+			system("cls");
+			break;
+
+		case 2:
+			//gerirVenda.removeVenda();
+			system("cls");
+			break;
+
+		case 3:
+			//gerirVenda.modificaVenda();
+			system("cls");
+			break;
+
+		case 4:
+			//gerirVenda.mostraVendas();
+			system("pause");
+			system("cls");
+			break;
+
+		case 5:
+			return;
+
+		default:
+			cout << "!!Opção Invalida!! \n";
+			break;
+		}
+
+	} while (true);
+}
 Interface::Interface(){
 }
 
@@ -122,6 +174,7 @@ void Interface::menuPrincipal(){
 	int opcaoInt;
 	GerirProduto gerirProduto;
 	Gerecliente gerirCliente;
+	GerirVenda gerirVenda;
 	do {
 		cout << "+----------------------------+\n";
 		cout << "|        MENU PRINCIPAL      |\n";
@@ -141,7 +194,7 @@ void Interface::menuPrincipal(){
 		system("cls");
 		switch (opcaoInt) {
 			case 1:
-				cout << "Nothing\n";
+				menuVenda(gerirVenda);
 				system("cls");
 				break;
 			case 2:
