@@ -1,0 +1,10 @@
+Login -> Admin -> Funcinarios 
+
+Categoria-> (id,Nome)
+Produtos -> (id,Nome,Categoria,Stock,precoCusto,Iva,precoVenda(+30% sobre Preçocusto + Iva)) *O preço de venda(30%) ja tem iva?*
+
+Cliente(Nif,Nome,telfone,morada);
+
+Venda(Produto,Quantidade)
+
+Talao(nrFatura,nrCliente,NrLinha,NomeProduto,Quantidade, Preço s/Iva, Iva, Total c/Iva, ValorEntrege,Troco)
