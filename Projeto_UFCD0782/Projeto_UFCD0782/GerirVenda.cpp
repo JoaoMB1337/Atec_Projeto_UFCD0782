@@ -66,7 +66,7 @@ GerirVenda::GerirVenda()
 void GerirVenda::adicionaVenda()
 {
 	int idCliente, idProduto, quantidade, idVenda;
-	string data,pessoa;
+	string dataCSV,pessoa;
 	double total;
 
 	cout << "ID Cliente: ";
@@ -141,19 +141,20 @@ void GerirVenda::adicionaVenda()
 	cout << "ID Venda: ";
 	cin >> idVenda;
 	cout << "Data: ";
-	cin >> data;
+	cin >> dataCSV;
 	cout << "Total: ";
 	cin >> total;
 
-	Venda* newVenda = new Venda(idCliente, idProduto, quantidade, idVenda, data, total);
+
+	Venda* newvenda = new Venda[contador + 1];
 	for (int i = 0; i < contador; i++) {
-		newVenda[i] = venda[i];
+		newvenda[i] = venda[i];
 	}
-	newVenda[contador] = Venda(idCliente, idProduto, quantidade, idVenda, data, total);
+	newvenda[contador] = Venda(idCliente, idProduto, quantidade, idVenda, dataCSV, total);
 	if (venda != nullptr) {
 		delete[] venda;
 	}
-	venda = newVenda;
+	venda = newvenda;
 	contador++;
 	guardaInformacoes();
 }
