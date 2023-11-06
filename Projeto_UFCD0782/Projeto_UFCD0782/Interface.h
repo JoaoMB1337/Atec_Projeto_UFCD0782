@@ -5,6 +5,7 @@
 #include <cctype>
 #include <string>
 #include "GerirVenda.h"
+#include "Relatorio.h"
 class Interface
 {
 public:
@@ -15,5 +16,6 @@ private:
 	void menuProduto(GerirProduto gerirProduto);
 	void menuCliente(Gerecliente gerirCliente);
 	void menuVenda(GerirVenda gerirVenda);
+	void menuRelatorios(Relatorio relatorio);
 
 };

@@ -10,7 +10,6 @@ class GerirProduto {
         void mostrarProdutos();
 
     private:
-
         bool verificaNoCsv(int id,string nome);
         void guardarInformacoes();
         Produto* item;
