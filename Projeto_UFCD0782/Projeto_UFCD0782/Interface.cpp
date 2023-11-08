@@ -137,6 +137,7 @@ void Interface::menuVenda(GerirVenda gerirVenda) {
 		switch (opcaoInt) {
 		case 1:
 			gerirVenda.adicionaVenda();
+			system("pause");
 			system("cls");
 			break;
 

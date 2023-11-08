@@ -54,6 +54,7 @@ void Venda::setIdCliente(int idCliente)
 {
 	this->idCliente = idCliente;
 }
+
 void Venda::setQuantidade(int quantidade)
 {
 	this->quantidade = quantidade;
