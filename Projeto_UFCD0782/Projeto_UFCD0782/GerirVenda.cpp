@@ -3,6 +3,9 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <ctime>
+#include <chrono>
+#include <string>
 
 void GerirVenda::guardaInformacoes()
 {
@@ -67,6 +70,7 @@ GerirVenda::GerirVenda()
 }
 
 #pragma region Verificações
+
 bool GerirVenda::verificaCliente(int idCliente)
 {
 	string pessoa;
@@ -138,12 +142,23 @@ bool GerirVenda::verificaProduto(int idProduto)
 
 	return false;
 }
+
+int GerirVenda::verificarQuantidadeDisponivel(int idProduto) {
+
+	return produtos.obterQuantidadeDisponivel(idProduto);
+}
+
+void GerirVenda::diminuirQuantidadeStock(int idProduto, int quantidade) {
+	produtos.dimunirQuantidadeStock(idProduto, quantidade);
+}
+
 #pragma endregion
 
 const int MAX_VENDA = 100;
 void GerirVenda::adicionaVenda() {
-	int idCliente, idProduto, quantidade;
-	string dataCSV;
+	
+	int idCliente, idProduto, quantidade=0;
+	string dataCSV = "0";
 	double total;
 	int ultimoIdVenda = 0;  // Variável para armazenar o último ID de venda
 
@@ -200,10 +215,13 @@ void GerirVenda::adicionaVenda() {
 
 			cout << "Quantidade: ";
 			cin >> quantidade;
-			cout << "Data: ";
-			cin >> dataCSV;
-			cout << "Total: ";
-			cin >> total;
+			while (quantidade> verificarQuantidadeDisponivel(idProduto)){
+				cout << "Quantidade Indisponivel. tente Novamente!!\n";
+				cout << "quantidade: ";
+				cin >> quantidade;
+			}
+			diminuirQuantidadeStock(idProduto, quantidade);
+			total = 0;
 
 			// Adiciona o produto à venda no arquivo CSV
 			arquivo << idCliente << ";" << idProduto << ";" << quantidade << ";" << ultimoIdVenda + 1 << ";" << dataCSV << ";" << total << endl;
@@ -218,13 +236,4 @@ void GerirVenda::adicionaVenda() {
 
 	// Fecha o arquivo
 	arquivo.close();
-}
-
-
-
-
-
-
-bool GerirVenda::verificarStock(int stock) {
-	return false;
 }

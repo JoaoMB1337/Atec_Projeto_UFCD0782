@@ -5,6 +5,8 @@
 
 class GerirVenda {
 private:
+	int verificarQuantidadeDisponivel(int idProduto);
+	void diminuirQuantidadeStock(int idProduto,int quantidade);
 	void guardaInformacoes();
 	int contador;
 	Venda* venda;

@@ -157,3 +157,37 @@ void GerirProduto::obterNomesQuantidades(string*& nomes, int*& quantidades, int&
         quantidades[i] = item[i].getStock();
     }
 }
+
+void GerirProduto::dimunirQuantidadeStock(int idProduto,int quantidade) {
+    for (int i = 0; i < numItem; i++) {
+        if (item[i].getId() == idProduto) {
+            int quantidadeAtual = item[i].getStock();
+
+            // Verificar se há stock disponível
+            if (quantidadeAtual > 0) {
+                // Reduzir a quantidade em 1 (podes ajustar conforme necessário)
+                item[i].setStock(quantidadeAtual - quantidade);
+                cout << "Quantidade de stock reduzida com sucesso." << endl;
+
+                // Atualizar as informações no arquivo CSV
+                guardarInformacoes();
+            }
+            else {
+                cout << "Produto sem stock disponível." << endl;
+            }
+            return;
+        }
+    }
+    cout << "Produto não encontrado." << endl;
+}
+
+int GerirProduto::obterQuantidadeDisponivel(int idProduto) {
+    for (int i = 0; i < numItem; i++) {
+        if (item[i].getId() == idProduto) {
+            // Retorna a quantidade de stock disponível para o produto
+            return item[i].getStock();
+        }
+    }
+    // Se o produto não for encontrado, retorna -1 (ou outro valor que indique que o produto não existe)
+    return -1;
+}

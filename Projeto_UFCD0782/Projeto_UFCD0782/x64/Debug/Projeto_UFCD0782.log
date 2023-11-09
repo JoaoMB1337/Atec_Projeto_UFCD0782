@@ -1,12 +1,8 @@
-﻿  cliente.cpp
-  Gerecliente.cpp
+﻿  GerirProduto.cpp
   GerirVenda.cpp
   Interface.cpp
   Produto.cpp
-F:\AULAS BACKUP\Atec_Projeto_UFCD0782-main\Projeto_UFCD0782\Projeto_UFCD0782\Produto.cpp(42,16): warning C4244: 'return': conversão de 'double' para 'int', possível perda de dados
-  GerirProduto.cpp
+C:\Users\joaor\OneDrive\Ambiente de Trabalho\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\Produto.cpp(42,16): warning C4244: 'return': conversão de 'double' para 'int', possível perda de dados
   Projeto_UFCD0782.cpp
-  Relatorio.cpp
-  Venda.cpp
   Gerando Código...
-  Projeto_UFCD0782.vcxproj -> F:\AULAS BACKUP\Atec_Projeto_UFCD0782-main\Projeto_UFCD0782\x64\Debug\Projeto_UFCD0782.exe
+  Projeto_UFCD0782.vcxproj -> C:\Users\joaor\OneDrive\Ambiente de Trabalho\Atec_Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Projeto_UFCD0782.exe
