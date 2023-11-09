@@ -10,7 +10,7 @@ Cliente::Cliente()
 	this->id = 0;
 }
 
-Cliente::Cliente(string nome, string morada, string telefone, string email,string nif, int id)
+Cliente::Cliente(string nome, string morada, string telefone, string email, string nif, int id)
 {
 	this->nome = nome;
 	this->morada = morada;
@@ -78,10 +78,10 @@ void Cliente::setNif(string nif)
 
 void Cliente::setId(int id)
 {
-	this->id = id;	
+	this->id = id;
 }
 
-void Cliente::mostrarClientes(){
+void Cliente::mostrarClientes() {
 	cout << "ID: " << this->id << "\n";
 	cout << "Nome: " << this->nome << "\n";
 	cout << "Morada: " << this->morada << "\n";

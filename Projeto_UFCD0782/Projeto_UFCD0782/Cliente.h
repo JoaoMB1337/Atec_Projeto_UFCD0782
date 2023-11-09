@@ -15,7 +15,7 @@ private:
 
 public:
 	Cliente();
-	Cliente(string nome, string morada, string telefone, string email,string nif, int id);
+	Cliente(string nome, string morada, string telefone, string email, string nif, int id);
 	string getNome();
 	string getMorada();
 	string getTelefone();

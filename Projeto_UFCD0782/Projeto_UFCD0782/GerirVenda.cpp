@@ -225,6 +225,6 @@ void GerirVenda::adicionaVenda() {
 
 
 
-bool GerirVenda::verificarStock(int stock){
+bool GerirVenda::verificarStock(int stock) {
 	return false;
 }

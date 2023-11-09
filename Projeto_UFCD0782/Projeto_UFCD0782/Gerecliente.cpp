@@ -121,7 +121,7 @@ bool Gerecliente::verificaEmail(string email)
 
 #pragma endregion
 
-void Gerecliente::guardaInformacoes(){
+void Gerecliente::guardaInformacoes() {
 	ofstream arquivo("cliente.csv", ios::out);
 
 	if (!arquivo.is_open()) {
@@ -132,7 +132,7 @@ void Gerecliente::guardaInformacoes(){
 	for (int i = 0; i < contador; i++) {
 		arquivo << pessoa[i].getNome() << "," << pessoa[i].getMorada() << ","
 			<< pessoa[i].getTelefone() << "," << pessoa[i].getEmail() << ","
-			<< pessoa[i].getNif() <<"," << pessoa[i].getId();
+			<< pessoa[i].getNif() << "," << pessoa[i].getId();
 		if (i < contador - 1) {
 			arquivo << endl; // Evita uma linha em branco no final
 		}
@@ -141,7 +141,7 @@ void Gerecliente::guardaInformacoes(){
 	arquivo.close();
 }
 
-Gerecliente::Gerecliente(){
+Gerecliente::Gerecliente() {
 
 	ifstream arquivo("cliente.csv");
 	if (!arquivo.is_open()) {
@@ -168,7 +168,7 @@ Gerecliente::Gerecliente(){
 
 	while (getline(arquivo, linha)) {
 		stringstream ss(linha);
-		string idCSV, nomeCSV,morada,telefone,email,nif;
+		string idCSV, nomeCSV, morada, telefone, email, nif;
 		getline(ss, nomeCSV, ',');
 		getline(ss, morada, ',');
 		getline(ss, telefone, ',');
@@ -177,7 +177,7 @@ Gerecliente::Gerecliente(){
 		getline(ss, idCSV, ',');
 
 		int id = stoi(idCSV);
-		pessoa[contador] = Cliente(nomeCSV,morada,telefone,email,nif,id);
+		pessoa[contador] = Cliente(nomeCSV, morada, telefone, email, nif, id);
 		contador++;
 	}
 	arquivo.close();
@@ -185,8 +185,8 @@ Gerecliente::Gerecliente(){
 
 //Adiciona um cliente
 void  Gerecliente::adicionaCliente() {
-int id;
-string nome, morada, telefone, email, nif;
+	int id;
+	string nome, morada, telefone, email, nif;
 
 	cout << "Nome: ";
 	do {
@@ -249,7 +249,7 @@ string nome, morada, telefone, email, nif;
 }
 
 //Remove um cliente pelo nome e nif
-void Gerecliente::removeCliente(){
+void Gerecliente::removeCliente() {
 	string nome, nif;
 	bool existe = false;
 	cout << "Nome: ";
@@ -272,13 +272,13 @@ void Gerecliente::removeCliente(){
 		cout << "Cliente nao existe!" << endl;
 	}
 	else {
-		cout<< "Cliente removido com sucesso!" << endl;	
+		cout << "Cliente removido com sucesso!" << endl;
 	}
 }
 
 //Modifica o procurando o cliente por o nome e o NIF cliente 
-void Gerecliente::modificadadoCliente(){
-	string nome,nif;
+void Gerecliente::modificadadoCliente() {
+	string nome, nif;
 	bool existe = false;
 	cout << "Insira o nome do cliente que pretende modificar: ";
 	do {
@@ -292,7 +292,7 @@ void Gerecliente::modificadadoCliente(){
 	{
 		if (pessoa[i].getNome() == nome && pessoa[i].getNif() == nif)
 		{
-			string nome, morada, telefone, email,nif;
+			string nome, morada, telefone, email, nif;
 			cout << "Nome: ";
 			do {
 				cin >> nome;
@@ -307,7 +307,7 @@ void Gerecliente::modificadadoCliente(){
 			do {
 				cin >> email;
 			} while (!verificaEmail(email));
-			cout<< "Nif: ";
+			cout << "Nif: ";
 			do {
 				cin >> nif;
 			} while (!verificaNif(nif));
@@ -330,7 +330,7 @@ void Gerecliente::modificadadoCliente(){
 	}
 }
 
-void Gerecliente::listaClientes(){
+void Gerecliente::listaClientes() {
 	for (int i = 0; i < contador; i++)
 	{
 		pessoa[i].mostrarClientes();

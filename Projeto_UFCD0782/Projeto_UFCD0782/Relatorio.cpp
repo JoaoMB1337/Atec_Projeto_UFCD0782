@@ -19,7 +19,7 @@ void Relatorio::imprimirNomesQuantidades(GerirProduto& gerenciadorProdutos) {
     for (int i = 0; i < tamanho; i++) {
         cout << "| Nome: " << nomes[i] << ", Quantidade: " << quantidades[i] << "           |\n";
     }
-    cout<< "+----------------------------------+\n";
+    cout << "+----------------------------------+\n";
 
     // Libertar memória alocada
     delete[] nomes;

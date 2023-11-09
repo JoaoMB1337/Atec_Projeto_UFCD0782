@@ -3,9 +3,9 @@
 
 int Interface::converteStringParaInt(string opcaoString) {
 	if (opcaoString.size() == 1 && isdigit(opcaoString[0])) {
-		return stoi(opcaoString); 
+		return stoi(opcaoString);
 	}
-	return 0; 
+	return 0;
 }
 
 void Interface::menuProduto(GerirProduto gerirProduto) {
@@ -23,7 +23,7 @@ void Interface::menuProduto(GerirProduto gerirProduto) {
 		cout << "|                            |\n";
 		cout << "|  (4) - Listar              |\n";
 		cout << "|                            |\n";
-		cout << "|  (5) - Sair                |\n";  
+		cout << "|  (5) - Sair                |\n";
 		cout << "+----------------------------+\n";
 		cin >> opcaoString;
 		opcaoInt = converteStringParaInt(opcaoString);
@@ -62,7 +62,7 @@ void Interface::menuProduto(GerirProduto gerirProduto) {
 
 }
 
-void Interface::menuCliente(Gerecliente gerirCliente){
+void Interface::menuCliente(Gerecliente gerirCliente) {
 	string opcaoString;
 	int opcaoInt;
 	do {
@@ -215,10 +215,10 @@ void Interface::menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto)
 	} while (true);
 }
 
-Interface::Interface(){
+Interface::Interface() {
 }
 
-void Interface::menuPrincipal(){
+void Interface::menuPrincipal() {
 	string opcaoString;
 	int opcaoInt;
 	GerirProduto gerirProduto;
@@ -243,30 +243,30 @@ void Interface::menuPrincipal(){
 		opcaoInt = converteStringParaInt(opcaoString);
 		system("cls");
 		switch (opcaoInt) {
-			case 1:
-				menuVenda(gerirVenda);
-				system("cls");
-				break;
-			case 2:
-				menuProduto(gerirProduto);
-				system("cls");
-				break;
-			case 3:
-				menuCliente(gerirCliente);
-				system("cls");
-				break;
+		case 1:
+			menuVenda(gerirVenda);
+			system("cls");
+			break;
+		case 2:
+			menuProduto(gerirProduto);
+			system("cls");
+			break;
+		case 3:
+			menuCliente(gerirCliente);
+			system("cls");
+			break;
 
-			case 4:
-				menuRelatorios(relatorio, gerirProduto);
-				system("cls");
-				break;
+		case 4:
+			menuRelatorios(relatorio, gerirProduto);
+			system("cls");
+			break;
 
-			case 5:
-				return;
+		case 5:
+			return;
 
-			default:
-				cout << "!!Opção Invalida!! \n";
-				break;
+		default:
+			cout << "!!Opção Invalida!! \n";
+			break;
 		}
 	} while (true);
 }

@@ -2,10 +2,10 @@
 #include <fstream>
 #include <sstream>
 
-bool GerirProduto::verificaNoCsv(int id, string nome){
+bool GerirProduto::verificaNoCsv(int id, string nome) {
     ifstream arquivo("produtos.csv");
     string linha;
-    while (getline(arquivo, linha)) { 
+    while (getline(arquivo, linha)) {
         stringstream ss(linha);
         string idCSV, nomeCSV, stock, precoCusto, iva;
         getline(ss, idCSV, ',');
@@ -13,7 +13,7 @@ bool GerirProduto::verificaNoCsv(int id, string nome){
         getline(ss, stock, ',');
         getline(ss, precoCusto, ',');
         getline(ss, iva, ',');
-        if (nomeCSV == nome|| idCSV == to_string(id)) {
+        if (nomeCSV == nome || idCSV == to_string(id)) {
             return true;
         }
     }
@@ -104,7 +104,7 @@ void GerirProduto::adicionarProduto(int id, string nome, int stock, double preco
     }
 }
 
-void GerirProduto::removerProduto(string nome){
+void GerirProduto::removerProduto(string nome) {
     bool verificaProduto = false;
     for (int i = 0; i < numItem; i++) {
         if (item[i].getNome() == nome) {
@@ -114,7 +114,7 @@ void GerirProduto::removerProduto(string nome){
             numItem--;
             verificaProduto = true;
             guardarInformacoes();
-            return; 
+            return;
         }
     }
     if (!verificaProduto) {
@@ -122,7 +122,7 @@ void GerirProduto::removerProduto(string nome){
     }
 }
 
-void GerirProduto::modificarProduto(string nome, int novoStock, double novoPrecoCusto, double novoIva){
+void GerirProduto::modificarProduto(string nome, int novoStock, double novoPrecoCusto, double novoIva) {
     bool verificaProduto = false;
     for (int i = 0; i < numItem; i++) {
         if (item[i].getNome() == nome) {
@@ -140,8 +140,8 @@ void GerirProduto::modificarProduto(string nome, int novoStock, double novoPreco
     }
 }
 
-void GerirProduto::mostrarProdutos(){
-    for (int  i = 0; i < numItem; i++){
+void GerirProduto::mostrarProdutos() {
+    for (int i = 0; i < numItem; i++) {
         item[i].mostrarInformacoes();
     }
 }
@@ -151,7 +151,7 @@ void GerirProduto::obterNomesQuantidades(string*& nomes, int*& quantidades, int&
     tamanho = numItem;
     nomes = new string[tamanho];
     quantidades = new int[tamanho];
-    
+
     for (int i = 0; i < numItem; i++) {
         nomes[i] = item[i].getNome();
         quantidades[i] = item[i].getStock();

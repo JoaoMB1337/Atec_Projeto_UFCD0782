@@ -47,35 +47,35 @@ int Produto::getIva() {
 
 void Produto::setId(int id) {
     if (id < 0) {
-       cout<<"O ID do produto não pode ser menor que zero!\n";
+        cout << "O ID do produto não pode ser menor que zero!\n";
     }
     this->id = id;
 }
 
 void Produto::setNome(string nome) {
     if (nome.empty()) {
-        cout<<"O nome do produto não pode estar vazio!\n";
+        cout << "O nome do produto não pode estar vazio!\n";
     }
     this->nome = nome;
 }
 
 void Produto::setStock(int stock) {
     if (stock < 0) {
-        cout<<"O stock do produto não pode ser menor que zero!";
+        cout << "O stock do produto não pode ser menor que zero!";
     }
     this->stock = stock;
 }
 
 void Produto::setPrecoCusto(double precoCusto) {
     if (precoCusto < 0) {
-        cout<<"O preço de custo do produto não pode ser menor que zero!";
+        cout << "O preço de custo do produto não pode ser menor que zero!";
     }
     this->precoCusto = precoCusto;
 }
 
 void Produto::setIva(double iva) {
     if (iva < 0) {
-       cout<<"O IVA do produto não pode ser menor que zero!";
+        cout << "O IVA do produto não pode ser menor que zero!";
     }
     this->iva = iva;
 }
@@ -89,11 +89,11 @@ double Produto::calcularPrecoVenda(double PrecoVenda, double iva) {
 
 void Produto::mostrarInformacoes() {
 
-    cout << "ID: " << this->id <<"\n";
-    cout << "Nome: " << this->nome <<"\n";
+    cout << "ID: " << this->id << "\n";
+    cout << "Nome: " << this->nome << "\n";
     cout << "Stock: " << this->stock << "\n";
     cout << "Preco de Custo: " << fixed << setprecision(2) << this->precoCusto << "\n";
-    cout << "IVA: " << this->iva << "%" <<"\n";
+    cout << "IVA: " << this->iva << "%" << "\n";
     cout << "Preco de Venda: " << this->calcularPrecoVenda(precoCusto, iva) << "\n";
     cout << "+------------------------------------+ \n";
 }
