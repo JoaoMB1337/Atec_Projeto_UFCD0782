@@ -8,6 +8,8 @@ class GerirProduto {
         void removerProduto(string nome);
         void modificarProduto(string nome,int novoStock, double novoPrecoCusto, double novoIva);
         void mostrarProdutos();
+        void obterNomesQuantidades(string*& nomes, int*& quantidades, int& tamanho);
+
 
     private:
         bool verificaNoCsv(int id,string nome);

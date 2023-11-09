@@ -1,4 +1,5 @@
 #include "Interface.h"
+#include "GerirProduto.h"
 
 int Interface::converteStringParaInt(string opcaoString) {
 	if (opcaoString.size() == 1 && isdigit(opcaoString[0])) {
@@ -168,7 +169,7 @@ void Interface::menuVenda(GerirVenda gerirVenda) {
 	} while (true);
 }
 
-void Interface::menuRelatorios(Relatorio relatorio) {
+void Interface::menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto) {
 	string opcaoString;
 	int opcaoInt;
 	do {
@@ -188,7 +189,8 @@ void Interface::menuRelatorios(Relatorio relatorio) {
 		system("cls");
 		switch (opcaoInt) {
 		case 1:
-			/*gerirVenda.adicionaVenda();*/
+			relatorio.imprimirNomesQuantidades(gerirProduto); // Chama o método com o objeto GerirProduto
+			system("pause");
 			system("cls");
 			break;
 
@@ -255,7 +257,7 @@ void Interface::menuPrincipal(){
 				break;
 
 			case 4:
-				menuRelatorios(relatorio);
+				menuRelatorios(relatorio, gerirProduto);
 				system("cls");
 				break;
 

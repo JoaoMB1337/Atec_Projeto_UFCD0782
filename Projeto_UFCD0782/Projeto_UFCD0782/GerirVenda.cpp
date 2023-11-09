@@ -2,6 +2,7 @@
 #include <cctype>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
 void GerirVenda::guardaInformacoes()
 {
@@ -65,52 +66,7 @@ GerirVenda::GerirVenda()
 	arquivo.close();
 }
 
-void GerirVenda::adicionaVenda()
-{
-
-	int idCliente, idProduto, quantidade, idVenda;
-	string dataCSV, pessoa;
-	double total;
-
-	//verifica se idCliente é igual ao id do cliente Cliente.csv
-	cout << "ID Cliente: ";
-	do {
-		cin >> idCliente;
-	}
-	while(!verificaCliente(idCliente));
-	
-
-	//verifica se idProduto é igual ao id do produto produtos.csv
-	cout << "ID Produto: ";
-	do {
-		cin >> idProduto;
-	} while (!verificaProduto(idProduto));
-	
-
-
-	cout << "Quantidade: ";
-	cin >> quantidade;
-	cout << "ID Venda: ";
-	cin >> idVenda;
-	cout << "Data: ";
-	cin >> dataCSV;
-	cout << "Total: ";
-	cin >> total;
-
-
-	Venda* newvenda = new Venda[contador + 1];
-	for (int i = 0; i < contador; i++) {
-		newvenda[i] = venda[i];
-	}
-	newvenda[contador] = Venda(idCliente, idProduto, quantidade, idVenda, dataCSV, total);
-	if (venda != nullptr) {
-		delete[] venda;
-	}
-	venda = newvenda;
-	contador++;
-	guardaInformacoes();
-}
-
+#pragma region Verificações
 bool GerirVenda::verificaCliente(int idCliente)
 {
 	string pessoa;
@@ -182,6 +138,92 @@ bool GerirVenda::verificaProduto(int idProduto)
 
 	return false;
 }
+#pragma endregion
+
+const int MAX_VENDA = 100;
+void GerirVenda::adicionaVenda() {
+	int idCliente, idProduto, quantidade;
+	string dataCSV;
+	double total;
+	int ultimoIdVenda = 0;  // Variável para armazenar o último ID de venda
+
+	// Verifica se idCliente é igual ao id do cliente Cliente.csv
+	cout << "ID Cliente: ";
+	do {
+		cin >> idCliente;
+	} while (!verificaCliente(idCliente));
+
+	// Abre o arquivo em modo leitura para encontrar o último ID de venda
+	ifstream arquivoLeitura("venda.csv");
+
+	if (arquivoLeitura.is_open()) {
+		// Encontrar o último ID de venda
+		string linha;
+		while (getline(arquivoLeitura, linha)) {
+			stringstream ss(linha);
+			string idClienteCSV, idProdutoCSV, quantidadeCSV, idVendaCSV, dataCSV, totalCSV;
+			getline(ss, idClienteCSV, ';');
+			getline(ss, idProdutoCSV, ';');
+			getline(ss, quantidadeCSV, ';');
+			getline(ss, idVendaCSV, ';');
+			getline(ss, dataCSV, ';');
+			getline(ss, totalCSV, ';');
+
+			int idVenda = stoi(idVendaCSV);
+			if (idVenda > ultimoIdVenda) {
+				ultimoIdVenda = idVenda;
+			}
+		}
+		// Fecha o arquivo de leitura
+		arquivoLeitura.close();
+	}
+
+	// Abre o arquivo em modo append (adiciona ao final do arquivo)
+	ofstream arquivo("venda.csv", ios::app);
+
+	if (!arquivo.is_open()) {
+		cout << "Erro ao abrir o arquivo venda.csv." << endl;
+		return;
+	}
+
+	// Loop para adicionar produtos à venda
+	do {
+		cout << "ID Produto (insira 0 para encerrar a compra): ";
+		cin >> idProduto;
+
+		if (idProduto != 0) {
+			// Verifica se idProduto é igual ao id do produto Produtos.csv
+			while (!verificaProduto(idProduto)) {
+				cout << "ID Produto inválido. Tente novamente: ";
+				cin >> idProduto;
+			}
+
+			cout << "Quantidade: ";
+			cin >> quantidade;
+			cout << "Data: ";
+			cin >> dataCSV;
+			cout << "Total: ";
+			cin >> total;
+
+			// Adiciona o produto à venda no arquivo CSV
+			arquivo << idCliente << ";" << idProduto << ";" << quantidade << ";" << ultimoIdVenda + 1 << ";" << dataCSV << ";" << total << endl;
+
+			// Incrementa o contador
+			contador++;
+		}
+	} while (idProduto != 0);
+
+	// Incrementa o último ID de venda no final da compra
+	ultimoIdVenda++;
+
+	// Fecha o arquivo
+	arquivo.close();
+}
+
+
+
+
+
 
 bool GerirVenda::verificarStock(int stock){
 	return false;

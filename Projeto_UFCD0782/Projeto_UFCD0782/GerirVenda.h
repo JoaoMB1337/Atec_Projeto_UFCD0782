@@ -10,6 +10,7 @@ private:
 	Venda* venda;
 	Gerecliente clientes;
 	GerirProduto produtos;
+	int idVenda;
 public:
 	GerirVenda();
 	void adicionaVenda();

@@ -9,7 +9,7 @@
 class Relatorio {
 private:
 
-
 public:
-
+	void imprimirNomesQuantidades(GerirProduto& gerenciadorProdutos);
 };
+

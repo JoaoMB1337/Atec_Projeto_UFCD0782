@@ -16,6 +16,5 @@ private:
 	void menuProduto(GerirProduto gerirProduto);
 	void menuCliente(Gerecliente gerirCliente);
 	void menuVenda(GerirVenda gerirVenda);
-	void menuRelatorios(Relatorio relatorio);
-
+	void menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto);
 };

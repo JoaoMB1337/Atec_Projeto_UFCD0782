@@ -145,3 +145,15 @@ void GerirProduto::mostrarProdutos(){
         item[i].mostrarInformacoes();
     }
 }
+
+void GerirProduto::obterNomesQuantidades(string*& nomes, int*& quantidades, int& tamanho)
+{
+    tamanho = numItem;
+    nomes = new string[tamanho];
+    quantidades = new int[tamanho];
+    
+    for (int i = 0; i < numItem; i++) {
+        nomes[i] = item[i].getNome();
+        quantidades[i] = item[i].getStock();
+    }
+}
