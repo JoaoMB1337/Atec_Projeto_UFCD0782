@@ -106,6 +106,7 @@ bool GerirProduto::validaNome(string nome)
 	}
     return true;
 }
+
 //valida stock
 bool GerirProduto::validaStock(int stock)
 {
@@ -140,6 +141,7 @@ bool GerirProduto::validaPreco(double precoCusto)
 	}
 	return true;
 }
+
 //valida iva
 bool GerirProduto::validaIva(double iva)
 {
@@ -155,8 +157,6 @@ bool GerirProduto::validaIva(double iva)
 	}
 	return true;
 }
-
-
 
 #pragma endregion
 
@@ -324,7 +324,7 @@ void GerirProduto::dimunirQuantidadeStock(int idProduto,int quantidade) {
             if (quantidadeAtual > 0) {
                 item[i].setStock(quantidadeAtual - quantidade);
                 cout << "Quantidade de stock reduzida com sucesso." << endl;
-                guardarInformacoes(); // Volta  a guardar informaçoes de stock na Ficheiro Produtos.csv
+                guardaInformacoes(); // Volta  a guardar informaçoes de stock na Ficheiro Produtos.csv
             }
             else {
                 cout << "Produto sem stock disponível." << endl;

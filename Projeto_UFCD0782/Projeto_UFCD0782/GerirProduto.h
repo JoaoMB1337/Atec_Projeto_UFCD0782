@@ -8,7 +8,7 @@ public:
     void removerProduto();
     void modificarProduto();
 
-    #pragma region Fun�oes de modica�ao da classe Produto
+    #pragma region Funcoes de modicacao da classe Produto
     void dimunirQuantidadeStock(int idProduto,int quantidade);
     void adicionarProduto(int id, string nome, int stock, double precoCusto, double iva);
     void removerProduto(string nome);
@@ -16,7 +16,7 @@ public:
     void mostrarProdutos();
     #pragma endregion
 
-    #pragma region Fun�oes de Acesso Exterior
+    #pragma region Funcoes de Acesso Exterior
     void obterNomesQuantidades(string*& nomes, int*& quantidades, int& tamanho);
     bool validaNome(string nome);
     bool validaPreco(double preco);
