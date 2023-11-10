@@ -125,15 +125,9 @@ void Interface::menuVenda(GerirVenda gerirVenda) {
 		cout << "+----------------------------+\n";
 		cout << "|       MENU VENDAS          |\n";
 		cout << "+----------------------------+\n";
-		cout << "|  (1) - Adicionar           |\n";
+		cout << "|  (1) - Iniciar Venda       |\n";
 		cout << "|                            |\n";
-		cout << "|  (2) - Remover             |\n";
-		cout << "|                            |\n";
-		cout << "|  (3) - Modificar           |\n";
-		cout << "|                            |\n";
-		cout << "|  (4) - Listar              |\n";
-		cout << "|                            |\n";
-		cout << "|  (5) - Sair                |\n";
+		cout << "|  (2) - Sair                |\n";
 		cout << "+----------------------------+\n";
 		cin >> opcaoString;
 		opcaoInt = converteStringParaInt(opcaoString);
@@ -146,22 +140,6 @@ void Interface::menuVenda(GerirVenda gerirVenda) {
 			break;
 
 		case 2:
-			//gerirVenda.removeVenda();
-			system("cls");
-			break;
-
-		case 3:
-			//gerirVenda.modificaVenda();
-			system("cls");
-			break;
-
-		case 4:
-			//gerirVenda.mostraVendas();
-			system("pause");
-			system("cls");
-			break;
-
-		case 5:
 			return;
 
 		default:
@@ -183,7 +161,7 @@ void Interface::menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto)
 		cout << "|                            |\n";
 		cout << "|  (2) - Sem Stock !!!       |\n";
 		cout << "|                            |\n";
-		cout << "|  (3) - Relatorio Completo  |\n";
+		cout << "|  (3) - Relatorio Produto   |\n";
 		cout << "|                            |\n";
 		cout << "|  (4) - Sair                |\n";
 		cout << "+----------------------------+\n";
@@ -204,7 +182,8 @@ void Interface::menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto)
 			break;
 
 		case 3:
-			//gerirVenda.modificaVenda();
+			//relatorio.imprimeVendaProduto(gerirProduto); // Chama o método com o objeto GerirProduto
+			system("pause");
 			system("cls");
 			break;
 

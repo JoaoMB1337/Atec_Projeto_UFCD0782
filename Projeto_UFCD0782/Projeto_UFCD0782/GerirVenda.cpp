@@ -122,10 +122,10 @@ bool GerirVenda::verificaProduto(int idProduto)
 	while (getline(arquivo2, linha2)) {
 		stringstream ss(linha2);
 		string idCSV, nomeCSV, precoCSV, stockCSV;
+		getline(ss, idCSV, ',');
 		getline(ss, nomeCSV, ',');
 		getline(ss, precoCSV, ',');
 		getline(ss, stockCSV, ',');
-		getline(ss, idCSV, ',');
 
 		int id = stoi(idCSV);
 		if (idProduto == id) {
