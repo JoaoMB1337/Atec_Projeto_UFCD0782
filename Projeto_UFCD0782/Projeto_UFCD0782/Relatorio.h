@@ -11,5 +11,6 @@ private:
 
 public:
 	void imprimirNomesQuantidades(GerirProduto& gerenciadorProdutos);
+	void imprimeSemStock(GerirProduto& gerenciadorProdutos);
 };
 

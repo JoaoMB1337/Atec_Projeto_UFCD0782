@@ -30,17 +30,19 @@ void Interface::menuProduto(GerirProduto gerirProduto) {
 		system("CLS");
 		switch (opcaoInt) {
 		case 1:
-			//gerirProduto.adicionarProduto();
+			gerirProduto.adicionarProduto();
 			system("CLS");
 			break;
 
 		case 2:
-			//gerirProduto.removerProduto();
+			gerirProduto.removerProduto();
+			system("pause");
 			system("CLS");
 			break;
 
 		case 3:
-			//gerirProduto.modificarProduto();
+			gerirProduto.modificarProduto();
+			system("pause");
 			system("CLS");
 			break;
 
@@ -90,6 +92,7 @@ void Interface::menuCliente(Gerecliente gerirCliente) {
 			break;
 		case 2:
 			gerirCliente.removeCliente();
+			system("pause");	
 			system("cls");
 
 			break;
@@ -178,7 +181,7 @@ void Interface::menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto)
 		cout << "+----------------------------+\n";
 		cout << "|  (1) - Stock               |\n";
 		cout << "|                            |\n";
-		cout << "|  (2) - Vendas Produto      |\n";
+		cout << "|  (2) - Sem Stock !!!       |\n";
 		cout << "|                            |\n";
 		cout << "|  (3) - Relatorio Completo  |\n";
 		cout << "|                            |\n";
@@ -195,7 +198,8 @@ void Interface::menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto)
 			break;
 
 		case 2:
-			//gerirVenda.removeVenda();
+			relatorio.imprimeSemStock(gerirProduto); // Chama o método com o objeto GerirProduto
+			system("pause");
 			system("cls");
 			break;
 

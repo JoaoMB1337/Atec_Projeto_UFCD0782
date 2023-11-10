@@ -264,7 +264,6 @@ void Gerecliente::removeCliente() {
 			contador--;
 			existe = true;
 			guardaInformacoes();
-			return;
 		}
 	}
 	if (existe == false)

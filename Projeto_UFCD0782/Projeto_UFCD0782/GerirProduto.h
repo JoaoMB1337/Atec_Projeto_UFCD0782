@@ -4,16 +4,19 @@
 class GerirProduto {
 public:
     GerirProduto();
-    void adicionarProduto(int id, string nome, int stock, double precoCusto, double iva);
-    void removerProduto(string nome);
-    void modificarProduto(string nome, int novoStock, double novoPrecoCusto, double novoIva);
+    void adicionarProduto();
+    void removerProduto();
+    void modificarProduto();
     void mostrarProdutos();
     void obterNomesQuantidades(string*& nomes, int*& quantidades, int& tamanho);
-
+    bool validaNome(string nome);
+    bool validaPreco(double preco);
+    bool validaStock(int stock);
+    bool validaIva(double iva);
 
 private:
     bool verificaNoCsv(int id, string nome);
-    void guardarInformacoes();
     Produto* item;
     int numItem;
+    void guardaInformacoes();
 };
