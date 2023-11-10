@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <iomanip>
 
 void GerirVenda::guardaInformacoes()
 {
@@ -184,16 +185,17 @@ void GerirVenda::imprimirTalao(int idcompra) {
 		int quantidade = stoi(quantidadeCSV);
 		int idVenda = stoi(idVendaCSV);
 		double total = stod(totalCSV);
-
+		if(idcompra == idVenda){
 		// Imprime as informações da linha do talão
 		cout << "|"  << numeroLinha << " | " << produtos.obterNomeProduto(idProduto) 
-			<< " | "  << quantidade << " | "  << produtos.obterPrecoProduto(idProduto)
+			<< " | "  << quantidade << " | "  << produtos.obterPrecoSemIva(idProduto)
 			<< " | "  << produtos.obterIvaProduto(idProduto) << "% | "  << total << " |" << endl;
 
 		// Atualiza os totais
-		totalSemIVA += total / (1 + (produtos.obterIvaProduto(idProduto) / 100));
+		totalSemIVA += quantidade * produtos.obterPrecoSemIva(idProduto);
 		totalComIVA += total;
 		numeroLinha++;
+		}
 	}
 
 	// Imprime os totais do talão
@@ -203,7 +205,6 @@ void GerirVenda::imprimirTalao(int idcompra) {
 	cout << "+------------------------------------+" << endl;
 	// Fecha o arquivo
 	arquivoLeitura.close();
-	system("pause");
 }
 
 void GerirVenda::adicionaVenda() {
@@ -243,7 +244,6 @@ void GerirVenda::adicionaVenda() {
 		// Fecha o arquivo de leitura
 		arquivoLeitura.close();
 	}
-
 	// Abre o arquivo em modo append (adiciona ao final do arquivo)
 	ofstream arquivo("venda.csv", ios::app);
 
@@ -273,21 +273,18 @@ void GerirVenda::adicionaVenda() {
 				cin >> quantidade;
 			}
 			produtos.dimunirQuantidadeStock(idProduto, quantidade);
-			total = total + (produtos.obterPrecoProduto(idProduto) * quantidade);
-			cout << "Total: " << total << endl;
+			total =  (produtos.obterPrecoProduto(idProduto) * quantidade);
 
 			// Adiciona o produto à venda no arquivo CSV
 			arquivo << idCliente << ";" << idProduto << ";" << quantidade << ";" << ultimoIdVenda + 1 << ";" << dataCSV << ";" << total << endl;
-
+			cout << "Total: " << fixed << setprecision(2) << total << endl;
 			// Incrementa o contador
 			contador++;
 		}
 	} while (idProduto != 0);
-	imprimirTalao(ultimoIdVenda);
-
 	// Incrementa o último ID de venda no final da compra
 	ultimoIdVenda++;
+	imprimirTalao(ultimoIdVenda);
 	// Fecha o arquivo
 	arquivo.close();
-	
 }

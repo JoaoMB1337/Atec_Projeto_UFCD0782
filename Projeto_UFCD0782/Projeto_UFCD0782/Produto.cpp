@@ -87,6 +87,11 @@ double Produto::calcularPrecoVenda(double PrecoVenda, double iva) {
     return PrecoVenda;
 }
 
+double Produto::calcularPrecoSemIva(double precoVenda, double iva){
+    precoVenda *= 1.30;
+    return precoVenda;
+}
+
 void Produto::mostrarInformacoes() {
 
     cout << "ID: " << this->id << "\n";
@@ -95,5 +100,6 @@ void Produto::mostrarInformacoes() {
     cout << "Preco de Custo: " << fixed << setprecision(2) << this->precoCusto << "\n";
     cout << "IVA: " << this->iva << "%" << "\n";
     cout << "Preco de Venda: " << this->calcularPrecoVenda(precoCusto, iva) << "\n";
+    cout << "Preco Sem IVA: " << this->calcularPrecoSemIva(precoCusto, iva) << "\n";
     cout << "+------------------------------------+ \n";
 }

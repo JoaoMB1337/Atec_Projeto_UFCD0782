@@ -5,7 +5,6 @@
 
 class GerirVenda {
 private:
-
 	void guardaInformacoes();
 	int contador;
 	Venda* venda;

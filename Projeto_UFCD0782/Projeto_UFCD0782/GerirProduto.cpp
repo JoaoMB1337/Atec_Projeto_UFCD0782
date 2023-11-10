@@ -323,7 +323,6 @@ void GerirProduto::dimunirQuantidadeStock(int idProduto,int quantidade) {
             int quantidadeAtual = item[i].getStock();
             if (quantidadeAtual > 0) {
                 item[i].setStock(quantidadeAtual - quantidade);
-                cout << "Quantidade de stock reduzida com sucesso." << endl;
                 guardaInformacoes(); // Volta  a guardar informaçoes de stock na Ficheiro Produtos.csv
             }
             else {
@@ -366,6 +365,15 @@ int GerirProduto::obterIvaProduto(int idProduto){
     for (int i = 0; i < numItem; i++) {
         if (item[i].getId() == idProduto) {
             return item[i].getIva();
+        }
+    }
+    return -1;
+}
+
+double GerirProduto::obterPrecoSemIva(int idProduto){
+    for (int i = 0; i < numItem; i++) {
+        if (item[i].getId() == idProduto) {
+            return item[i].calcularPrecoSemIva(item[i].getPrecoCusto(), item[i].getIva());
         }
     }
     return -1;

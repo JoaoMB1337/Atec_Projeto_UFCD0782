@@ -26,6 +26,7 @@ public:
     double obterPrecoProduto(int idProduto);
     string obterNomeProduto(int idProduto);
     int obterIvaProduto(int idProduto);
+    double obterPrecoSemIva(int idProduto);
     #pragma endregion
 
 

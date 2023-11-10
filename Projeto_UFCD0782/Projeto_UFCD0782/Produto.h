@@ -9,6 +9,7 @@ public:
     Produto();
     Produto(int id, string nome, int stock, double precoCusto, double iva);
     double calcularPrecoVenda(double precoCusto, double iva);
+    double calcularPrecoSemIva(double precoVenda, double iva);
     void mostrarInformacoes();
 
     // Métodos "GET"
