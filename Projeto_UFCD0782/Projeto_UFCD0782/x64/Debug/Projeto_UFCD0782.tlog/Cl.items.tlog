@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 G:\C++\0782\PROJETO\Atec_Projeto_UFCD0782-main\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\cliente.cpp;G:\C++\0782\PROJETO\Atec_Projeto_UFCD0782-main\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\cliente.obj
 G:\C++\0782\PROJETO\Atec_Projeto_UFCD0782-main\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\Gerecliente.cpp;G:\C++\0782\PROJETO\Atec_Projeto_UFCD0782-main\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Gerecliente.obj
 G:\C++\0782\PROJETO\Atec_Projeto_UFCD0782-main\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirVenda.cpp;G:\C++\0782\PROJETO\Atec_Projeto_UFCD0782-main\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\GerirVenda.obj
@@ -7,3 +8,14 @@ G:\C++\0782\PROJETO\Atec_Projeto_UFCD0782-main\Atec_Projeto_UFCD0782\Projeto_UFC
 G:\C++\0782\PROJETO\Atec_Projeto_UFCD0782-main\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782.cpp;G:\C++\0782\PROJETO\Atec_Projeto_UFCD0782-main\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Projeto_UFCD0782.obj
 G:\C++\0782\PROJETO\Atec_Projeto_UFCD0782-main\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\Relatorio.cpp;G:\C++\0782\PROJETO\Atec_Projeto_UFCD0782-main\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Relatorio.obj
 G:\C++\0782\PROJETO\Atec_Projeto_UFCD0782-main\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\Venda.cpp;G:\C++\0782\PROJETO\Atec_Projeto_UFCD0782-main\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Venda.obj
+=======
+C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\cliente.cpp;C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\cliente.obj
+C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\Gerecliente.cpp;C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Gerecliente.obj
+C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirVenda.cpp;C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\GerirVenda.obj
+C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\Interface.cpp;C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Interface.obj
+C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\Produto.cpp;C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Produto.obj
+C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirProduto.cpp;C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\GerirProduto.obj
+C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782.cpp;C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Projeto_UFCD0782.obj
+C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\Relatorio.cpp;C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Relatorio.obj
+C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\Venda.cpp;C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Venda.obj
+>>>>>>> vender

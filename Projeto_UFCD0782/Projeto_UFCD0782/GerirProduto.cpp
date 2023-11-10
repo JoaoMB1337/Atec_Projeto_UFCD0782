@@ -295,6 +295,8 @@ void GerirProduto::modificarProduto() {
     }
 }
 
+#pragma region Acesso Exterior da classe
+
 void GerirProduto::mostrarProdutos() {
     for (int i = 0; i < numItem; i++) {
         item[i].mostrarInformacoes();
@@ -303,8 +305,7 @@ void GerirProduto::mostrarProdutos() {
 
 
 
-void GerirProduto::obterNomesQuantidades(string*& nomes, int*& quantidades, int& tamanho)
-{
+void GerirProduto::obterNomesQuantidades(string*& nomes, int*& quantidades, int& tamanho){
     tamanho = numItem;
     nomes = new string[tamanho];
     quantidades = new int[tamanho];
@@ -313,5 +314,61 @@ void GerirProduto::obterNomesQuantidades(string*& nomes, int*& quantidades, int&
         nomes[i] = item[i].getNome();
         quantidades[i] = item[i].getStock();
     }
+
 }
 
+void GerirProduto::dimunirQuantidadeStock(int idProduto,int quantidade) {
+    for (int i = 0; i < numItem; i++) {
+        if (item[i].getId() == idProduto) {
+            int quantidadeAtual = item[i].getStock();
+            if (quantidadeAtual > 0) {
+                item[i].setStock(quantidadeAtual - quantidade);
+                cout << "Quantidade de stock reduzida com sucesso." << endl;
+                guardarInformacoes(); // Volta  a guardar informaçoes de stock na Ficheiro Produtos.csv
+            }
+            else {
+                cout << "Produto sem stock disponível." << endl;
+            }
+            return;
+        }
+    }
+    cout << "Produto não encontrado." << endl;
+}
+
+int GerirProduto::obterQuantidadeDisponivel(int idProduto) {
+    for (int i = 0; i < numItem; i++) {
+        if (item[i].getId() == idProduto) {
+            return item[i].getStock();
+        }
+    }
+    return -1;
+}
+
+double GerirProduto::obterPrecoProduto(int idProduto){
+    for(int i = 0; i < numItem; i++) {
+        if (item[i].getId() == idProduto) {
+            return item[i].calcularPrecoVenda(item[i].getPrecoCusto(), item[i].getIva());
+        }
+    }
+    return -1;
+}
+
+string GerirProduto::obterNomeProduto(int idProduto){
+    for (int i = 0; i < numItem; i++) {
+        if (item[i].getId() == idProduto) {
+            return item[i].getNome();
+        }
+    }
+    return "Nao Existe!";
+}
+
+int GerirProduto::obterIvaProduto(int idProduto){
+    for (int i = 0; i < numItem; i++) {
+        if (item[i].getId() == idProduto) {
+            return item[i].getIva();
+        }
+    }
+    return -1;
+}
+
+#pragma endregion

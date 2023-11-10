@@ -3,6 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <string>
+#include <stdlib.h>
 
 void GerirVenda::guardaInformacoes()
 {
@@ -67,6 +69,7 @@ GerirVenda::GerirVenda()
 }
 
 #pragma region Verificações
+
 bool GerirVenda::verificaCliente(int idCliente)
 {
 	string pessoa;
@@ -138,13 +141,76 @@ bool GerirVenda::verificaProduto(int idProduto)
 
 	return false;
 }
+
 #pragma endregion
 
 const int MAX_VENDA = 100;
+
+
+void GerirVenda::imprimirTalao(int idcompra) {
+	ifstream arquivoLeitura("venda.csv");
+
+	if (!arquivoLeitura.is_open()) {
+		cout << "Erro ao abrir o arquivo venda.csv." << endl;
+		return;
+	}
+
+	double totalSemIVA = 0;
+	double totalComIVA = 0;
+	int numeroLinha = 1;
+
+	// Imprime o cabeçalho do talão
+	cout << "Talao da Fatura - Numero: " << idcompra << endl;
+	//cout << "Cliente: " << numeroCliente << endl;
+	cout << "+------------------------------------+" << endl;
+	cout << "| No | Nome Produto | Quantidade | Preco s/IVA | IVA | Total C/IVA |" << endl;
+	cout << "+------------------------------------+" << endl;
+
+	// Lê o arquivo e imprime as linhas do talão
+	string linha;
+	while (getline(arquivoLeitura, linha)) {
+		stringstream ss(linha);
+		string idClienteCSV, idProdutoCSV, quantidadeCSV, idVendaCSV, dataCSV, totalCSV;
+
+		getline(ss, idClienteCSV, ';');
+		getline(ss, idProdutoCSV, ';');
+		getline(ss, quantidadeCSV, ';');
+		getline(ss, idVendaCSV, ';');
+		getline(ss, dataCSV, ';');
+		getline(ss, totalCSV, ';');
+
+		int idCliente = stoi(idClienteCSV);
+		int idProduto = stoi(idProdutoCSV);
+		int quantidade = stoi(quantidadeCSV);
+		int idVenda = stoi(idVendaCSV);
+		double total = stod(totalCSV);
+
+		// Imprime as informações da linha do talão
+		cout << "|"  << numeroLinha << " | " << produtos.obterNomeProduto(idProduto) 
+			<< " | "  << quantidade << " | "  << produtos.obterPrecoProduto(idProduto)
+			<< " | "  << produtos.obterIvaProduto(idProduto) << "% | "  << total << " |" << endl;
+
+		// Atualiza os totais
+		totalSemIVA += total / (1 + (produtos.obterIvaProduto(idProduto) / 100));
+		totalComIVA += total;
+		numeroLinha++;
+	}
+
+	// Imprime os totais do talão
+	cout << "+------------------------------------+" << endl;
+	cout << "| Total s/IVA: " << totalSemIVA << " |" << endl;
+	cout << "| Total c/IVA: " << totalComIVA << " |" << endl;
+	cout << "+------------------------------------+" << endl;
+	// Fecha o arquivo
+	arquivoLeitura.close();
+	system("pause");
+}
+
 void GerirVenda::adicionaVenda() {
-	int idCliente, idProduto, quantidade;
-	string dataCSV;
-	double total;
+	
+	int idCliente, idProduto, quantidade=0;
+	string dataCSV = "0";
+	double total = 0;
 	int ultimoIdVenda = 0;  // Variável para armazenar o último ID de venda
 
 	// Verifica se idCliente é igual ao id do cliente Cliente.csv
@@ -188,6 +254,7 @@ void GerirVenda::adicionaVenda() {
 
 	// Loop para adicionar produtos à venda
 	do {
+
 		cout << "ID Produto (insira 0 para encerrar a compra): ";
 		cin >> idProduto;
 
@@ -200,10 +267,14 @@ void GerirVenda::adicionaVenda() {
 
 			cout << "Quantidade: ";
 			cin >> quantidade;
-			cout << "Data: ";
-			cin >> dataCSV;
-			cout << "Total: ";
-			cin >> total;
+			while (quantidade > produtos.obterQuantidadeDisponivel(idProduto)){
+				cout << "Quantidade Indisponivel. tente Novamente!!\n";
+				cout << "Quantidade: ";
+				cin >> quantidade;
+			}
+			produtos.dimunirQuantidadeStock(idProduto, quantidade);
+			total = total + (produtos.obterPrecoProduto(idProduto) * quantidade);
+			cout << "Total: " << total << endl;
 
 			// Adiciona o produto à venda no arquivo CSV
 			arquivo << idCliente << ";" << idProduto << ";" << quantidade << ";" << ultimoIdVenda + 1 << ";" << dataCSV << ";" << total << endl;
@@ -212,19 +283,11 @@ void GerirVenda::adicionaVenda() {
 			contador++;
 		}
 	} while (idProduto != 0);
+	imprimirTalao(ultimoIdVenda);
 
 	// Incrementa o último ID de venda no final da compra
 	ultimoIdVenda++;
-
 	// Fecha o arquivo
 	arquivo.close();
-}
-
-
-
-
-
-
-bool GerirVenda::verificarStock(int stock) {
-	return false;
+	
 }
