@@ -5,18 +5,19 @@
 
 class GerirVenda {
 private:
-	int verificarQuantidadeDisponivel(int idProduto);
-	void diminuirQuantidadeStock(int idProduto,int quantidade);
+
 	void guardaInformacoes();
 	int contador;
 	Venda* venda;
 	Gerecliente clientes;
 	GerirProduto produtos;
 	int idVenda;
+
 public:
+
 	GerirVenda();
 	void adicionaVenda();
 	bool verificaCliente(int idCliente);
 	bool verificaProduto(int idProduto);
-	bool verificarStock(int stockInserido);
+	void imprimirTalao(int idcompra);
 };
