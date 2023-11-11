@@ -2,37 +2,36 @@
 #include "Produto.h"
 
 class GerirProduto {
-public:
-    GerirProduto();
-    void adicionarProduto();
-    void removerProduto();
-    void modificarProduto();
+    public:
+        GerirProduto();
 
-    #pragma region Funcoes de modicacao da classe Produto
-    void dimunirQuantidadeStock(int idProduto,int quantidade);
-    void adicionarProduto(int id, string nome, int stock, double precoCusto, double iva);
-    void removerProduto(string nome);
-    void modificarProduto(string nome, int novoStock, double novoPrecoCusto, double novoIva);
-    void mostrarProdutos();
-    #pragma endregion
+        #pragma region Funcoes de modicacao da classe Produto
+        void adicionarProduto();
+        void removerProduto();
+        void modificarProduto();
+        void dimunirQuantidadeStock(int idProduto,int quantidade);
+        void mostrarProdutos();
+        #pragma endregion
 
-    #pragma region Funcoes de Acesso Exterior
-    void obterNomesQuantidades(string*& nomes, int*& quantidades, int& tamanho);
-    bool validaNome(string nome);
-    bool validaPreco(double preco);
-    bool validaStock(int stock);
-    bool validaIva(double iva);
-    int obterQuantidadeDisponivel(int idProduto);
-    double obterPrecoProduto(int idProduto);
-    string obterNomeProduto(int idProduto);
-    int obterIvaProduto(int idProduto);
-    double obterPrecoSemIva(int idProduto);
-    #pragma endregion
+        #pragma region Funcoes de Acesso Exterior
+        void obterNomesQuantidades(string*& nomes, int*& quantidades, int& tamanho);
+        bool verificaProduto(int idProduto);
+        int obterQuantidadeDisponivel(int idProduto);
+        double obterPrecoProduto(int idProduto);
+        string obterNomeProduto(int idProduto);
+        int obterIvaProduto(int idProduto);
+        double obterPrecoSemIva(int idProduto);
+        #pragma endregion
 
+    private:
+    
+        bool validaNome(string nome);
+        bool validaPreco(double preco);
+        bool validaStock(int stock);
+        bool validaIva(double iva);
+        bool verificaNoCsv(int id, string nome);
 
-private:
-    bool verificaNoCsv(int id, string nome);
-    Produto* item;
-    int numItem;
-    void guardaInformacoes();
+        Produto* item;
+        int numItem;
+        void guardaInformacoes();
 };

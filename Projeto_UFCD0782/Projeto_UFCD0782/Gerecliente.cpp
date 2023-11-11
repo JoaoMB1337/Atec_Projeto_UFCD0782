@@ -57,7 +57,7 @@ bool Gerecliente::validaNif(string nif)
 {
 	if (nif.length() != 9)
 	{
-		cout << "Nif tem de ter 9 digitos!" << endl << "Insira novamente: ";
+		cout << "Nif tem de ter 9 digitos! \n Insira novamente: ";
 		return false;
 	}
 	else
@@ -66,7 +66,7 @@ bool Gerecliente::validaNif(string nif)
 		{
 			if (!isdigit(c))
 			{
-				cout << "Nif e composto por 9 digitos!" << endl << "Insira novamente: ";
+				cout << "Nif e composto por 9 digitos! \n Insira novamente: ";
 				return false;
 			}
 		}
@@ -75,7 +75,7 @@ bool Gerecliente::validaNif(string nif)
 		{
 			if (pessoa[i].getNif() == nif)
 			{
-				cout << "Nif ja existe!" << endl << "Insira novamente: ";
+				cout << "Nif ja existe! \n Insira novamente: ";
 				return false;
 			}
 		}
@@ -88,7 +88,7 @@ bool Gerecliente::verificaNif(string nif)
 {
 	if (nif.length() != 9)
 	{
-		cout << "Nif tem de ter 9 digitos!" << endl << "Insira novamente: ";
+		cout << "Nif tem de ter 9 digitos!  \n Insira novamente: ";
 		return false;
 	}
 	else
@@ -97,7 +97,7 @@ bool Gerecliente::verificaNif(string nif)
 		{
 			if (!isdigit(c))
 			{
-				cout << "Nif e composto por 9 digitos!" << endl << "Insira novamente: ";
+				cout << "Nif e composto por 9 digitos! \n Insira novamente: ";
 				return false;
 			}
 		}
@@ -110,7 +110,7 @@ bool Gerecliente::verificaEmail(string email)
 {
 	if (email.find("@") == string::npos || email.find(".") == string::npos)
 	{
-		cout << "Email tem de conter @ e . !" << endl << "Insira novamente: ";
+		cout << "Email tem de conter @ e . ! \n Insira novamente: ";
 		return false;
 	}
 	else
@@ -145,7 +145,7 @@ Gerecliente::Gerecliente() {
 
 	ifstream arquivo("cliente.csv");
 	if (!arquivo.is_open()) {
-		cout << "Arquivo de clientes não encontrado." << endl;
+		cout << "Arquivo de clientes não encontrado. \n ";
 		contador = 0;
 		pessoa = nullptr;
 		return;
@@ -268,10 +268,10 @@ void Gerecliente::removeCliente() {
 	}
 	if (existe == false)
 	{
-		cout << "Cliente nao existe!" << endl;
+		cout << "Cliente nao existe! \n";
 	}
 	else {
-		cout << "Cliente removido com sucesso!" << endl;
+		cout << "Cliente removido com sucesso! \n";
 	}
 }
 
@@ -334,4 +334,14 @@ void Gerecliente::listaClientes() {
 	{
 		pessoa[i].mostrarClientes();
 	}
+}
+
+bool Gerecliente::verificaCliente(int idCliente){
+	for (int i = 0; i < contador; i++) {
+		if (pessoa[i].getId() == idCliente) {
+			return true;
+		}
+	}
+	cout << "Cliente nao existe!! \n";
+	return false;
 }

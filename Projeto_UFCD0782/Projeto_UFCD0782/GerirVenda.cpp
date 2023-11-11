@@ -6,6 +6,18 @@
 #include <string>
 #include <stdlib.h>
 #include <iomanip>
+#include <ctime>
+
+string GerirVenda::obterHora(){
+	time_t agora = time(0);
+	struct tm dataHora;
+	localtime_s(&dataHora, &agora);
+
+	char data[20];
+	strftime(data, 20, "%d/%m/%Y %H:%M:%S", &dataHora);
+
+	return string(data);
+}
 
 void GerirVenda::guardaInformacoes()
 {
@@ -31,22 +43,16 @@ GerirVenda::GerirVenda()
 		venda = nullptr;
 		return;
 	}
-
 	string linha;
 	contador = 0;
-
 	// Ler quantas linhas tem o csv
 	while (getline(arquivo, linha)) {
 		contador++;
 	}
-
 	arquivo.close();
-
 	venda = new Venda[contador];
-
 	arquivo.open("venda.csv");
 	contador = 0;
-
 	while (getline(arquivo, linha)) {
 		stringstream ss(linha);
 		string idClienteCSV, idProdutoCSV, quantidadeCSV, idVendaCSV, dataCSV, totalCSV;
@@ -62,91 +68,13 @@ GerirVenda::GerirVenda()
 		int quantidade = stoi(quantidadeCSV);
 		int idVenda = stoi(idVendaCSV);
 		double total = stod(totalCSV);
-
 		venda[contador] = Venda(idCliente, idProduto, quantidade, idVenda, dataCSV, total);
 		contador++;
 	}
 	arquivo.close();
 }
 
-#pragma region Verificações
-
-bool GerirVenda::verificaCliente(int idCliente)
-{
-	string pessoa;
-	ifstream arquivo("cliente.csv");
-	if (!arquivo.is_open()) {
-		cout << "Arquivo de clientes não encontrado." << endl;
-		contador = 0;
-		pessoa = nullptr;
-		return false;
-	}
-	bool existe = false;
-	string linha;
-	while (getline(arquivo, linha)) {
-		stringstream ss(linha);
-		string idCSV, nomeCSV, morada, telefone, email, nif;
-		getline(ss, nomeCSV, ',');
-		getline(ss, morada, ',');
-		getline(ss, telefone, ',');
-		getline(ss, email, ',');
-		getline(ss, nif, ',');
-		getline(ss, idCSV, ',');
-
-		int id = stoi(idCSV);
-		if (idCliente == id) {
-			existe = true;
-			return true;
-		}
-	}
-	arquivo.close();
-	if (existe == false) {
-		cout << "ID Cliente não existe." << endl;
-		return false;
-	}
-
-	return false;
-}
-
-bool GerirVenda::verificaProduto(int idProduto)
-{
-	string produto;
-	ifstream arquivo2("produtos.csv");
-	if (!arquivo2.is_open()) {
-		cout << "Arquivo de produtos não encontrado." << endl;
-		contador = 0;
-		produto = nullptr;
-		return false;
-	}
-	bool existe2 = false;
-	string linha2;
-	while (getline(arquivo2, linha2)) {
-		stringstream ss(linha2);
-		string idCSV, nomeCSV, precoCSV, stockCSV;
-		getline(ss, idCSV, ',');
-		getline(ss, nomeCSV, ',');
-		getline(ss, precoCSV, ',');
-		getline(ss, stockCSV, ',');
-
-		int id = stoi(idCSV);
-		if (idProduto == id) {
-			existe2 = true;
-			return true;
-		}
-	}
-	arquivo2.close();
-	if (existe2 == false) {
-		cout << "ID Produto não existe." << endl;
-		return false;
-	}
-
-	return false;
-}
-
-#pragma endregion
-
 const int MAX_VENDA = 100;
-
 
 void GerirVenda::imprimirTalao(int idcompra) {
 	ifstream arquivoLeitura("venda.csv");
@@ -210,15 +138,15 @@ void GerirVenda::imprimirTalao(int idcompra) {
 void GerirVenda::adicionaVenda() {
 	
 	int idCliente, idProduto, quantidade=0;
-	string dataCSV = "0";
+	string dataCSV = obterHora();
 	double total = 0;
 	int ultimoIdVenda = 0;  // Variável para armazenar o último ID de venda
 
-	// Verifica se idCliente é igual ao id do cliente Cliente.csv
-	cout << "ID Cliente: ";
+	// Verifica se idCliente é igual ao id  de algum cliente guardado na classe
 	do {
+		cout << "ID Cliente: ";
 		cin >> idCliente;
-	} while (!verificaCliente(idCliente));
+	} while (!clientes.verificaCliente(idCliente));
 
 	// Abre o arquivo em modo leitura para encontrar o último ID de venda
 	ifstream arquivoLeitura("venda.csv");
@@ -254,21 +182,21 @@ void GerirVenda::adicionaVenda() {
 
 	// Loop para adicionar produtos à venda
 	do {
-
 		cout << "ID Produto (insira 0 para encerrar a compra): ";
 		cin >> idProduto;
 
 		if (idProduto != 0) {
 			// Verifica se idProduto é igual ao id do produto Produtos.csv
-			while (!verificaProduto(idProduto)) {
-				cout << "ID Produto inválido. Tente novamente: ";
+			while (!produtos.verificaProduto(idProduto)) {
+				cout << "ID Produto invalido. Tente novamente: ";
 				cin >> idProduto;
 			}
 
 			cout << "Quantidade: ";
 			cin >> quantidade;
+
 			while (quantidade > produtos.obterQuantidadeDisponivel(idProduto)){
-				cout << "Quantidade Indisponivel. tente Novamente!!\n";
+				cout << "Quantidade Indisponivel. Tente Novamente!!\n";
 				cout << "Quantidade: ";
 				cin >> quantidade;
 			}
@@ -277,7 +205,6 @@ void GerirVenda::adicionaVenda() {
 
 			// Adiciona o produto à venda no arquivo CSV
 			arquivo << idCliente << ";" << idProduto << ";" << quantidade << ";" << ultimoIdVenda + 1 << ";" << dataCSV << ";" << total << endl;
-			cout << "Total: " << fixed << setprecision(2) << total << endl;
 			// Incrementa o contador
 			contador++;
 		}
@@ -285,6 +212,5 @@ void GerirVenda::adicionaVenda() {
 	// Incrementa o último ID de venda no final da compra
 	ultimoIdVenda++;
 	imprimirTalao(ultimoIdVenda);
-	// Fecha o arquivo
 	arquivo.close();
 }

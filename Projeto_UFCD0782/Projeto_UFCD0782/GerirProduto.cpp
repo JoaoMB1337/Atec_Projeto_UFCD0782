@@ -221,6 +221,7 @@ void GerirProduto::adicionarProduto() {
     numItem++;
 
     guardaInformacoes();
+    cout << "Produto Adicionado com sucesso!!!" << endl;
 }
 
 void GerirProduto::removerProduto() {
@@ -295,6 +296,7 @@ void GerirProduto::modificarProduto() {
     }
 }
 
+
 #pragma region Acesso Exterior da classe
 
 void GerirProduto::mostrarProdutos() {
@@ -302,8 +304,6 @@ void GerirProduto::mostrarProdutos() {
         item[i].mostrarInformacoes();
     }
 }
-
-
 
 void GerirProduto::obterNomesQuantidades(string*& nomes, int*& quantidades, int& tamanho){
     tamanho = numItem;
@@ -315,6 +315,15 @@ void GerirProduto::obterNomesQuantidades(string*& nomes, int*& quantidades, int&
         quantidades[i] = item[i].getStock();
     }
 
+}
+
+bool GerirProduto::verificaProduto(int idProduto){
+    for (int i = 0; i < numItem; i++) {
+        if (item[i].getId() == idProduto) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void GerirProduto::dimunirQuantidadeStock(int idProduto,int quantidade) {

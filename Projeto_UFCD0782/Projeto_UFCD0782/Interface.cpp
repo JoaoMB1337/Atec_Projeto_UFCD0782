@@ -31,6 +31,7 @@ void Interface::menuProduto(GerirProduto gerirProduto) {
 		switch (opcaoInt) {
 		case 1:
 			gerirProduto.adicionarProduto();
+			system("pause");
 			system("CLS");
 			break;
 
