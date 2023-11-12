@@ -88,10 +88,20 @@ GerirVenda::GerirVenda(){
 }
 
 void GerirVenda::imprimirTalao(int idcompra) {
+	int numeroCliente = 0;
 	double totalSemIVA = 0,totalComIVA = 0,valorEntregue = 0,valorTroco = 0;
 	int numeroLinha = 1;
 
+	for (int i = 0; i < contador; i++){
+		if (venda[i].getIdVenda() == idcompra) {
+			numeroCliente = venda[i].getIdCliente();
+			break;
+		}
+	}
+
 	cout << setw(40) << right << "Talao da Fatura - Numero: " << idcompra << endl;
+	cout << setw(40) << right << "+--------------------------------------------------------------+" << endl;
+	cout << setw(40) << right << "Numero Cliente: " << numeroCliente << endl;
 	cout << setw(40) << right << "+--------------------------------------------------------------+" << endl;
 	cout << setw(4) << right << "| No |" << right << "Nome Produto" << setw(5) << right << "| Quantidade |"
 		<< setw(12) << right << "Preco s/IVA |" << setw(5) << right << "IVA |" << setw(13) << right << "Total C/IVA  |" << endl;
@@ -194,7 +204,7 @@ void GerirVenda::adicionaVenda() {
 				cout << "Quantidade: ";
 				cin >> quantidade;
 			}
-			if (quantidade > 0){ 
+			if (quantidade > 0) {
 				produtos.dimunirQuantidadeStock(idProduto, quantidade);
 				totalQuantia = (produtos.obterPrecoProduto(idProduto) * quantidade);
 				totalCompra = totalCompra + totalQuantia;
@@ -205,8 +215,8 @@ void GerirVenda::adicionaVenda() {
 			contador++; // Incrementa o contador
 		}
 	} while (idProduto != 0);
-	
-	if (!resultadoSorteio){
+
+	if (!resultadoSorteio) {
 		cout << "Total da Compra: " << totalCompra << "\n";
 		do {
 			cout << "Valor entregue: ";
@@ -227,6 +237,7 @@ void GerirVenda::adicionaVenda() {
 	updateClasseVenda();
 	imprimirTalao(ultimoIdVenda);
 	arquivo.close();
+	
 }
 
 void GerirVenda::imprimeVendaPorProduto() {
