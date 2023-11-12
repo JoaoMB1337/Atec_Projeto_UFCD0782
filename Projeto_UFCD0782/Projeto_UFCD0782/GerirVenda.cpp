@@ -8,7 +8,9 @@
 #include <iomanip>
 #include <ctime>
 
-string GerirVenda::obterHora(){
+const int MAX_VENDA = 100;
+
+string GerirVenda::obterHora() {
 	time_t agora = time(0);
 	struct tm dataHora;
 	localtime_s(&dataHora, &agora);
@@ -74,8 +76,6 @@ GerirVenda::GerirVenda()
 	arquivo.close();
 }
 
-const int MAX_VENDA = 100;
-
 void GerirVenda::imprimirTalao(int idcompra) {
 	ifstream arquivoLeitura("venda.csv");
 
@@ -113,16 +113,16 @@ void GerirVenda::imprimirTalao(int idcompra) {
 		int quantidade = stoi(quantidadeCSV);
 		int idVenda = stoi(idVendaCSV);
 		double total = stod(totalCSV);
-		if(idcompra == idVenda){
-		// Imprime as informações da linha do talão
-		cout << "|"  << numeroLinha << " | " << produtos.obterNomeProduto(idProduto) 
-			<< " | "  << quantidade << " | "  << produtos.obterPrecoSemIva(idProduto)
-			<< " | "  << produtos.obterIvaProduto(idProduto) << "% | "  << total << " |" << endl;
+		if (idcompra == idVenda) {
+			// Imprime as informações da linha do talão
+			cout << "|" << numeroLinha << " | " << produtos.obterNomeProduto(idProduto)
+				<< " | " << quantidade << " | " << produtos.obterPrecoSemIva(idProduto)
+				<< " | " << produtos.obterIvaProduto(idProduto) << "% | " << total << " |" << endl;
 
-		// Atualiza os totais
-		totalSemIVA += quantidade * produtos.obterPrecoSemIva(idProduto);
-		totalComIVA += total;
-		numeroLinha++;
+			// Atualiza os totais
+			totalSemIVA += quantidade * produtos.obterPrecoSemIva(idProduto);
+			totalComIVA += total;
+			numeroLinha++;
 		}
 	}
 
@@ -136,10 +136,13 @@ void GerirVenda::imprimirTalao(int idcompra) {
 }
 
 void GerirVenda::adicionaVenda() {
-	
-	int idCliente, idProduto, quantidade=0;
+
+	int idCliente, idProduto, quantidade = 0;
 	string dataCSV = obterHora();
-	double total = 0;
+	double totalQuantia = 0;
+	double totalCompra = 0;
+	double quantiaEntregue = 0;
+	double troco = 0;
 	int ultimoIdVenda = 0;  // Variável para armazenar o último ID de venda
 
 	// Verifica se idCliente é igual ao id  de algum cliente guardado na classe
@@ -195,21 +198,32 @@ void GerirVenda::adicionaVenda() {
 			cout << "Quantidade: ";
 			cin >> quantidade;
 
-			while (quantidade > produtos.obterQuantidadeDisponivel(idProduto)){
+			while (quantidade > produtos.obterQuantidadeDisponivel(idProduto)) {
 				cout << "Quantidade Indisponivel. Tente Novamente!!\n";
 				cout << "Quantidade: ";
 				cin >> quantidade;
 			}
 			produtos.dimunirQuantidadeStock(idProduto, quantidade);
-			total =  (produtos.obterPrecoProduto(idProduto) * quantidade);
-
+			totalQuantia = (produtos.obterPrecoProduto(idProduto) * quantidade);
+			totalCompra = totalCompra + totalQuantia;
 			// Adiciona o produto à venda no arquivo CSV
 			arquivo << idCliente << ";" << idProduto << ";" << quantidade << ";" << ultimoIdVenda + 1 << ";" << dataCSV << ";" << total << endl;
 			// Incrementa o contador
 			contador++;
 		}
 	} while (idProduto != 0);
+
+	cout << "Total da Compra: " << totalCompra << "\n";
+	do {
+		cout << "Valor entregue: ";
+		cin >> quantiaEntregue;
+
+	} while (quantiaEntregue >= totalCompra);
+	troco = quantiaEntregue - totalCompra;
+	cout << "Troco: " << troco << "\n";
+
 	// Incrementa o último ID de venda no final da compra
+
 	ultimoIdVenda++;
 	imprimirTalao(ultimoIdVenda);
 	arquivo.close();
