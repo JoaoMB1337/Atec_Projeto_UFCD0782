@@ -12,6 +12,7 @@ class GerirVenda {
 		Gerecliente clientes;
 		GerirProduto produtos;
 		int idVenda;
+
 	public:
 
 		GerirVenda();

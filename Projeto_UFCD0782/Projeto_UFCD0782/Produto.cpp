@@ -103,3 +103,7 @@ void Produto::mostrarInformacoes() {
     cout << "Preco Sem IVA: " << this->calcularPrecoSemIva(precoCusto, iva) << "\n";
     cout << "+------------------------------------+ \n";
 }
+
+double calcularLucro(double precoVenda, double precoCusto) {
+    return precoVenda - precoCusto; 
+}

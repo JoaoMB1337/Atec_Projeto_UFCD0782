@@ -1,4 +1,5 @@
 #include "GerirVenda.h"
+#include "GerirProduto.h"
 #include <cctype>
 #include <fstream>
 #include <sstream>

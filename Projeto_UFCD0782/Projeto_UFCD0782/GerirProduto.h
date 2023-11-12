@@ -30,6 +30,8 @@ class GerirProduto {
         bool validaStock(int stock);
         bool validaIva(double iva);
         bool verificaNoCsv(int id, string nome);
+        Produto* produtos; 
+        int tamanho; 
 
         Produto* item;
         int numItem;

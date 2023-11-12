@@ -164,7 +164,9 @@ void Interface::menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto,
 		cout << "|                            |\n";
 		cout << "|  (3) - Relatorio Produto   |\n";
 		cout << "|                            |\n";
-		cout << "|  (4) - Sair                |\n";
+		cout << "|  (4) - Mais e Menos Vendido|\n";
+		cout << "|                            |\n";
+		cout << "|  (5) - Sair                |\n";
 		cout << "+----------------------------+\n";
 		cin >> opcaoString;
 		opcaoInt = converteStringParaInt(opcaoString);
@@ -183,12 +185,18 @@ void Interface::menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto,
 			break;
 
 		case 3:
-			imprimeproduto.imprimeVendaPorProduto(gerirProduto, imprimeproduto); // Chama o método com o objeto GerirProduto
+			imprimeproduto.imprimeVendaPorProduto(gerirProduto, imprimeproduto); 
 			system("pause");
 			system("cls");
 			break;
 
 		case 4:
+			relatorio.imprimeMaisMenosVendido(); 
+			system("pause");
+			system("cls");
+			break;
+
+		case 5:
 			return;
 
 		default:

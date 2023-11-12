@@ -33,4 +33,5 @@ private:
     double precoCusto;
     double iva;
     double precoVenda; // +30% + iva
+    Produto* item;
 };
