@@ -5,8 +5,9 @@
 
 class GerirVenda {
 	private:
+		void updateClasseVenda();
 		string obterHora();
-		void guardaInformacoes();
+		bool gerarSorteio(int idCompra);
 		int contador;
 		Venda* venda;
 		Gerecliente clientes;
