@@ -19,5 +19,5 @@ class GerirVenda {
 		GerirVenda();
 		void adicionaVenda();
 		void imprimirTalao(int idcompra);
-		void imprimeVendaPorProduto(GerirProduto& gerenciadorProdutos, GerirVenda& gerenciadorVendas);
+		void imprimeVendaPorProduto();
 };

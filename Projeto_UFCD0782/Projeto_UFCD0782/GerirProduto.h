@@ -9,6 +9,7 @@ class GerirProduto {
         void adicionarProduto();
         void removerProduto();
         void modificarProduto();
+        void atualizarStockProduto();
         void dimunirQuantidadeStock(int idProduto,int quantidade);
         void mostrarProdutos();
         #pragma endregion
@@ -24,16 +25,17 @@ class GerirProduto {
         #pragma endregion
 
     private:
-    
+        void updateClasseProduto();
+        void guardaInformacoes();
+
         bool validaNome(string nome);
         bool validaPreco(double preco);
         bool validaStock(int stock);
         bool validaIva(double iva);
         bool verificaNoCsv(int id, string nome);
+
         Produto* produtos; 
         int tamanho; 
-
         Produto* item;
         int numItem;
-        void guardaInformacoes();
 };

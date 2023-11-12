@@ -1,5 +1,4 @@
 #pragma once
-#include "GerirProduto.h"
 #include "GereCliente.h"
 #include "GerirProduto.h"
 #include "GerirVenda.h"
@@ -9,10 +8,15 @@
 
 class Relatorio {
 private:
+	
+	GerirProduto gestorProduto;
+	Gerecliente gestorCliente;
+	GerirVenda gestorVenda;
 
 public:
-	void imprimirNomesQuantidades(GerirProduto& gerenciadorProdutos);
-	void imprimeSemStock(GerirProduto& gerenciadorProdutos);
+	Relatorio();
+	void imprimirNomesQuantidades();
+	void imprimeSemStock();
 	void imprimeMaisMenosVendido();
 };
 

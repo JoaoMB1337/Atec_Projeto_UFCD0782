@@ -2,8 +2,10 @@
 #include <fstream>
 #include <sstream>
 
+const string NOME_FICHEIRO = "produtos.csv";
+
 bool GerirProduto::verificaNoCsv(int id, string nome) {
-    ifstream arquivo("produtos.csv");
+    ifstream arquivo(NOME_FICHEIRO);
     string linha;
     while (getline(arquivo, linha)) {
         stringstream ss(linha);
@@ -20,27 +22,9 @@ bool GerirProduto::verificaNoCsv(int id, string nome) {
     return false;
 }
 
-void GerirProduto::guardaInformacoes()
-{
-    ofstream arquivo("produtos.csv", ios::out);
+void GerirProduto::updateClasseProduto() {
 
-    if (!arquivo.is_open()) {
-        cout << "Erro ao abrir o arquivo produtos.csv." << endl;
-        return;
-    }
-
-    for (int i = 0; i < numItem; i++) {
-        arquivo << item[i].getId() << "," << item[i].getNome() << "," << item[i].getStock() << "," << item[i].getPrecoCusto() << "," << item[i].getIva();
-        if (i < numItem - 1) {
-            arquivo << endl; // Evita uma linha em branco no final
-        }
-    }
-
-    arquivo.close();
-}
-
-GerirProduto::GerirProduto() {
-    ifstream arquivo("produtos.csv");
+    ifstream arquivo(NOME_FICHEIRO);
     if (!arquivo.is_open()) {
         cout << "Arquivo de produtos não encontrado." << endl;
         numItem = 0;
@@ -60,7 +44,7 @@ GerirProduto::GerirProduto() {
 
     item = new Produto[numItem];
 
-    arquivo.open("produtos.csv");
+    arquivo.open(NOME_FICHEIRO);
     numItem = 0;
 
     while (getline(arquivo, linha)) {
@@ -82,7 +66,32 @@ GerirProduto::GerirProduto() {
     arquivo.close();
 }
 
+void GerirProduto::guardaInformacoes()
+{
+    ofstream arquivo(NOME_FICHEIRO, ios::out);
+
+    if (!arquivo.is_open()) {
+        cout << "Erro ao abrir o arquivo produtos.csv." << endl;
+        return;
+    }
+
+    for (int i = 0; i < numItem; i++) {
+        arquivo << item[i].getId() << "," << item[i].getNome() << "," << item[i].getStock() << "," << item[i].getPrecoCusto() << "," << item[i].getIva();
+        if (i < numItem - 1) {
+            arquivo << endl; // Evita uma linha em branco no final
+        }
+    }
+    arquivo.close();
+    updateClasseProduto();
+}
+
+GerirProduto::GerirProduto() {
+
+    updateClasseProduto();
+}
+
 #pragma region Validacoes
+
 
 //valida nome
 bool GerirProduto::validaNome(string nome)
@@ -296,6 +305,33 @@ void GerirProduto::modificarProduto() {
     }
 }
 
+void GerirProduto::atualizarStockProduto(){
+    string nome;
+    int stock;
+    double precoCusto, iva;
+    bool existe = false;
+    cout << "Insira o nome do produto que pretende atulizar o stock: ";
+    cin >> nome;
+    for (int i = 0; i < numItem; i++){
+        if (item[i].getNome() == nome){
+
+            cout << "Stock: ";
+            do {
+                cin >> stock;
+            } while (!validaStock(stock));
+            item[i].setStock(stock);
+            existe = true;
+            guardaInformacoes();
+        }
+    }
+    if (existe == false)
+    {
+        cout << "Produto nao existe!" << endl;
+    }
+    else {
+        cout << "Produto modificado com sucesso!" << endl;
+    }
+}
 
 #pragma region Acesso Exterior da classe
 

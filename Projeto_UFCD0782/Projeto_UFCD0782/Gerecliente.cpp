@@ -1,9 +1,52 @@
-#include "Gerecliente.h"
+ï»¿#include "Gerecliente.h"
 #include <cctype>
 #include <fstream>
 #include <sstream>
 
-#pragma region  Validaçoes 
+const string NOME_FICHEIRO = "cliente.csv";
+
+void Gerecliente::updateClasseCliente(){
+	ifstream arquivo(NOME_FICHEIRO);
+	if (!arquivo.is_open()) {
+		cout << "Arquivo de clientes nï¿½o encontrado. \n ";
+		contador = 0;
+		pessoa = nullptr;
+		return;
+	}
+
+	string linha;
+	contador = 0;
+
+	// Ler quantas linhas tem o csv
+	while (getline(arquivo, linha)) {
+		contador++;
+	}
+
+	arquivo.close();
+
+	pessoa = new Cliente[contador];
+
+	arquivo.open(NOME_FICHEIRO);
+	contador = 0;
+
+	while (getline(arquivo, linha)) {
+		stringstream ss(linha);
+		string idCSV, nomeCSV, morada, telefone, email, nif;
+		getline(ss, nomeCSV, ',');
+		getline(ss, morada, ',');
+		getline(ss, telefone, ',');
+		getline(ss, email, ',');
+		getline(ss, nif, ',');
+		getline(ss, idCSV, ',');
+
+		int id = stoi(idCSV);
+		pessoa[contador] = Cliente(nomeCSV, morada, telefone, email, nif, id);
+		contador++;
+	}
+	arquivo.close();
+}
+
+#pragma region  Validaï¿½oes 
 
 //verifica nome sem numeros e caracteres especiais
 bool Gerecliente::validaNome(string nome) {
@@ -33,7 +76,7 @@ bool Gerecliente::validaTelefone(string telefone)
 	return true;
 }
 
-//valida email e verifica se já existe
+//valida email e verifica se jï¿½ existe
 bool Gerecliente::validaEmail(string email)
 {
 	if (email.find("@") == string::npos || email.find(".") == string::npos)
@@ -52,7 +95,7 @@ bool Gerecliente::validaEmail(string email)
 	return true;
 }
 
-//Valida NIF (9digitos) e não pode ter letras
+//Valida NIF (9digitos) e nï¿½o pode ter letras
 bool Gerecliente::validaNif(string nif)
 {
 	if (nif.length() != 9)
@@ -70,7 +113,7 @@ bool Gerecliente::validaNif(string nif)
 				return false;
 			}
 		}
-		//verifica se nif já existe
+		//verifica se nif jï¿½ existe
 		for (int i = 0; i < contador; i++)
 		{
 			if (pessoa[i].getNif() == nif)
@@ -122,7 +165,7 @@ bool Gerecliente::verificaEmail(string email)
 #pragma endregion
 
 void Gerecliente::guardaInformacoes() {
-	ofstream arquivo("cliente.csv", ios::out);
+	ofstream arquivo(NOME_FICHEIRO, ios::out);
 
 	if (!arquivo.is_open()) {
 		cout << "Erro ao abrir o arquivo cliente.csv." << endl;
@@ -137,50 +180,12 @@ void Gerecliente::guardaInformacoes() {
 			arquivo << endl; // Evita uma linha em branco no final
 		}
 	}
-
 	arquivo.close();
+	updateClasseCliente();
 }
 
 Gerecliente::Gerecliente() {
-
-	ifstream arquivo("cliente.csv");
-	if (!arquivo.is_open()) {
-		cout << "Arquivo de clientes não encontrado. \n ";
-		contador = 0;
-		pessoa = nullptr;
-		return;
-	}
-
-	string linha;
-	contador = 0;
-
-	// Ler quantas linhas tem o csv
-	while (getline(arquivo, linha)) {
-		contador++;
-	}
-
-	arquivo.close();
-
-	pessoa = new Cliente[contador];
-
-	arquivo.open("cliente.csv");
-	contador = 0;
-
-	while (getline(arquivo, linha)) {
-		stringstream ss(linha);
-		string idCSV, nomeCSV, morada, telefone, email, nif;
-		getline(ss, nomeCSV, ',');
-		getline(ss, morada, ',');
-		getline(ss, telefone, ',');
-		getline(ss, email, ',');
-		getline(ss, nif, ',');
-		getline(ss, idCSV, ',');
-
-		int id = stoi(idCSV);
-		pessoa[contador] = Cliente(nomeCSV, morada, telefone, email, nif, id);
-		contador++;
-	}
-	arquivo.close();
+	updateClasseCliente();
 }
 
 //Adiciona um cliente
@@ -231,7 +236,7 @@ void  Gerecliente::adicionaCliente() {
 			}
 		}
 	}
-	//cria id unico que não pode ser alterado mesmo que o cliente seja removido
+	//cria id unico que nï¿½o pode ser alterado mesmo que o cliente seja removido
 	if (contador == 0) {
 		id = 1;
 	}
@@ -336,7 +341,7 @@ void Gerecliente::listaClientes() {
 	}
 }
 
-bool Gerecliente::verificaCliente(int idCliente){
+bool Gerecliente::verificaCliente(int idCliente) {
 	for (int i = 0; i < contador; i++) {
 		if (pessoa[i].getId() == idCliente) {
 			return true;

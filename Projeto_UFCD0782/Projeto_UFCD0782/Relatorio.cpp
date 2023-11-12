@@ -1,8 +1,4 @@
 #include "Relatorio.h"
-#include "Produto.h"
-#include "Venda.h"
-#include "GerirProduto.h"
-#include "GerirVenda.h"
 #include <cctype>
 #include <fstream>
 #include <sstream>
@@ -10,12 +6,16 @@
 #include <limits>
 #include <map>
 
-void Relatorio::imprimirNomesQuantidades(GerirProduto& gerenciadorProdutos) {
+Relatorio::Relatorio(){
+
+}
+
+void Relatorio::imprimirNomesQuantidades() {
     string* nomes;
     int* quantidades;
     int tamanho;
 
-    gerenciadorProdutos.obterNomesQuantidades(nomes, quantidades, tamanho);
+    gestorProduto.obterNomesQuantidades(nomes, quantidades, tamanho);
 
     cout << "+----------------------------------+\n";
     cout << "| Nomes e Quantidades dos Produtos |\n";
@@ -31,12 +31,12 @@ void Relatorio::imprimirNomesQuantidades(GerirProduto& gerenciadorProdutos) {
     delete[] quantidades;
 }
 
-void Relatorio::imprimeSemStock(GerirProduto& gerenciadorProdutos) {
+void Relatorio::imprimeSemStock() {
     string* nomes;
     int* quantidades;
     int tamanho;
 
-    gerenciadorProdutos.obterNomesQuantidades(nomes, quantidades, tamanho);
+    gestorProduto.obterNomesQuantidades(nomes, quantidades, tamanho);
 
 	cout << "+----------------------------------+\n";
 	cout << "|    Lista Produtos sem Stock      |\n";
@@ -54,6 +54,7 @@ void Relatorio::imprimeSemStock(GerirProduto& gerenciadorProdutos) {
 }
 
 void Relatorio::imprimeMaisMenosVendido() {
+
     ifstream arquivo("venda.csv");
     if (!arquivo.is_open()) {
         cout << "Erro ao abrir o arquivo vendas.csv." << endl;
@@ -95,8 +96,6 @@ void Relatorio::imprimeMaisMenosVendido() {
     }
     arquivo.close();
     
-
-
     cout << "+----------------------------------+\n";
     cout << "|    Produto mais e menos vendido  |\n";
     cout << "+----------------------------------+\n";

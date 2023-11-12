@@ -21,9 +21,11 @@ void Interface::menuProduto(GerirProduto gerirProduto) {
 		cout << "|                            |\n";
 		cout << "|  (3) - Modificar           |\n";
 		cout << "|                            |\n";
-		cout << "|  (4) - Listar              |\n";
+		cout << "|  (4) - Atualizar Stock     |\n";
 		cout << "|                            |\n";
-		cout << "|  (5) - Sair                |\n";
+		cout << "|  (5) - Listar              |\n";
+		cout << "|                            |\n";
+		cout << "|  (6) - Sair                |\n";
 		cout << "+----------------------------+\n";
 		cin >> opcaoString;
 		opcaoInt = converteStringParaInt(opcaoString);
@@ -48,12 +50,18 @@ void Interface::menuProduto(GerirProduto gerirProduto) {
 			break;
 
 		case 4:
-			gerirProduto.mostrarProdutos();
+			gerirProduto.atualizarStockProduto();
 			system("pause");
 			system("cls");
 			break;
 
 		case 5:
+			gerirProduto.mostrarProdutos();
+			system("pause");
+			system("cls");
+			break;
+
+		case 6:
 			return;
 
 		default:
@@ -151,7 +159,7 @@ void Interface::menuVenda(GerirVenda gerirVenda) {
 	} while (true);
 }
 
-void Interface::menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto, GerirVenda& imprimeproduto) {
+void Interface::menuRelatorios(Relatorio relatorio, GerirProduto gerirProduto, GerirVenda GereVenda) {
 	string opcaoString;
 	int opcaoInt;
 	do {
@@ -173,19 +181,19 @@ void Interface::menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto,
 		system("cls");
 		switch (opcaoInt) {
 		case 1:
-			relatorio.imprimirNomesQuantidades(gerirProduto); // Chama o método com o objeto GerirProduto
+			relatorio.imprimirNomesQuantidades(); // Chama o método com o objeto GerirProduto
 			system("pause");
 			system("cls");
 			break;
 
 		case 2:
-			relatorio.imprimeSemStock(gerirProduto); // Chama o método com o objeto GerirProduto
+			relatorio.imprimeSemStock(); // Chama o método com o objeto GerirProduto
 			system("pause");
 			system("cls");
 			break;
 
 		case 3:
-			imprimeproduto.imprimeVendaPorProduto(gerirProduto, imprimeproduto); 
+			GereVenda.imprimeVendaPorProduto();
 			system("pause");
 			system("cls");
 			break;

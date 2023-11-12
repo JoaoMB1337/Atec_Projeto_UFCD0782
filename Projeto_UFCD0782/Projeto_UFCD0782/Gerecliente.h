@@ -4,7 +4,7 @@
 class Gerecliente
 {
 	private:
-
+		void updateClasseCliente();
 	#pragma region Validacoes 
 		bool validaEmail(string email);
 		bool validaNome(string nome);

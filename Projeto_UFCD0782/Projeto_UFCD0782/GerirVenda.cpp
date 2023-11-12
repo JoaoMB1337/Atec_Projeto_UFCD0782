@@ -163,7 +163,6 @@ void GerirVenda::adicionaVenda() {
 				ultimoIdVenda = idVenda;
 			}
 		}
-		// Fecha o arquivo de leitura
 		arquivoLeitura.close();
 	}
 	// Abre o arquivo em modo append (adiciona ao final do arquivo)
@@ -230,25 +229,22 @@ void GerirVenda::adicionaVenda() {
 	arquivo.close();
 }
 
-void GerirVenda::imprimeVendaPorProduto(GerirProduto& gerenciadorProdutos, GerirVenda& gerenciadorVendas) {
-	cout << "Insira o nome do produto: ";
+void GerirVenda::imprimeVendaPorProduto() {
 	string nomeProduto;
+	bool encontrou = false;
+	cout << "Insira o nome do produto: ";
 	cin >> nomeProduto;
 
 	cout << "+--------------------------------------+\n";
 	cout << "|    Relatorio de Vendas por Produto   |\n";
 	cout << "+--------------------------------------+\n";
 
-	bool encontrou = false;
-
 	for (int i = 0; i < contador; ++i) {
-		string nomeVendaProduto = gerenciadorProdutos.obterNomeProduto(venda[i].getIdProduto());
-		if (nomeVendaProduto == nomeProduto) {
+		if (nomeProduto == produtos.obterNomeProduto(venda[i].getIdProduto())) {
 			venda[i].mostrarVendas();
 			encontrou = true;
 		}
 	}
-
 	if (!encontrou) {
 		cout << "Nenhuma venda encontrada para o produto: " << nomeProduto << endl;
 	}
