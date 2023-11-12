@@ -52,6 +52,7 @@ void Relatorio::imprimeSemStock(GerirProduto& gerenciadorProdutos) {
     delete[] nomes;
     delete[] quantidades;
 }
+
 void Relatorio::imprimeMaisMenosVendido() {
     ifstream arquivo("venda.csv");
     if (!arquivo.is_open()) {

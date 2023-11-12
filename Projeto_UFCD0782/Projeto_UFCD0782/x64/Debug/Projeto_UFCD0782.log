@@ -1,2 +1,6 @@
-﻿  Relatorio.cpp
-  Projeto_UFCD0782.vcxproj -> C:\Users\hugoc\Documents\GitHub\Atec_Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Projeto_UFCD0782.exe
+﻿  GerirProduto.cpp
+  GerirVenda.cpp
+C:\Users\joaor\OneDrive\Ambiente de Trabalho\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirVenda.cpp(72,12): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+  Interface.cpp
+  Gerando Código...
+  Projeto_UFCD0782.vcxproj -> C:\Users\joaor\OneDrive\Ambiente de Trabalho\Atec_Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Projeto_UFCD0782.exe
