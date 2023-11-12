@@ -214,3 +214,27 @@ void GerirVenda::adicionaVenda() {
 	imprimirTalao(ultimoIdVenda);
 	arquivo.close();
 }
+
+void GerirVenda::imprimeVendaPorProduto(GerirProduto& gerenciadorProdutos, GerirVenda& gerenciadorVendas) {
+	cout << "Insira o nome do produto: ";
+	string nomeProduto;
+	cin >> nomeProduto;
+
+	cout << "+--------------------------------------+\n";
+	cout << "|    Relatorio de Vendas por Produto   |\n";
+	cout << "+--------------------------------------+\n";
+
+	bool encontrou = false;
+
+	for (int i = 0; i < contador; ++i) {
+		string nomeVendaProduto = gerenciadorProdutos.obterNomeProduto(venda[i].getIdProduto());
+		if (nomeVendaProduto == nomeProduto) {
+			venda[i].mostrarVendas();
+			encontrou = true;
+		}
+	}
+
+	if (!encontrou) {
+		cout << "Nenhuma venda encontrada para o produto: " << nomeProduto << endl;
+	}
+}

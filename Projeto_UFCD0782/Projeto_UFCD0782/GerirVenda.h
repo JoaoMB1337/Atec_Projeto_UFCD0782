@@ -12,10 +12,10 @@ class GerirVenda {
 		Gerecliente clientes;
 		GerirProduto produtos;
 		int idVenda;
-
 	public:
 
 		GerirVenda();
 		void adicionaVenda();
 		void imprimirTalao(int idcompra);
+		void imprimeVendaPorProduto(GerirProduto& gerenciadorProdutos, GerirVenda& gerenciadorVendas);
 };

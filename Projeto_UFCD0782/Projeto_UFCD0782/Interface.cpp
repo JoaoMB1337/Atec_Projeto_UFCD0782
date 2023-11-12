@@ -151,7 +151,7 @@ void Interface::menuVenda(GerirVenda gerirVenda) {
 	} while (true);
 }
 
-void Interface::menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto) {
+void Interface::menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto, GerirVenda& imprimeproduto) {
 	string opcaoString;
 	int opcaoInt;
 	do {
@@ -183,7 +183,7 @@ void Interface::menuRelatorios(Relatorio& relatorio, GerirProduto& gerirProduto)
 			break;
 
 		case 3:
-			//relatorio.imprimeVendaProduto(gerirProduto); // Chama o método com o objeto GerirProduto
+			imprimeproduto.imprimeVendaPorProduto(gerirProduto, imprimeproduto); // Chama o método com o objeto GerirProduto
 			system("pause");
 			system("cls");
 			break;
@@ -241,7 +241,7 @@ void Interface::menuPrincipal() {
 			break;
 
 		case 4:
-			menuRelatorios(relatorio, gerirProduto);
+			menuRelatorios(relatorio, gerirProduto, gerirVenda);
 			system("cls");
 			break;
 

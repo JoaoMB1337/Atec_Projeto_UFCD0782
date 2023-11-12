@@ -1,5 +1,8 @@
 #include "Relatorio.h"
 #include "Produto.h"
+#include "Venda.h"
+#include "GerirProduto.h"
+#include "GerirVenda.h"
 #include <cctype>
 #include <fstream>
 #include <sstream>
