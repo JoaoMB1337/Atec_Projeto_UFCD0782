@@ -9,7 +9,55 @@
 #include <iomanip>
 #include <ctime>
 
-string GerirVenda::obterHora(){
+const string NOME_FICHEIRO = "venda.csv";
+const int MAX_ID_VENDA = 100;
+
+void GerirVenda::updateClasseVenda(){
+	ifstream arquivo(NOME_FICHEIRO);
+	if (!arquivo.is_open()) {
+		cout << "Arquivo de vendas nï¿½o encontrado." << endl;
+		contador = 0;
+		venda = nullptr;
+		return;
+	}
+	string linha;
+	contador = 0;
+	// Conta quantas linhas tem o CSV
+	while (getline(arquivo, linha)) {
+		contador++;
+	}
+	arquivo.close();
+	venda = new Venda[contador];
+	arquivo.open(NOME_FICHEIRO);
+	contador = 0;
+	while (getline(arquivo, linha)) {
+		stringstream ss(linha);
+		string idClienteCSV, idProdutoCSV, quantidadeCSV, idVendaCSV, dataCSV, totalCSV, valorEntregueCSV, trocoCSV, sorteioCSV;
+		getline(ss, idClienteCSV, ';');
+		getline(ss, idProdutoCSV, ';');
+		getline(ss, quantidadeCSV, ';');
+		getline(ss, idVendaCSV, ';');
+		getline(ss, dataCSV, ';');
+		getline(ss, totalCSV, ';');
+		getline(ss, valorEntregueCSV, ';');
+		getline(ss, trocoCSV, ';');
+		getline(ss, sorteioCSV, ';');
+
+		int idCliente = stoi(idClienteCSV);
+		int idProduto = stoi(idProdutoCSV);
+		int quantidade = stoi(quantidadeCSV);
+		int idVenda = stoi(idVendaCSV);
+		double total = stod(totalCSV);
+		double valorEntregue = stod(valorEntregueCSV);
+		double troco = stod(trocoCSV);
+		bool sorteio = stoi(sorteioCSV);
+		venda[contador] = Venda(idCliente, idProduto, quantidade, idVenda, dataCSV, total, valorEntregue, troco, sorteio);
+		contador++;
+	}
+	arquivo.close();
+}
+
+string GerirVenda::obterHora() {
 	time_t agora = time(0);
 	struct tm dataHora;
 	localtime_s(&dataHora, &agora);
@@ -20,150 +68,95 @@ string GerirVenda::obterHora(){
 	return string(data);
 }
 
-void GerirVenda::guardaInformacoes()
-{
-	ofstream arquivo("venda.csv", ios::out);
-
-	if (!arquivo.is_open()) {
-		cout << "Erro ao abrir o arquivo cliente.csv." << endl;
-		return;
+bool GerirVenda::gerarSorteio(int idCompra){
+	srand(time(NULL));
+	int numeroSorteio = rand() % 100 + 1;
+	if (numeroSorteio == idCompra) {
+		cout << "\n\n Parabens! A sua compra foi sorteada.\n"
+			<< " Nao precisa pagar a conta.\n\n";
+			return true;
 	}
-
-	for (int i = 0; i < contador; i++) {
-		arquivo << venda[i].getIdCliente() << ";" << venda[i].getIdProduto() << ";" << venda[i].getQuantidade() << ";" << venda[i].getIdVenda() << ";" << venda[i].getData() << ";" << venda[i].getTotal() << endl;
+	else {
+		cout << "\n\n Infelizmente, a sua compra nao foi sorteada.\n"
+			<< " Lembre-se de pagar a conta.\n\n";
+		return false;
 	}
-	arquivo.close();
 }
 
-GerirVenda::GerirVenda()
-{
-	ifstream arquivo("venda.csv");
-	if (!arquivo.is_open()) {
-		cout << "Arquivo de vendas não encontrado." << endl;
-		contador = 0;
-		venda = nullptr;
-		return;
-	}
-	string linha;
-	contador = 0;
-	// Ler quantas linhas tem o csv
-	while (getline(arquivo, linha)) {
-		contador++;
-	}
-	arquivo.close();
-	venda = new Venda[contador];
-	arquivo.open("venda.csv");
-	contador = 0;
-	while (getline(arquivo, linha)) {
-		stringstream ss(linha);
-		string idClienteCSV, idProdutoCSV, quantidadeCSV, idVendaCSV, dataCSV, totalCSV;
-		getline(ss, idClienteCSV, ';');
-		getline(ss, idProdutoCSV, ';');
-		getline(ss, quantidadeCSV, ';');
-		getline(ss, idVendaCSV, ';');
-		getline(ss, dataCSV, ';');
-		getline(ss, totalCSV, ';');
-
-		int idCliente = stoi(idClienteCSV);
-		int idProduto = stoi(idProdutoCSV);
-		int quantidade = stoi(quantidadeCSV);
-		int idVenda = stoi(idVendaCSV);
-		double total = stod(totalCSV);
-		venda[contador] = Venda(idCliente, idProduto, quantidade, idVenda, dataCSV, total);
-		contador++;
-	}
-	arquivo.close();
+GerirVenda::GerirVenda(){
+	updateClasseVenda(); // Funï¿½ao usada para preencher a classe venda quando o programa for atulizado
 }
-
-const int MAX_VENDA = 100;
 
 void GerirVenda::imprimirTalao(int idcompra) {
-	ifstream arquivoLeitura("venda.csv");
-
-	if (!arquivoLeitura.is_open()) {
-		cout << "Erro ao abrir o arquivo venda.csv." << endl;
-		return;
-	}
-
-	double totalSemIVA = 0;
-	double totalComIVA = 0;
+	double totalSemIVA = 0,totalComIVA = 0,valorEntregue = 0,valorTroco = 0;
 	int numeroLinha = 1;
 
-	// Imprime o cabeçalho do talão
-	cout << "Talao da Fatura - Numero: " << idcompra << endl;
-	//cout << "Cliente: " << numeroCliente << endl;
-	cout << "+------------------------------------+" << endl;
-	cout << "| No | Nome Produto | Quantidade | Preco s/IVA | IVA | Total C/IVA |" << endl;
-	cout << "+------------------------------------+" << endl;
+	cout << setw(40) << right << "Talao da Fatura - Numero: " << idcompra << endl;
+	cout << setw(40) << right << "+--------------------------------------------------------------+" << endl;
+	cout << setw(4) << right << "| No |" << right << "Nome Produto" << setw(5) << right << "| Quantidade |"
+		<< setw(12) << right << "Preco s/IVA |" << setw(5) << right << "IVA |" << setw(13) << right << "Total C/IVA  |" << endl;
+	cout << setw(40) << right << "+--------------------------------------------------------------+" << endl;
 
-	// Lê o arquivo e imprime as linhas do talão
-	string linha;
-	while (getline(arquivoLeitura, linha)) {
-		stringstream ss(linha);
-		string idClienteCSV, idProdutoCSV, quantidadeCSV, idVendaCSV, dataCSV, totalCSV;
+	for (int i = 0; i < contador; i++) {
+		if (venda[i].getIdVenda() == idcompra) {
+			if (venda[i].getIdProduto() != -1) {
+				// Imprime as informaï¿½ï¿½es da linha do talï¿½o
+				cout << "|" << numeroLinha << " | " << produtos.obterNomeProduto(venda[i].getIdProduto())
+					<< " | " << venda[i].getQuantidade() << " | " << produtos.obterPrecoSemIva(venda[i].getIdProduto())
+					<< " | " << produtos.obterIvaProduto(venda[i].getIdProduto()) << "% | " << venda[i].getTotal() << " |" << endl;
 
-		getline(ss, idClienteCSV, ';');
-		getline(ss, idProdutoCSV, ';');
-		getline(ss, quantidadeCSV, ';');
-		getline(ss, idVendaCSV, ';');
-		getline(ss, dataCSV, ';');
-		getline(ss, totalCSV, ';');
-
-		int idCliente = stoi(idClienteCSV);
-		int idProduto = stoi(idProdutoCSV);
-		int quantidade = stoi(quantidadeCSV);
-		int idVenda = stoi(idVendaCSV);
-		double total = stod(totalCSV);
-		if(idcompra == idVenda){
-		// Imprime as informações da linha do talão
-		cout << "|"  << numeroLinha << " | " << produtos.obterNomeProduto(idProduto) 
-			<< " | "  << quantidade << " | "  << produtos.obterPrecoSemIva(idProduto)
-			<< " | "  << produtos.obterIvaProduto(idProduto) << "% | "  << total << " |" << endl;
-
-		// Atualiza os totais
-		totalSemIVA += quantidade * produtos.obterPrecoSemIva(idProduto);
-		totalComIVA += total;
-		numeroLinha++;
+				// Calculo de total
+				totalSemIVA += venda[i].getQuantidade() * produtos.obterPrecoSemIva(venda[i].getIdProduto());
+				totalComIVA += venda[i].getTotal();
+				numeroLinha++;
+			}
+			else {
+				valorEntregue = venda[i].getValorEntrege();
+				valorTroco = venda[i].getTroco();
+			}
 		}
 	}
 
-	// Imprime os totais do talão
-	cout << "+------------------------------------+" << endl;
-	cout << "| Total s/IVA: " << totalSemIVA << " |" << endl;
-	cout << "| Total c/IVA: " << totalComIVA << " |" << endl;
-	cout << "+------------------------------------+" << endl;
-	// Fecha o arquivo
-	arquivoLeitura.close();
+	cout << setw(40) << right << "+--------------------------------------------------------------+" << endl;
+	cout << setw(40) << "Total s/IVA:" << setw(14) << totalSemIVA << setw(10) << "|" << endl;
+	cout << setw(40) << "Total c/IVA:" << setw(14) << totalComIVA << setw(10) << "|" << endl;
+	cout << setw(40) << "Valor Entrege:" << setw(14) << valorEntregue << setw(10) << "|" << endl;
+	cout << setw(40) << "Troco:" << setw(14) << valorTroco << setw(10) << "|" << endl;
+	cout << setw(40) << right << "+--------------------------------------------------------------+" << endl;
 }
 
 void GerirVenda::adicionaVenda() {
-	
-	int idCliente, idProduto, quantidade=0;
-	string dataCSV = obterHora();
-	double total = 0;
-	int ultimoIdVenda = 0;  // Variável para armazenar o último ID de venda
 
-	// Verifica se idCliente é igual ao id  de algum cliente guardado na classe
+	int idCliente, idProduto, quantidade = 0;
+	string dataCSV = obterHora();
+	double totalQuantia = 0, totalCompra = 0, quantiaEntregue = 0, troco = 0;
+	int ultimoIdVenda = 0;  // Variï¿½vel para armazenar o ï¿½ltimo ID de venda
+	bool resultadoSorteio = false;
+	// Verifica se idCliente ï¿½ igual ao id  de algum cliente guardado na classe
 	do {
 		cout << "ID Cliente: ";
 		cin >> idCliente;
 	} while (!clientes.verificaCliente(idCliente));
 
-	// Abre o arquivo em modo leitura para encontrar o último ID de venda
-	ifstream arquivoLeitura("venda.csv");
+	// Abre o arquivo em modo leitura para encontrar o ï¿½ltimo ID de venda
+	ifstream arquivoLeitura(NOME_FICHEIRO);
 
 	if (arquivoLeitura.is_open()) {
-		// Encontrar o último ID de venda
+		// Encontrar o ï¿½ltimo ID de venda
 		string linha;
 		while (getline(arquivoLeitura, linha)) {
 			stringstream ss(linha);
-			string idClienteCSV, idProdutoCSV, quantidadeCSV, idVendaCSV, dataCSV, totalCSV;
+			string idClienteCSV, idProdutoCSV, quantidadeCSV, idVendaCSV, dataCSV, totalCSV, valorEntregueCSV, trocoCSV, sorteioCSV;
+
 			getline(ss, idClienteCSV, ';');
 			getline(ss, idProdutoCSV, ';');
 			getline(ss, quantidadeCSV, ';');
 			getline(ss, idVendaCSV, ';');
 			getline(ss, dataCSV, ';');
 			getline(ss, totalCSV, ';');
+			getline(ss, valorEntregueCSV, ';');
+			getline(ss, trocoCSV, ';');
+			getline(ss, sorteioCSV, ';');
 
 			int idVenda = stoi(idVendaCSV);
 			if (idVenda > ultimoIdVenda) {
@@ -180,14 +173,15 @@ void GerirVenda::adicionaVenda() {
 		cout << "Erro ao abrir o arquivo venda.csv." << endl;
 		return;
 	}
+	resultadoSorteio = gerarSorteio(ultimoIdVenda);
 
-	// Loop para adicionar produtos à venda
+	// Loop para adicionar produtos ï¿½ venda
 	do {
 		cout << "ID Produto (insira 0 para encerrar a compra): ";
 		cin >> idProduto;
 
 		if (idProduto != 0) {
-			// Verifica se idProduto é igual ao id do produto Produtos.csv
+			// Verifica se idProduto ï¿½ igual ao id do produto Produtos.csv
 			while (!produtos.verificaProduto(idProduto)) {
 				cout << "ID Produto invalido. Tente novamente: ";
 				cin >> idProduto;
@@ -196,22 +190,42 @@ void GerirVenda::adicionaVenda() {
 			cout << "Quantidade: ";
 			cin >> quantidade;
 
-			while (quantidade > produtos.obterQuantidadeDisponivel(idProduto)){
+			while (quantidade > produtos.obterQuantidadeDisponivel(idProduto)) {
 				cout << "Quantidade Indisponivel. Tente Novamente!!\n";
 				cout << "Quantidade: ";
 				cin >> quantidade;
 			}
-			produtos.dimunirQuantidadeStock(idProduto, quantidade);
-			total =  (produtos.obterPrecoProduto(idProduto) * quantidade);
-
-			// Adiciona o produto à venda no arquivo CSV
-			arquivo << idCliente << ";" << idProduto << ";" << quantidade << ";" << ultimoIdVenda + 1 << ";" << dataCSV << ";" << total << endl;
-			// Incrementa o contador
-			contador++;
+			if (quantidade > 0){ 
+				produtos.dimunirQuantidadeStock(idProduto, quantidade);
+				totalQuantia = (produtos.obterPrecoProduto(idProduto) * quantidade);
+				totalCompra = totalCompra + totalQuantia;
+				// Adiciona o produto ï¿½ venda no arquivo CSV
+				arquivo << idCliente << ";" << idProduto << ";" << quantidade << ";" << ultimoIdVenda + 1 << ";"
+					<< dataCSV << ";" << totalQuantia << ";" << quantiaEntregue << ";" << troco << ";" << resultadoSorteio << endl;
+			}
+			contador++; // Incrementa o contador
 		}
 	} while (idProduto != 0);
-	// Incrementa o último ID de venda no final da compra
+	
+	if (!resultadoSorteio){
+		cout << "Total da Compra: " << totalCompra << "\n";
+		do {
+			cout << "Valor entregue: ";
+			cin >> quantiaEntregue;
+
+		} while (quantiaEntregue <= totalCompra);
+
+		troco = quantiaEntregue - totalCompra;
+		cout << "Troco: " << troco << "\n";
+		idProduto = -1;
+		arquivo << idCliente << ";" << idProduto << ";" << quantidade << ";" << ultimoIdVenda + 1 << ";"
+			<< dataCSV << ";" << totalCompra << ";" << quantiaEntregue << ";" << troco << ";" << resultadoSorteio << endl;
+	}
+	arquivo.close();
+	// Incrementa o ï¿½ltimo ID de venda no final da compra
 	ultimoIdVenda++;
+	system("cls");
+	updateClasseVenda();
 	imprimirTalao(ultimoIdVenda);
 	arquivo.close();
 }
