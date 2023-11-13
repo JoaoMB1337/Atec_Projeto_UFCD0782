@@ -5,6 +5,8 @@
 
 class GerirVenda {
 	private:
+		int converterStringToInt(string valor);
+		double converterStringToDouble(string valor);
 		void updateClasseVenda();
 		string obterHora();
 		bool gerarSorteio(int idCompra);
