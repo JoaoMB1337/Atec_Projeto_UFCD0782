@@ -82,22 +82,20 @@ void Relatorio::imprimeMaisMenosVendido() {
         vendasPorProduto[idProdutoCSV] += quantidade;
 
         if (idProdutoCSV != "-1") {
-            // Encontrando o produto mais e menos vendido
             if (vendasPorProduto[idProdutoCSV] > quantidadeMaisVendido) {
                 quantidadeMaisVendido = vendasPorProduto[idProdutoCSV];
                 produtoMaisVendido = idProdutoCSV;
             }
-            // Encontrando o produto menos vendido
             if (vendasPorProduto[idProdutoCSV] < quantidadeMenosVendido) {
                 quantidadeMenosVendido = vendasPorProduto[idProdutoCSV];
                 produtoMenosVendido = idProdutoCSV;
             }
         }
-        // Encontrando o cliente mais ativo
+
+        // Vendas totais por cliente!!!
         vendasPorCliente[idClienteCSV] += quantidade;
 
-        if (vendasPorCliente[idClienteCSV] > quantidadeMaisVendido) {
-            quantidadeMaisVendido = vendasPorCliente[idClienteCSV];
+        if (vendasPorCliente[idClienteCSV] > vendasPorCliente[clienteMaisAtivo]) {
             clienteMaisAtivo = idClienteCSV;
         }
     }
@@ -107,7 +105,7 @@ void Relatorio::imprimeMaisMenosVendido() {
     cout << "|    Produto mais e menos vendido  |\n";
     cout << "+----------------------------------+\n";
     cout << "| Produto mais vendido: " << produtoMaisVendido << ", Quantidade: " << quantidadeMaisVendido << "           |\n";
-    cout << "| Produto menos vendido: " << produtoMenosVendido << ", Quantidade: " << quantidadeMenosVendido << "           |\n";
-    cout << "| Cliente mais ativo: " << clienteMaisAtivo << ", Quantidade: " << quantidadeMaisVendido << "           |\n";
+    cout << "| Produto menos vendido: " << produtoMenosVendido << ", Quantidade: " << quantidadeMenosVendido << "        |\n";
+    cout << "| Cliente mais ativo: " << clienteMaisAtivo << ", Quantidade: " << vendasPorCliente[clienteMaisAtivo] << "           |\n";
     cout << "+----------------------------------+\n";
 }
