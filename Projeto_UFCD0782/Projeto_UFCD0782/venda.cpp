@@ -127,3 +127,8 @@ void Venda::mostrarVendas()
 	cout << "Sortteio: " << total << endl;
 
 }
+
+double Venda::calcularLucro(double precoVenda, double precoCusto, int quantidade) {
+	return (precoVenda - precoCusto) * quantidade;
+}
+	

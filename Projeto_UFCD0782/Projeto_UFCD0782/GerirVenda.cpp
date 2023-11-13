@@ -1,5 +1,4 @@
 #include "GerirVenda.h"
-#include "GerirProduto.h"
 #include <cctype>
 #include <fstream>
 #include <sstream>
@@ -7,6 +6,7 @@
 #include <string>
 #include <stdlib.h>
 #include <iomanip>
+#include <map>
 #include <ctime>
 
 const string NOME_FICHEIRO = "venda.csv";
@@ -320,5 +320,40 @@ void GerirVenda::imprimeVendaPorProduto() {
 	}
 	if (!encontrou) {
 		cout << "Nenhuma venda encontrada para o produto: " << nomeProduto << endl;
+	}
+}
+
+int GerirVenda::produtoComMaiorLucro(){
+	if (contador == 0) {
+		cout << "Nenhuma venda realizada ainda." << endl;
+		return -1;
+	}
+
+	double maiorLucro = -1;
+	int idProdutoMaiorLucro = -1;
+
+	for (int i = 0; i < contador; ++i) {
+		int idProduto = venda[i].getIdProduto();
+		int quantidade = venda[i].getQuantidade();  // Add this line to get the quantity
+
+		if (idProduto != -1) {
+			double precoVenda = produtos.obterPrecoProduto(idProduto);
+			double precoCusto = produtos.obterPrecoSemIva(idProduto);
+			double lucro = venda[i].calcularLucro(precoVenda, precoCusto, quantidade);
+
+			if (lucro > maiorLucro) {
+				maiorLucro = lucro;
+				idProdutoMaiorLucro = idProduto;
+			}
+		}
+	}
+
+	if (idProdutoMaiorLucro != -1) {
+		cout << "O produto com maior lucro nas vendas é: " << produtos.obterNomeProduto(idProdutoMaiorLucro) << endl;
+		return idProdutoMaiorLucro;
+	}
+	else {
+		cout << "Nenhum produto encontrado." << endl;
+		return -1;
 	}
 }

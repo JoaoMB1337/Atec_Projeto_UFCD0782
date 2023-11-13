@@ -56,56 +56,60 @@ void Relatorio::imprimeSemStock() {
 void Relatorio::imprimeMaisMenosVendido() {
     ifstream arquivo("venda.csv");
     if (!arquivo.is_open()) {
-        cout << "Erro ao abrir o arquivo vendas.csv." << endl;
+        cout << "erro ao abrir o arquivo vendas.csv." << endl;
         return;
     }
 
-    string produtoMaisVendido = "";
-    string produtoMenosVendido = "";
-    string clienteMaisAtivo = "";
-    int quantidadeMaisVendido = 0;
-    int quantidadeMenosVendido = numeric_limits<int>::max();
+    string produtomaisvendido = "";
+    string produtomenosvendido = "";
+    string clientemaisativo = "";
+    int quantidademaisvendido = 0;
+    int quantidademenosvendido = INT_MAX;
+    int idProdutoMaiorLucro = gestorVenda.produtoComMaiorLucro();
+    double maiorLucro = gestorProduto.obterPrecoProduto(idProdutoMaiorLucro);
 
-    map<string, int> vendasPorProduto;
-    map<string, int> vendasPorCliente;
+    map<string, int> vendasporproduto;
+    map<string, int> vendasporcliente;
 
     string linha;
     while (getline(arquivo, linha)) {
         stringstream ss(linha);
-        string idClienteCSV, idProdutoCSV, quantidadeCSV;
-        getline(ss, idClienteCSV, ';');
-        getline(ss, idProdutoCSV, ';');
-        getline(ss, quantidadeCSV, ';');
+        string idclientecsv, idprodutocsv, quantidadecsv;
+        getline(ss, idclientecsv, ';');
+        getline(ss, idprodutocsv, ';');
+        getline(ss, quantidadecsv, ';');
 
-        int quantidade = stoi(quantidadeCSV);
+        int quantidade = stoi(quantidadecsv);
 
-        vendasPorProduto[idProdutoCSV] += quantidade;
+        vendasporproduto[idprodutocsv] += quantidade;
 
-        if (idProdutoCSV != "-1") {
-            if (vendasPorProduto[idProdutoCSV] > quantidadeMaisVendido) {
-                quantidadeMaisVendido = vendasPorProduto[idProdutoCSV];
-                produtoMaisVendido = idProdutoCSV;
+        if (idprodutocsv != "-1") {
+            if (vendasporproduto[idprodutocsv] > quantidademaisvendido) {
+                quantidademaisvendido = vendasporproduto[idprodutocsv];
+                produtomaisvendido = idprodutocsv;
             }
-            if (vendasPorProduto[idProdutoCSV] < quantidadeMenosVendido) {
-                quantidadeMenosVendido = vendasPorProduto[idProdutoCSV];
-                produtoMenosVendido = idProdutoCSV;
+            if (vendasporproduto[idprodutocsv] < quantidademenosvendido) {
+                quantidademenosvendido = vendasporproduto[idprodutocsv];
+                produtomenosvendido = idprodutocsv;
             }
         }
 
-        // Vendas totais por cliente!!!
-        vendasPorCliente[idClienteCSV] += quantidade;
+        // vendas totais por cliente!!!
+        vendasporcliente[idclientecsv] += quantidade;
 
-        if (vendasPorCliente[idClienteCSV] > vendasPorCliente[clienteMaisAtivo]) {
-            clienteMaisAtivo = idClienteCSV;
+        if (vendasporcliente[idclientecsv] > vendasporcliente[clientemaisativo]) {
+            clientemaisativo = idclientecsv;
         }
     }
     arquivo.close();
 
     cout << "+----------------------------------+\n";
-    cout << "|    Produto mais e menos vendido  |\n";
+    cout << "|    produto mais e menos vendido  |\n";
     cout << "+----------------------------------+\n";
-    cout << "| Produto mais vendido: " << produtoMaisVendido << ", Quantidade: " << quantidadeMaisVendido << "           |\n";
-    cout << "| Produto menos vendido: " << produtoMenosVendido << ", Quantidade: " << quantidadeMenosVendido << "        |\n";
-    cout << "| Cliente mais ativo: " << clienteMaisAtivo << ", Quantidade: " << vendasPorCliente[clienteMaisAtivo] << "           |\n";
+    cout << "| produto mais vendido: " << produtomaisvendido << ", quantidade: " << quantidademaisvendido << "           |\n";
+    cout << "| produto menos vendido: " << produtomenosvendido << ", quantidade: " << quantidademenosvendido << "        |\n";
+    cout << "| produto com maior lucro: " << idProdutoMaiorLucro << ", lucro: " << maiorLucro  << "        |\n";
+    cout << "| cliente mais ativo: " << clientemaisativo << ", quantidade: " << vendasporcliente[clientemaisativo] << "           |\n";
     cout << "+----------------------------------+\n";
+
 }

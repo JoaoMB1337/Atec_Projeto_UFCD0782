@@ -38,4 +38,5 @@ public:
 	double getTroco();
 	bool getSorteio();
 	void mostrarVendas();
+	double calcularLucro(double precoVenda, double precoCusto, int quantidade);
 };

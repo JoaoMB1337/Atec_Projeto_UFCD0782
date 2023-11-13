@@ -8,12 +8,13 @@
 
 class Relatorio {
 private:
-	
+
 	GerirProduto gestorProduto;
 	Gerecliente gestorCliente;
 	GerirVenda gestorVenda;
 
 public:
+
 	Relatorio();
 	void imprimirNomesQuantidades();
 	void imprimeSemStock();

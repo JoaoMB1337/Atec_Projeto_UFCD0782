@@ -24,4 +24,5 @@ class GerirVenda {
 		void adicionaVenda();
 		void imprimirTalao(int idcompra);
 		void imprimeVendaPorProduto();
+		int produtoComMaiorLucro();
 };

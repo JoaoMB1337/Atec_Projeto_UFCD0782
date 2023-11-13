@@ -104,6 +104,7 @@ void Produto::mostrarInformacoes() {
     cout << "+------------------------------------+ \n";
 }
 
-double calcularLucro(double precoVenda, double precoCusto) {
-    return precoVenda - precoCusto; 
-}
+//double Produto::calcularLucro(double precoVenda, double precoCusto){
+//    return precoVenda - precoCusto;
+//}
+
