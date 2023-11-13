@@ -27,13 +27,11 @@ class GerirProduto {
     private:
         void updateClasseProduto();
         void guardaInformacoes();
-
         bool validaNome(string nome);
         bool validaPreco(double preco);
         bool validaStock(int stock);
         bool validaIva(double iva);
         bool verificaNoCsv(int id, string nome);
-
         Produto* produtos; 
         int tamanho; 
         Produto* item;

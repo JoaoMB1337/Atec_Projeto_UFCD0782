@@ -8,6 +8,9 @@ class GerirVenda {
 		void updateClasseVenda();
 		string obterHora();
 		bool gerarSorteio(int idCompra);
+		int obterUltimoIdVenda();
+		int encontrarClientePorIdVenda(int idcompra);
+		bool encontrarSorteioPorIdVenda(int idcompra);
 		int contador;
 		Venda* venda;
 		Gerecliente clientes;
@@ -15,7 +18,6 @@ class GerirVenda {
 		int idVenda;
 
 	public:
-
 		GerirVenda();
 		void adicionaVenda();
 		void imprimirTalao(int idcompra);

@@ -5,20 +5,16 @@ class Gerecliente
 {
 	private:
 		void updateClasseCliente();
-	#pragma region Validacoes 
 		bool validaEmail(string email);
 		bool validaNome(string nome);
 		bool validaNif(string nif);
 		bool validaTelefone(string telefone);
 		bool verificaNif(string nif);
 		bool verificaEmail(string email);
-	#pragma endregion
-
 		void guardaInformacoes();
 		Cliente* pessoa;
 		int contador;
 		int id = 1;
-
 	public:
 
 		Gerecliente();

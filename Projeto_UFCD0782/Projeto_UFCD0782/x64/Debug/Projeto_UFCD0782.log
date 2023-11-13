@@ -1,5 +1,12 @@
-﻿  GerirVenda.cpp
-C:\Users\joaor\OneDrive\Ambiente de Trabalho\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirVenda.cpp(72,12): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+﻿  GerirProduto.cpp
+C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirProduto.cpp(310,12): warning C4101: 'precoCusto': variável local não referenciada
+C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirProduto.cpp(310,24): warning C4101: 'iva': variável local não referenciada
+  GerirVenda.cpp
+C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirVenda.cpp(72,12): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+  Interface.cpp
+  Projeto_UFCD0782.cpp
   Relatorio.cpp
+  Venda.cpp
   Gerando Código...
-  Projeto_UFCD0782.vcxproj -> C:\Users\joaor\OneDrive\Ambiente de Trabalho\Atec_Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Projeto_UFCD0782.exe
+C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirVenda.cpp(124): warning C4715: 'GerirVenda::encontrarClientePorIdVenda': nem todos os caminhos de controle retornam um valor
+  Projeto_UFCD0782.vcxproj -> C:\Users\Admin\Desktop\Atec_Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Projeto_UFCD0782.exe

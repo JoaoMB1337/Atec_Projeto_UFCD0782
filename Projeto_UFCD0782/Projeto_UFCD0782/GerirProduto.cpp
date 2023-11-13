@@ -66,8 +66,7 @@ void GerirProduto::updateClasseProduto() {
     arquivo.close();
 }
 
-void GerirProduto::guardaInformacoes()
-{
+void GerirProduto::guardaInformacoes(){
     ofstream arquivo(NOME_FICHEIRO, ios::out);
 
     if (!arquivo.is_open()) {

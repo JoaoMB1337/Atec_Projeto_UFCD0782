@@ -83,72 +83,8 @@ bool GerirVenda::gerarSorteio(int idCompra){
 	}
 }
 
-GerirVenda::GerirVenda(){
-	updateClasseVenda(); // Fun�ao usada para preencher a classe venda quando o programa for atulizado
-}
-
-void GerirVenda::imprimirTalao(int idcompra) {
-	int numeroCliente = 0;
-	double totalSemIVA = 0,totalComIVA = 0,valorEntregue = 0,valorTroco = 0;
-	int numeroLinha = 1;
-
-	for (int i = 0; i < contador; i++){
-		if (venda[i].getIdVenda() == idcompra) {
-			numeroCliente = venda[i].getIdCliente();
-			break;
-		}
-	}
-
-	cout << setw(40) << right << "Talao da Fatura - Numero: " << idcompra << endl;
-	cout << setw(40) << right << "+--------------------------------------------------------------+" << endl;
-	cout << setw(40) << right << "Numero Cliente: " << numeroCliente << endl;
-	cout << setw(40) << right << "+--------------------------------------------------------------+" << endl;
-	cout << setw(4) << right << "| No |" << right << "Nome Produto" << setw(5) << right << "| Quantidade |"
-		<< setw(12) << right << "Preco s/IVA |" << setw(5) << right << "IVA |" << setw(13) << right << "Total C/IVA  |" << endl;
-	cout << setw(40) << right << "+--------------------------------------------------------------+" << endl;
-
-	for (int i = 0; i < contador; i++) {
-		if (venda[i].getIdVenda() == idcompra) {
-			if (venda[i].getIdProduto() != -1) {
-				// Imprime as informa��es da linha do tal�o
-				cout << "|" << numeroLinha << " | " << produtos.obterNomeProduto(venda[i].getIdProduto())
-					<< " | " << venda[i].getQuantidade() << " | " << produtos.obterPrecoSemIva(venda[i].getIdProduto())
-					<< " | " << produtos.obterIvaProduto(venda[i].getIdProduto()) << "% | " << venda[i].getTotal() << " |" << endl;
-
-				// Calculo de total
-				totalSemIVA += venda[i].getQuantidade() * produtos.obterPrecoSemIva(venda[i].getIdProduto());
-				totalComIVA += venda[i].getTotal();
-				numeroLinha++;
-			}
-			else {
-				valorEntregue = venda[i].getValorEntrege();
-				valorTroco = venda[i].getTroco();
-			}
-		}
-	}
-
-	cout << setw(40) << right << "+--------------------------------------------------------------+" << endl;
-	cout << setw(40) << "Total s/IVA:" << setw(14) << totalSemIVA << setw(10) << "|" << endl;
-	cout << setw(40) << "Total c/IVA:" << setw(14) << totalComIVA << setw(10) << "|" << endl;
-	cout << setw(40) << "Valor Entrege:" << setw(14) << valorEntregue << setw(10) << "|" << endl;
-	cout << setw(40) << "Troco:" << setw(14) << valorTroco << setw(10) << "|" << endl;
-	cout << setw(40) << right << "+--------------------------------------------------------------+" << endl;
-}
-
-void GerirVenda::adicionaVenda() {
-
-	int idCliente, idProduto, quantidade = 0;
-	string dataCSV = obterHora();
-	double totalQuantia = 0, totalCompra = 0, quantiaEntregue = 0, troco = 0;
-	int ultimoIdVenda = 0;  // Vari�vel para armazenar o �ltimo ID de venda
-	bool resultadoSorteio = false;
-	// Verifica se idCliente � igual ao id  de algum cliente guardado na classe
-	do {
-		cout << "ID Cliente: ";
-		cin >> idCliente;
-	} while (!clientes.verificaCliente(idCliente));
-
-	// Abre o arquivo em modo leitura para encontrar o �ltimo ID de venda
+int GerirVenda::obterUltimoIdVenda(){
+	int ultimoIdVenda = 0;
 	ifstream arquivoLeitura(NOME_FICHEIRO);
 
 	if (arquivoLeitura.is_open()) {
@@ -175,13 +111,101 @@ void GerirVenda::adicionaVenda() {
 		}
 		arquivoLeitura.close();
 	}
-	// Abre o arquivo em modo append (adiciona ao final do arquivo)
-	ofstream arquivo("venda.csv", ios::app);
+	return ultimoIdVenda;
+}
 
+int GerirVenda::encontrarClientePorIdVenda(int idcompra){
+	for (int i = 0; i < contador; i++) {
+		if (venda[i].getIdVenda() == idcompra) {
+			 return venda[i].getIdCliente();
+			break;
+		}
+	}
+}
+
+bool GerirVenda::encontrarSorteioPorIdVenda(int idcompra){
+	for (int i = 0; i < contador; i++) {
+		if (venda[i].getIdVenda() == idcompra) {
+			if (venda[i].getSorteio()) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+GerirVenda::GerirVenda(){
+	updateClasseVenda(); // Fun�ao usada para preencher a classe venda quando o programa for atulizado
+}
+
+void GerirVenda::imprimirTalao(int idcompra) {
+	int numeroCliente = encontrarClientePorIdVenda(idcompra);
+	double totalSemIVA = 0,totalComIVA = 0,valorEntregue = 0,valorTroco = 0;
+	int numeroLinha = 1;
+	bool sorteioEncontrado = encontrarSorteioPorIdVenda(idcompra);
+
+	cout << setw(40) << right << "Talao da Fatura - Numero: " << idcompra <<"\n";
+	cout << setw(40) << right << "+--------------------------------------------------------------+\n";
+	cout << setw(40) << right << "Numero Cliente: " << numeroCliente << endl;
+	cout << setw(40) << right << "+--------------------------------------------------------------+\n";
+	cout << setw(4) << right << "| No |" << right << "Nome Produto" << setw(5) << right << "| Quantidade |"
+		<< setw(12) << right << "Preco s/IVA |" << setw(5) << right << "IVA |" << setw(13) << right << "Total C/IVA  |\n";
+	cout << setw(40) << right << "+--------------------------------------------------------------+\n";
+
+	for (int i = 0; i < contador; i++) {
+		if (venda[i].getIdVenda() == idcompra) {
+			if (venda[i].getIdProduto() != -1) {
+				// Imprime as informa��es da linha do tal�o
+				cout << "|" << numeroLinha << " | " << produtos.obterNomeProduto(venda[i].getIdProduto())
+					<< " | " << venda[i].getQuantidade() << " | " << produtos.obterPrecoSemIva(venda[i].getIdProduto())
+					<< " | " << produtos.obterIvaProduto(venda[i].getIdProduto()) << "% | " << venda[i].getTotal() << " |\n";
+
+				// Calculo de total
+				totalSemIVA += venda[i].getQuantidade() * produtos.obterPrecoSemIva(venda[i].getIdProduto());
+				totalComIVA += venda[i].getTotal();
+				numeroLinha++;
+			}
+			else {
+				valorEntregue = venda[i].getValorEntrege();
+				valorTroco = venda[i].getTroco();
+			}
+		}
+	}
+	if (!sorteioEncontrado) {
+		cout << setw(40) << right << "+--------------------------------------------------------------+\n";
+		cout << setw(40) << "Total s/IVA:" << setw(14) << totalSemIVA << setw(10) << "|\n";
+		cout << setw(40) << "Total c/IVA:" << setw(14) << totalComIVA << setw(10) << "|\n" ;
+		cout << setw(40) << "Valor Entrege:" << setw(14) << valorEntregue << setw(10) << "|\n" ;
+		cout << setw(40) << "Troco:" << setw(14) << valorTroco << setw(10) << "|\n";
+		cout << setw(40) << right << "+--------------------------------------------------------------+\n" ;
+	}
+	else {
+		cout << setw(40) << right << "+--------------------------------------------------------------+\n";
+		cout << setw(40) << "Esta venda foi sorteada!!\n";
+		cout << setw(40) << right << "+--------------------------------------------------------------+\n";
+	}
+}
+
+void GerirVenda::adicionaVenda() {
+
+	int idCliente, idProduto, quantidade = 0;
+	string dataCSV = obterHora();
+	double totalQuantia = 0, totalCompra = 0, quantiaEntregue = 0, troco = 0;
+	int ultimoIdVenda = obterUltimoIdVenda();
+	bool resultadoSorteio = false;
+	
+	// Verifica se idCliente � igual ao id  de algum cliente guardado na classe
+	do {
+		cout << "ID Cliente: ";
+		cin >> idCliente;
+	} while (!clientes.verificaCliente(idCliente));
+
+	ofstream arquivo(NOME_FICHEIRO, ios::app);
 	if (!arquivo.is_open()) {
 		cout << "Erro ao abrir o arquivo venda.csv." << endl;
 		return;
 	}
+
 	resultadoSorteio = gerarSorteio(ultimoIdVenda);
 
 	// Loop para adicionar produtos � venda
@@ -231,13 +255,11 @@ void GerirVenda::adicionaVenda() {
 			<< dataCSV << ";" << totalCompra << ";" << quantiaEntregue << ";" << troco << ";" << resultadoSorteio << endl;
 	}
 	arquivo.close();
-	// Incrementa o �ltimo ID de venda no final da compra
 	ultimoIdVenda++;
 	system("cls");
 	updateClasseVenda();
 	imprimirTalao(ultimoIdVenda);
 	arquivo.close();
-	
 }
 
 void GerirVenda::imprimeVendaPorProduto() {
