@@ -12,6 +12,28 @@
 const string NOME_FICHEIRO = "venda.csv";
 const int MAX_ID_VENDA = 100;
 
+int GerirVenda::converterStringToInt(string valor){
+	try {
+		return stoi(valor);
+	}
+	catch (invalid_argument& e) {
+		cerr << "Erro: Valor nao e um inteiro valido.\n\n";
+		return -1; 
+	}
+	return -1;
+}
+
+double GerirVenda::converterStringToDouble(string valor){
+	try {
+		return stod(valor);
+	}
+	catch (invalid_argument& e) {
+		cerr << "Erro: Valor nao e um double valido.";
+		return 0;
+	}
+	return 0;
+}
+
 void GerirVenda::updateClasseVenda(){
 	ifstream arquivo(NOME_FICHEIRO);
 	if (!arquivo.is_open()) {
@@ -187,17 +209,26 @@ void GerirVenda::imprimirTalao(int idcompra) {
 }
 
 void GerirVenda::adicionaVenda() {
-
+	string IdClienteString,idProdutoString,quantidadeString, quantiaEntregueString;
 	int idCliente, idProduto, quantidade = 0;
 	string dataCSV = obterHora();
 	double totalQuantia = 0, totalCompra = 0, quantiaEntregue = 0, troco = 0;
 	int ultimoIdVenda = obterUltimoIdVenda();
 	bool resultadoSorteio = false;
+
+	if (ultimoIdVenda >= MAX_ID_VENDA) {
+        cout << "Limite de vendas atingido. O conteudo do arquivo sera apagado.\n";
+        ofstream arquivo(NOME_FICHEIRO, ios::trunc);  // 'trunc' para truncar o arquivo (apagar o conteúdo)
+        arquivo.close();
+        contador = 0;  // Zerar o contador
+        return;
+    }
 	
 	// Verifica se idCliente � igual ao id  de algum cliente guardado na classe
 	do {
 		cout << "ID Cliente: ";
-		cin >> idCliente;
+		cin >> IdClienteString;
+		idCliente = converterStringToInt(IdClienteString);
 	} while (!clientes.verificaCliente(idCliente));
 
 	ofstream arquivo(NOME_FICHEIRO, ios::app);
@@ -211,8 +242,8 @@ void GerirVenda::adicionaVenda() {
 	// Loop para adicionar produtos � venda
 	do {
 		cout << "ID Produto (insira 0 para encerrar a compra): ";
-		cin >> idProduto;
-
+		cin >> idProdutoString;
+		idProduto = converterStringToInt(idProdutoString);
 		if (idProduto != 0) {
 			// Verifica se idProduto � igual ao id do produto Produtos.csv
 			while (!produtos.verificaProduto(idProduto)) {
@@ -221,13 +252,15 @@ void GerirVenda::adicionaVenda() {
 			}
 
 			cout << "Quantidade: ";
-			cin >> quantidade;
-
+			cin >> quantidadeString;
+			quantidade = converterStringToInt(quantidadeString);
 			while (quantidade > produtos.obterQuantidadeDisponivel(idProduto)) {
 				cout << "Quantidade Indisponivel. Tente Novamente!!\n";
 				cout << "Quantidade: ";
-				cin >> quantidade;
+				cin >> quantidadeString;
+				quantidade = converterStringToInt(quantidadeString);
 			}
+
 			if (quantidade > 0) {
 				produtos.dimunirQuantidadeStock(idProduto, quantidade);
 				totalQuantia = (produtos.obterPrecoProduto(idProduto) * quantidade);
@@ -243,12 +276,19 @@ void GerirVenda::adicionaVenda() {
 	if (!resultadoSorteio) {
 		cout << "Total da Compra: " << totalCompra << "\n";
 		do {
+
 			cout << "Valor entregue: ";
-			cin >> quantiaEntregue;
+			cin >> quantiaEntregueString;
+			quantiaEntregue = converterStringToDouble(quantiaEntregueString);
+			if (quantiaEntregue < totalCompra) {
+				cout << "Valor insuficiente. Insira um valor igual ou superior ao total da compra." << endl;
+			}
 
-		} while (quantiaEntregue <= totalCompra);
-
+		} while (quantiaEntregue < totalCompra);
 		troco = quantiaEntregue - totalCompra;
+		if (troco < 0) {
+			troco = 0;
+		}
 		cout << "Troco: " << troco << "\n";
 		idProduto = -1;
 		arquivo << idCliente << ";" << idProduto << ";" << quantidade << ";" << ultimoIdVenda + 1 << ";"
