@@ -1,11 +1,11 @@
 #include "GerirVenda.h"
+#include <iostream>
+#include <iomanip>
 #include <cctype>
 #include <fstream>
 #include <sstream>
-#include <iostream>
 #include <string>
 #include <stdlib.h>
-#include <iomanip>
 #include <map>
 #include <ctime>
 
@@ -349,7 +349,6 @@ int GerirVenda::produtoComMaiorLucro(){
 	}
 
 	if (idProdutoMaiorLucro != -1) {
-		cout << "O produto com maior lucro nas vendas é: " << produtos.obterNomeProduto(idProdutoMaiorLucro) << endl;
 		return idProdutoMaiorLucro;
 	}
 	else {

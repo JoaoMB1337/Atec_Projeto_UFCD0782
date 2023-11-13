@@ -1,8 +1,9 @@
 #include "Relatorio.h"
+#include <iostream>
+#include <iomanip>
 #include <cctype>
 #include <fstream>
 #include <sstream>
-#include <iostream>
 #include <limits>
 #include <map>
 
@@ -66,6 +67,7 @@ void Relatorio::imprimeMaisMenosVendido() {
     int quantidademaisvendido = 0;
     int quantidademenosvendido = INT_MAX;
     int idProdutoMaiorLucro = gestorVenda.produtoComMaiorLucro();
+    string getNomePorId = gestorProduto.obterNomeProduto(idProdutoMaiorLucro);
     double maiorLucro = gestorProduto.obterPrecoProduto(idProdutoMaiorLucro);
 
     map<string, int> vendasporproduto;
@@ -104,12 +106,12 @@ void Relatorio::imprimeMaisMenosVendido() {
     arquivo.close();
 
     cout << "+----------------------------------+\n";
-    cout << "|    produto mais e menos vendido  |\n";
+    cout << "|      Produto mais e menos vendido|\n";
     cout << "+----------------------------------+\n";
-    cout << "| produto mais vendido: " << produtomaisvendido << ", quantidade: " << quantidademaisvendido << "           |\n";
-    cout << "| produto menos vendido: " << produtomenosvendido << ", quantidade: " << quantidademenosvendido << "        |\n";
-    cout << "| produto com maior lucro: " << idProdutoMaiorLucro << ", lucro: " << maiorLucro  << "        |\n";
-    cout << "| cliente mais ativo: " << clientemaisativo << ", quantidade: " << vendasporcliente[clientemaisativo] << "           |\n";
+    cout << "| Produto mais vendido: " <<setw(30) << left << produtomaisvendido << "| Quantidade: " << setw(10) <<right << quantidademaisvendido << "|\n";
+    cout << "| Produto menos vendido: " << setw(28) <<left << produtomenosvendido << "| Quantidade: " << setw(10) << right << quantidademenosvendido << "|\n";
+    cout << "| Produto com maior lucro: " << setw(27) << left << getNomePorId << "| Lucro: " << setw(14) << right << maiorLucro << "|\n";
+    cout << "| Cliente mais ativo: " << setw(31) << left << clientemaisativo << "| Quantidade: " <<setw(10) <<right << vendasporcliente[clientemaisativo] << "|\n";
     cout << "+----------------------------------+\n";
 
 }
