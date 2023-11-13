@@ -246,7 +246,7 @@ void GerirVenda::adicionaVenda() {
 			cout << "Valor entregue: ";
 			cin >> quantiaEntregue;
 
-		} while (quantiaEntregue <= totalCompra);
+		} while (quantiaEntregue < totalCompra);
 
 		troco = quantiaEntregue - totalCompra;
 		cout << "Troco: " << troco << "\n";

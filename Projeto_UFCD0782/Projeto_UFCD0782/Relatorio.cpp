@@ -54,7 +54,6 @@ void Relatorio::imprimeSemStock() {
 }
 
 void Relatorio::imprimeMaisMenosVendido() {
-
     ifstream arquivo("venda.csv");
     if (!arquivo.is_open()) {
         cout << "Erro ao abrir o arquivo vendas.csv." << endl;
@@ -63,43 +62,52 @@ void Relatorio::imprimeMaisMenosVendido() {
 
     string produtoMaisVendido = "";
     string produtoMenosVendido = "";
+    string clienteMaisAtivo = "";
     int quantidadeMaisVendido = 0;
-    int quantidadeMenosVendido = numeric_limits<int>::max();  // Valor máximo de um inteiro
+    int quantidadeMenosVendido = numeric_limits<int>::max();
 
-    map<string, int> vendasPorProduto;  // Mapa que associa o nome do produto à quantidade total vendida
+    map<string, int> vendasPorProduto;
+    map<string, int> vendasPorCliente;
 
     string linha;
     while (getline(arquivo, linha)) {
         stringstream ss(linha);
-        string idVenda, nomeProduto, quantidadeProduto;
-        getline(ss, idVenda, ';');  // ID da venda
-        getline(ss, nomeProduto, ';');
-        getline(ss, quantidadeProduto, ';');
+        string idClienteCSV, idProdutoCSV, quantidadeCSV;
+        getline(ss, idClienteCSV, ';');
+        getline(ss, idProdutoCSV, ';');
+        getline(ss, quantidadeCSV, ';');
 
-        int quantidade = stoi(quantidadeProduto);
+        int quantidade = stoi(quantidadeCSV);
 
-        // Atualizar a quantidade total vendida para cada produto
-        vendasPorProduto[nomeProduto] += quantidade; // Se o produto ainda não existir no mapa, será criado com o valor 0
+        vendasPorProduto[idProdutoCSV] += quantidade;
 
-        // Atualizar o produto mais vendido
-        if (vendasPorProduto[nomeProduto] > quantidadeMaisVendido) {
-            quantidadeMaisVendido = vendasPorProduto[nomeProduto];
-            produtoMaisVendido = nomeProduto;
+        if (idProdutoCSV != "-1") {
+            // Encontrando o produto mais e menos vendido
+            if (vendasPorProduto[idProdutoCSV] > quantidadeMaisVendido) {
+                quantidadeMaisVendido = vendasPorProduto[idProdutoCSV];
+                produtoMaisVendido = idProdutoCSV;
+            }
+            // Encontrando o produto menos vendido
+            if (vendasPorProduto[idProdutoCSV] < quantidadeMenosVendido) {
+                quantidadeMenosVendido = vendasPorProduto[idProdutoCSV];
+                produtoMenosVendido = idProdutoCSV;
+            }
         }
+        // Encontrando o cliente mais ativo
+        vendasPorCliente[idClienteCSV] += quantidade;
 
-        // Atualizar o produto menos vendido
-        if (vendasPorProduto[nomeProduto] < quantidadeMenosVendido) {
-            quantidadeMenosVendido = vendasPorProduto[nomeProduto];
-            produtoMenosVendido = nomeProduto;
+        if (vendasPorCliente[idClienteCSV] > quantidadeMaisVendido) {
+            quantidadeMaisVendido = vendasPorCliente[idClienteCSV];
+            clienteMaisAtivo = idClienteCSV;
         }
-
     }
     arquivo.close();
-    
+
     cout << "+----------------------------------+\n";
     cout << "|    Produto mais e menos vendido  |\n";
     cout << "+----------------------------------+\n";
     cout << "| Produto mais vendido: " << produtoMaisVendido << ", Quantidade: " << quantidadeMaisVendido << "           |\n";
     cout << "| Produto menos vendido: " << produtoMenosVendido << ", Quantidade: " << quantidadeMenosVendido << "           |\n";
+    cout << "| Cliente mais ativo: " << clienteMaisAtivo << ", Quantidade: " << quantidadeMaisVendido << "           |\n";
     cout << "+----------------------------------+\n";
 }
