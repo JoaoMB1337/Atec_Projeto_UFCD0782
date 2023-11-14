@@ -1,6 +1,7 @@
 ﻿#include "GerirProduto.h"
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 
 const string NOME_FICHEIRO = "produtos.csv";
 
@@ -20,6 +21,22 @@ bool GerirProduto::verificaNoCsv(int id, string nome) {
         }
     }
     return false;
+}
+
+void GerirProduto::guardaInformacoes() {
+    ofstream arquivo(NOME_FICHEIRO, ios::out);
+
+    if (!arquivo.is_open()) {
+        cout << "Erro ao abrir o arquivo produtos.csv." << endl;
+        return;
+    }
+    for (int i = 0; i < numItem; i++) {
+        arquivo << item[i].getId() << "," << item[i].getNome() << "," << item[i].getStock() << "," << item[i].getPrecoCusto() << "," << item[i].getIva();
+        if (i < numItem - 1) {
+            arquivo << endl; // Evita uma linha em branco no final
+        }
+    }
+    arquivo.close();
 }
 
 void GerirProduto::updateClasseProduto() {
@@ -64,28 +81,10 @@ void GerirProduto::updateClasseProduto() {
         numItem++;
     }
     arquivo.close();
-}
-
-void GerirProduto::guardaInformacoes(){
-    ofstream arquivo(NOME_FICHEIRO, ios::out);
-
-    if (!arquivo.is_open()) {
-        cout << "Erro ao abrir o arquivo produtos.csv." << endl;
-        return;
-    }
-
-    for (int i = 0; i < numItem; i++) {
-        arquivo << item[i].getId() << "," << item[i].getNome() << "," << item[i].getStock() << "," << item[i].getPrecoCusto() << "," << item[i].getIva();
-        if (i < numItem - 1) {
-            arquivo << endl; // Evita uma linha em branco no final
-        }
-    }
-    arquivo.close();
-    updateClasseProduto();
+    guardaInformacoes();
 }
 
 GerirProduto::GerirProduto() {
-
     updateClasseProduto();
 }
 
@@ -226,6 +225,7 @@ void GerirProduto::adicionarProduto() {
 
     guardaInformacoes();
     cout << "Produto Adicionado com sucesso!!! \n" ;
+    updateClasseProduto();
 }
 
 void GerirProduto::removerProduto() {
@@ -239,6 +239,7 @@ void GerirProduto::removerProduto() {
             item[i] = item[numItem - 1];
             numItem--;
             existe = true;
+            updateClasseProduto();
             guardaInformacoes();
         }
     }
@@ -284,6 +285,7 @@ void GerirProduto::modificarProduto() {
             item[i].setPrecoCusto(precoCusto);
             item[i].setIva(iva);
             existe = true;
+            updateClasseProduto();
             guardaInformacoes();
         }
     }
@@ -311,6 +313,7 @@ void GerirProduto::atualizarStockProduto(){
             } while (!validaStock(stock));
             item[i].setStock(stock);
             existe = true;
+            updateClasseProduto();
             guardaInformacoes();
         }
     }
@@ -325,18 +328,30 @@ void GerirProduto::atualizarStockProduto(){
 #pragma region Acesso Exterior da classe
 
 void GerirProduto::mostrarProdutos() {
+    cout << "+--------------------------------------------------------------------------------------+\n";
+    cout << "|    Informações sobre Produtos Disponíveis                                            |\n";
+    cout << "+--------------------------------------------------------------------------------------+\n";
+    cout << "|  Id  |     Nome      | Quantidade  | Preço Custo | Preço Venda | IVA | Preço Sem IVA |\n";
+    cout << "+--------------------------------------------------------------------------------------+\n";
     for (int i = 0; i < numItem; i++) {
         item[i].mostrarInformacoes();
     }
+
 }
 
 void GerirProduto::produtosComStock(){
+    cout << "+------------------------------------------------+\n";;
+    cout << "|    Lista de Produtos Disponíveis               |\n";
+    cout << "+------------------------------------------------+\n";;
+    cout << "|  Id  |     Nome      | Quantidade  |   Preço   |\n";
+    cout << "+------------------------------------------------+\n";
+
     for (int i = 0; i < numItem; i++) {
-        if (item[i].getStock() >0) {
-            cout << "Id: " << item[i].getId() << " Nome: " << item[i].getNome() << " Quantidade: " << item[i].getStock() << " Preço: " << item[i].calcularPrecoVenda(item[i].getPrecoCusto(), item[i].getIva()) << "\n";
+        if (item[i].getStock() > 0) {
+            cout << "| " << setw(4) << item[i].getId() << " | " << setw(14) << item[i].getNome() << " | " << setw(10) << item[i].getStock() << " | " << setw(9) << fixed << setprecision(2) << item[i].calcularPrecoVenda(item[i].getPrecoCusto(), item[i].getIva()) << " |\n";
         }
     }
-    cout << "\n";
+    cout << "+------------------------------------------------+\n";
 }
 
 void GerirProduto::obterNomesQuantidades(string*& nomes, int*& quantidades, int& tamanho){

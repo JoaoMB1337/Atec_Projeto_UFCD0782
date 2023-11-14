@@ -94,17 +94,18 @@ double Produto::calcularPrecoSemIva(double precoVenda, double iva){
 
 void Produto::mostrarInformacoes() {
 
-    cout << "ID: " << this->id << "\n";
+   /* cout << "ID: " << this->id << "\n";
     cout << "Nome: " << this->nome << "\n";
     cout << "Stock: " << this->stock << "\n";
-    cout << "Preco de Custo: " << fixed << setprecision(2) << this->precoCusto << "\n";
+    cout << "Preço de Custo: " << fixed << setprecision(2) << this->precoCusto << "\n";
     cout << "IVA: " << this->iva << "%" << "\n";
-    cout << "Preco de Venda: " << this->calcularPrecoVenda(precoCusto, iva) << "\n";
-    cout << "Preco Sem IVA: " << this->calcularPrecoSemIva(precoCusto, iva) << "\n";
-    cout << "+------------------------------------+ \n";
+    cout << "Preço de Venda: " << this->calcularPrecoVenda(precoCusto, iva) << "\n";
+    cout << "Preço Sem IVA: " << this->calcularPrecoSemIva(precoCusto, iva) << "\n";
+    cout << "+------------------------+\n";*/
+
+    cout << "| " << setw(4) << this->id << " | " << setw(13) << this->nome << " | " << setw(10) << this->stock << " | " << setw(10) << this->precoVenda << " | " 
+        << setw(8) << this->iva << " | " << setw(8) <<this->calcularPrecoSemIva(this->precoCusto, this->iva) << setw(8) << " | "
+        << fixed << setprecision(2)  << this->calcularPrecoVenda(this->precoCusto, this->iva) << " \n";
 }
 
-//double Produto::calcularLucro(double precoVenda, double precoCusto){
-//    return precoVenda - precoCusto;
-//}
 

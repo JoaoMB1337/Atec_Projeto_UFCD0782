@@ -5,6 +5,7 @@
 
 class GerirVenda {
 	private:
+		void updatingClasses();
 		int converterStringToInt(string str);
 		double converterStringToDouble(string str);
 		void updateClasseVenda();

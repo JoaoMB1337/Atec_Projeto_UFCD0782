@@ -2,6 +2,7 @@
 #include <cctype>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 
 const string NOME_FICHEIRO = "cliente.csv";
 
@@ -255,6 +256,8 @@ void  Gerecliente::adicionaCliente() {
 
 //Remove um cliente pelo nome e nif
 void Gerecliente::removeCliente() {
+
+	mostrarCliente();
 	string nome, nif;
 	bool existe = false;
 	cout << "Nome: ";
@@ -282,6 +285,8 @@ void Gerecliente::removeCliente() {
 
 //Modifica o procurando o cliente por o nome e o NIF cliente 
 void Gerecliente::modificadadoCliente() {
+
+	mostrarCliente();
 	string nome, nif;
 	bool existe = false;
 	cout << "Insira o nome do cliente que pretende modificar: ";
@@ -359,4 +364,18 @@ string Gerecliente::obterNomeCliente(int idCliente)
 		}
 	}
 	return "Nao Existe!";
+}
+
+void Gerecliente::mostrarCliente(){
+	cout << "+----------------------------------+\n";
+	cout << "|      Lista de Clientes           |\n";
+	cout << "+----------------------------------+\n";
+	cout << "|  Id  |          Nome             |\n";
+	cout << "+----------------------------------+\n";
+
+	for (int i = 0; i < contador; i++) {
+		cout << "| " << setw(4) << pessoa[i].getId() << " | " << setw(25) << pessoa[i].getNome() << " |\n";
+	}
+
+	cout << "+----------------------------------+\n";
 }

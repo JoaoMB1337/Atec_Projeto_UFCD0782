@@ -4,7 +4,6 @@
 class Gerecliente
 {
 	private:
-		void updateClasseCliente();
 		bool validaEmail(string email);
 		bool validaNome(string nome);
 		bool validaNif(string nif);
@@ -15,14 +14,16 @@ class Gerecliente
 		Cliente* pessoa;
 		int contador;
 		int id = 1;
-	public:
 
+	public:
 		Gerecliente();
+		void updateClasseCliente();
 		void adicionaCliente();
 		void removeCliente();
 		void modificadadoCliente();
 		void listaClientes();
 		bool verificaCliente(int idCliente);
 		string obterNomeCliente(int idCliente);
+		void mostrarCliente();
 
 };

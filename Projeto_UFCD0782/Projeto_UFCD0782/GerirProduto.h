@@ -4,7 +4,7 @@
 class GerirProduto {
     public:
         GerirProduto();
-
+        void updateClasseProduto();
         #pragma region Funcoes de modicacao da classe Produto
         void adicionarProduto();
         void removerProduto();
@@ -26,7 +26,7 @@ class GerirProduto {
         #pragma endregion
 
     private:
-        void updateClasseProduto();
+       
         void guardaInformacoes();
         bool validaNome(string nome);
         bool validaPreco(double preco);
