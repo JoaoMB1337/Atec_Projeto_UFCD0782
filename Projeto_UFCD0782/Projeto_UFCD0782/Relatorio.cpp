@@ -57,7 +57,7 @@ void Relatorio::imprimeSemStock() {
 void Relatorio::imprimeMaisMenosVendido() {
     ifstream arquivo("venda.csv");
     if (!arquivo.is_open()) {
-        cout << "erro ao abrir o arquivo vendas.csv." << endl;
+        cout << "erro ao abrir o arquivo vendas.csv. \n" ;
         return;
     }
 
