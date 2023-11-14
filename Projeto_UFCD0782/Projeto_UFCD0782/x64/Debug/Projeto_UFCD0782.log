@@ -1,4 +1,17 @@
-﻿  GerirVenda.cpp
-C:\Users\joaor\OneDrive\Ambiente de Trabalho\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirVenda.cpp(97,12): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
-C:\Users\joaor\OneDrive\Ambiente de Trabalho\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirVenda.cpp(149): warning C4715: 'GerirVenda::encontrarClientePorIdVenda': nem todos os caminhos de controle retornam um valor
-  Projeto_UFCD0782.vcxproj -> C:\Users\joaor\OneDrive\Ambiente de Trabalho\Atec_Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Projeto_UFCD0782.exe
+﻿  cliente.cpp
+  Gerecliente.cpp
+  GerirVenda.cpp
+C:\Users\hugoc\Documents\GitHub\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirVenda.cpp(97,12): warning C4244: 'argumento': conversão de 'time_t' para 'unsigned int', possível perda de dados
+  Interface.cpp
+  Produto.cpp
+C:\Users\hugoc\Documents\GitHub\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\Produto.cpp(42,16): warning C4244: 'return': conversão de 'double' para 'int', possível perda de dados
+  GerirProduto.cpp
+C:\Users\hugoc\Documents\GitHub\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirProduto.cpp(303,12): warning C4101: 'precoCusto': variável local não referenciada
+C:\Users\hugoc\Documents\GitHub\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirProduto.cpp(303,24): warning C4101: 'iva': variável local não referenciada
+  Projeto_UFCD0782.cpp
+  Relatorio.cpp
+C:\Users\hugoc\Documents\GitHub\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\Relatorio.cpp(111,94): warning C4244: '+=': conversão de 'double' para 'int', possível perda de dados
+  Venda.cpp
+  Gerando Código...
+C:\Users\hugoc\Documents\GitHub\Atec_Projeto_UFCD0782\Projeto_UFCD0782\Projeto_UFCD0782\GerirVenda.cpp(149): warning C4715: 'GerirVenda::encontrarClientePorIdVenda': nem todos os caminhos de controle retornam um valor
+  Projeto_UFCD0782.vcxproj -> C:\Users\hugoc\Documents\GitHub\Atec_Projeto_UFCD0782\Projeto_UFCD0782\x64\Debug\Projeto_UFCD0782.exe

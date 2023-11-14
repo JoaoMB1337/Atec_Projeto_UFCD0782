@@ -168,11 +168,11 @@ void Interface::menuRelatorios(Relatorio relatorio, GerirProduto gerirProduto, G
 		cout << "+----------------------------+\n";
 		cout << "|  (1) - Stock               |\n";
 		cout << "|                            |\n";
-		cout << "|  (2) - Sem Stock !!!       |\n";
+		cout << "|  (2) - Sem Stock           |\n";
 		cout << "|                            |\n";
 		cout << "|  (3) - Relatorio Produto   |\n";
 		cout << "|                            |\n";
-		cout << "|  (4) - Mais e Menos Vendido|\n";
+		cout << "|  (4) - Relatorio Total     |\n";
 		cout << "|                            |\n";
 		cout << "|  (5) - Sair                |\n";
 		cout << "+----------------------------+\n";
