@@ -173,8 +173,8 @@ void GerirVenda::imprimirTalao(int idcompra) {
 	cout << setw(40) << right << "+--------------------------------------------------------------+\n";
 	cout << setw(40) << right << "Numero Cliente: " << numeroCliente << "\n";
 	cout << setw(40) << right << "+--------------------------------------------------------------+\n";
-	cout << setw(4) << right << "| No |" << right << "Nome Produto" << setw(15) << right << "| Quantidade |"
-		<< setw(12) << right << "Preco s/IVA |" << setw(2) << right << "IVA |" << setw(10) << right << "Total C/IVA  |\n";
+	cout << setw(4) << right << "| No |" << right << "Nome Produto" << setw(15) << right << " | Quantidade |"
+		<< setw(12) << right << "Preco s/IVA |" << setw(2) << right << "IVA |" << setw(10) << right << "Total C/IVA |\n";
 	cout << setw(40) << right << "+--------------------------------------------------------------+\n";
 
 	for (int i = 0; i < contador; i++) {
@@ -197,10 +197,10 @@ void GerirVenda::imprimirTalao(int idcompra) {
 
 	if (!sorteioEncontrado) {
 		cout << setw(40) << right << "+--------------------------------------------------------------+\n";
-		cout << setw(40) << "Total s/IVA:" << setw(14) << totalSemIVA << setw(10) << "|\n";
-		cout << setw(40) << "Total c/IVA:" << setw(14) << totalComIVA << setw(10) << "|\n";
-		cout << setw(40) << "Valor Entregue:" << setw(14) << valorEntregue << setw(10) << "|\n";
-		cout << setw(40) << "Troco:" << setw(14) << valorTroco << setw(10) << "|\n";
+		cout << setw(40) << "Total s/IVA:" << setw(14) << totalSemIVA << setw(11) << "|\n";
+		cout << setw(40) << "Total c/IVA:" << setw(14) << totalComIVA << setw(11) << "|\n";
+		cout << setw(40) << "Valor Entregue:" << setw(14) << valorEntregue << setw(11) << "|\n";
+		cout << setw(40) << "Troco:" << setw(14) << valorTroco << setw(11) << "|\n";
 		cout << setw(40) << right << "+--------------------------------------------------------------+\n";
 	}
 	else {
@@ -247,35 +247,33 @@ void GerirVenda::adicionaVenda() {
 	// Loop para adicionar produtos à venda
 	do {
 		cout << "ID Produto (insira 0 para encerrar a compra): ";
-		cin >> idProdutoString;
-		idProduto = converterStringToInt(idProdutoString);
+		cin >> idProduto;
 
-		if (idProduto > 0) {
+		if (idProduto != 0 || !produtos.verificaProduto(idProduto)) {
 			// Verifica se idProduto é igual ao id do produto Produtos.csv
-			while (!produtos.verificaProduto(idProduto) || idProduto <= 0) {
-				cout << "ID Produto inválido. Tente novamente: ";
-				cin >> idProduto;
+			if (!produtos.verificaProduto(idProduto)) {
+				cout << "ID Produto inválido. Tente novamente.\n";
+				continue;
 			}
 
 			cout << "Quantidade: ";
-			cin >> quantidadeString;
-			quantidade = converterStringToInt(quantidadeString);
+			cin >> quantidade;
 
-			while (quantidade <= 0 || quantidade > produtos.obterQuantidadeDisponivel(idProduto)) {
-				cout << "Quantidade inválida ou indisponível. Tente novamente: ";
-				cin >> quantidadeString;
-				quantidade = converterStringToInt(quantidadeString);
+			while (quantidade > produtos.obterQuantidadeDisponivel(idProduto)) {
+				cout << "Quantidade Indisponível. Tente Novamente!!\n";
+				cout << "Quantidade: ";
+				cin >> quantidade;
 			}
 
 			if (quantidade > 0) {
 				produtos.dimunirQuantidadeStock(idProduto, quantidade);
 				totalQuantia = (produtos.obterPrecoProduto(idProduto) * quantidade);
-				totalCompra += totalQuantia;
+				totalCompra = totalCompra + totalQuantia;
 				// Adiciona o produto à venda no arquivo CSV
 				arquivo << idCliente << ";" << idProduto << ";" << quantidade << ";" << ultimoIdVenda + 1 << ";"
 					<< dataCSV << ";" << totalQuantia << ";" << quantiaEntregue << ";" << troco << ";" << resultadoSorteio << endl;
-				contador++; // Incrementa o contador
 			}
+			contador++; // Incrementa o contador
 		}
 	} while (idProduto != 0);
 
@@ -286,19 +284,16 @@ void GerirVenda::adicionaVenda() {
 			cout << "Valor entregue: ";
 			cin >> quantiaEntregueString;
 
-			while (!converterStringToDouble(quantiaEntregueString) || stod(quantiaEntregueString) < totalCompra) {
+			while (!converterStringToDouble(quantiaEntregueString) > totalCompra) {
 				cout << "Valor inválido. Insira um valor igual ou superior ao total da compra: ";
 				cin >> quantiaEntregueString;
 			}
 
 			quantiaEntregue = stod(quantiaEntregueString);
 			troco = quantiaEntregue - totalCompra;
-
 			if (troco < 0) {
 				troco = 0;
 			}
-
-			cout << "Troco: " << troco << "\n";
 			arquivo << idCliente << ";" << -1 << ";" << -1 << ";" << ultimoIdVenda + 1 << ";"
 				<< dataCSV << ";" << totalCompra << ";" << quantiaEntregue << ";" << troco << ";" << resultadoSorteio << endl;
 		} while (quantiaEntregue < totalCompra);
@@ -325,6 +320,8 @@ void GerirVenda::imprimeVendaPorProduto() {
 	for (int i = 0; i < contador; ++i) {
 		if (nomeProduto == produtos.obterNomeProduto(venda[i].getIdProduto())) {
 			venda[i].mostrarVendas();
+			cout << "-------------------------------\n";
+
 			encontrou = true;
 		}
 	}

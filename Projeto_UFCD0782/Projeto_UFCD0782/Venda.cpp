@@ -121,9 +121,8 @@ void Venda::mostrarVendas()
 	cout << "ID Venda: " << idVenda << endl;
 	cout << "Data: " << data << endl;
 	cout << "Total: " << total << endl;
-	cout << "Valor Entrege: " << total << endl;
-	cout << "Troco: " << total << endl;
-	cout << "Sorteio: " << total << endl;
+	cout << "Valor Entrege: " << valorEntrege << endl;
+	cout << "Troco: " << troco << endl;
 }
 
 double Venda::calcularLucro(double precoVenda, double precoCusto, int quantidade) {

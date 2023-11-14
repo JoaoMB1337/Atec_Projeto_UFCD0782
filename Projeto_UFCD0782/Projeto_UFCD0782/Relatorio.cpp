@@ -65,8 +65,6 @@ void Relatorio::imprimeSemStock() {
     delete[] quantidades;
 }
 
-
-
 //relatorio total
 void Relatorio::imprimeMaisMenosVendido() {
     ifstream arquivo("venda.csv");
