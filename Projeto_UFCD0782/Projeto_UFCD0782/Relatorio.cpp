@@ -72,6 +72,7 @@ void Relatorio::imprimeMaisMenosVendido() {
 
     map<string, int> vendasporproduto;
     map<string, int> vendasporcliente;
+    map<string , int> lucroporproduto;
 
     string linha;
     while (getline(arquivo, linha)) {
@@ -102,6 +103,14 @@ void Relatorio::imprimeMaisMenosVendido() {
         if (vendasporcliente[idclientecsv] > vendasporcliente[clientemaisativo]) {
             clientemaisativo = idclientecsv;
         }
+
+        // lucro por produto
+        lucroporproduto[idprodutocsv] += gestorProduto.obterPrecoProduto(stoi(idprodutocsv)) * quantidade;
+
+        if (lucroporproduto[idprodutocsv] > maiorLucro) {
+			maiorLucro = lucroporproduto[idprodutocsv];
+			getNomePorId = gestorProduto.obterNomeProduto(stoi(idprodutocsv));
+		}
     }
     arquivo.close();
 
