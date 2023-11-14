@@ -70,7 +70,6 @@ bool Venda::getSorteio()
 	return sorteio;
 }
 
-
 void Venda::setIdCliente(int idCliente)
 {
 	this->idCliente = idCliente;
@@ -124,8 +123,7 @@ void Venda::mostrarVendas()
 	cout << "Total: " << total << endl;
 	cout << "Valor Entrege: " << total << endl;
 	cout << "Troco: " << total << endl;
-	cout << "Sortteio: " << total << endl;
-
+	cout << "Sorteio: " << total << endl;
 }
 
 double Venda::calcularLucro(double precoVenda, double precoCusto, int quantidade) {

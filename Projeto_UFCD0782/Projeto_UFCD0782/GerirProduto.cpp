@@ -93,40 +93,38 @@ GerirProduto::GerirProduto() {
 
 
 //valida nome
-bool GerirProduto::validaNome(string nome)
-{
+bool GerirProduto::validaNome(string nome){
     if (nome.length() < 3) {
-        cout << "Nome invalido! O nome deve ter pelo menos 3 caracteres.\nInsira novamente:" << endl;
+        cout << "Nome invalido! O nome deve ter pelo menos 3 caracteres.\nInsira novamente: ";
         return false;
     }
     for (char c : nome)
     {
         if (isdigit(c))                                                                                     // isdigit verifica se é um digito e retorna true caso seja
         {
-            cout << "Nome invalido! O nome deve conter apenas letras.\nInsira novamente:" << endl;
+            cout << "Nome invalido! O nome deve conter apenas letras.\nInsira novamente: ";
             return false;
         }
     }
     //verifica se ja existe
     if (verificaNoCsv(0, nome)) {
-		cout << "Nome invalido! O nome ja existe.\nInsira novamente:" << endl;
+		cout << "Nome invalido! O nome ja existe.\nInsira novamente: ";
 		return false;
 	}
     return true;
 }
 
 //valida stock
-bool GerirProduto::validaStock(int stock)
-{
+bool GerirProduto::validaStock(int stock){
     //verifica se tem letras
     if (cin.fail()) {                                                           // se o cin falhar
 		cin.clear();                                                            // limpa o cin
 		cin.ignore(1000, '\n');  											    // ignora o que estiver no buffer
-		cout << "Stock invalido! O stock deve ser um numero inteiro.\nInsira novamente:" << endl;
+		cout << "Stock invalido! O stock deve ser um numero inteiro.\nInsira novamente: ";
 		return false;
 	}
 	if (stock < 0) {
-		cout << "Stock invalido! O stock deve ser maior ou igual a 0.\nInsira novamente:" << endl;
+		cout << "Stock invalido! O stock deve ser maior ou igual a 0.\nInsira novamente: ";
 		return false;
 	}
 
@@ -135,32 +133,30 @@ bool GerirProduto::validaStock(int stock)
 }
 
 //valida preco
-bool GerirProduto::validaPreco(double precoCusto)
-{
+bool GerirProduto::validaPreco(double precoCusto){
     if (cin.fail()) {                                                           // se o cin falhar
         cin.clear();                                                            // limpa o cin
         cin.ignore(1000, '\n');  											    // ignora o que estiver no buffer
-        cout << "Preco invalido! O preco deve ser um numero.\nInsira novamente:" << endl;
+        cout << "Preco invalido! O preco deve ser um numero.\nInsira novamente: ";
         return false;
     }
     if (precoCusto <= 0) {
-		cout << "Preco invalido! O preco deve ser maior que 0.\nInsira novamente:" << endl;
+		cout << "Preco invalido! O preco deve ser maior que 0.\nInsira novamente: ";
 		return false;
 	}
 	return true;
 }
 
 //valida iva
-bool GerirProduto::validaIva(double iva)
-{
+bool GerirProduto::validaIva(double iva){
     if (cin.fail()) {                                                           // se o cin falhar
         cin.clear();                                                            // limpa o cin
         cin.ignore(1000, '\n');  											    // ignora o que estiver no buffer
-        cout << "Stock invalido! O stock deve ser um numero inteiro.\nInsira novamente:" << endl;
+        cout << "Stock invalido! O stock deve ser um numero inteiro.\nInsira novamente: ";
         return false;
     }
     if (iva < 0) {
-		cout << "Iva invalido! O iva deve ser maior ou igual a 0.\nInsira novamente:" << endl;
+		cout << "Iva invalido! O iva deve ser maior ou igual a 0.\nInsira novamente: ";
 		return false;
 	}
 	return true;
@@ -229,7 +225,7 @@ void GerirProduto::adicionarProduto() {
     numItem++;
 
     guardaInformacoes();
-    cout << "Produto Adicionado com sucesso!!!" << endl;
+    cout << "Produto Adicionado com sucesso!!! \n" ;
 }
 
 void GerirProduto::removerProduto() {
@@ -237,8 +233,7 @@ void GerirProduto::removerProduto() {
     bool existe = false;
     cout << "Nome: ";
     cin >> nome;
-    for (int i = 0; i < numItem; i++)
-    {
+    for (int i = 0; i < numItem; i++){
         if (item[i].getNome() == nome)
         {
             item[i] = item[numItem - 1];
@@ -247,12 +242,11 @@ void GerirProduto::removerProduto() {
             guardaInformacoes();
         }
     }
-    if (existe == false)
-    {
-        cout << "Produto nao existe!" << endl;
+    if (existe == false){
+        cout << "Produto nao existe! \n";
     }
     else {
-        cout << "Produto removido com sucesso!" << endl;
+        cout << "Produto removido com sucesso! \n";
     }
 }
 
@@ -263,10 +257,8 @@ void GerirProduto::modificarProduto() {
     bool existe = false;
     cout << "Insira o nome do produto que pretende modificar: ";
     cin >> nome;
-    for (int i = 0; i < numItem; i++)
-    {
-        if (item[i].getNome() == nome)
-        {
+    for (int i = 0; i < numItem; i++){
+        if (item[i].getNome() == nome){
             cout << "Insira os novos dados\nNome: ";
             do {
                 cin >> nome;
@@ -295,12 +287,11 @@ void GerirProduto::modificarProduto() {
             guardaInformacoes();
         }
     }
-    if (existe == false)
-    {
-        cout << "Produto nao existe!" << endl;
+    if (existe == false){
+        cout << "Produto nao existe! \n";
     }
     else {
-        cout << "Produto modificado com sucesso!" << endl;
+        cout << "Produto modificado com sucesso! \n";
     }
 }
 
@@ -323,12 +314,11 @@ void GerirProduto::atualizarStockProduto(){
             guardaInformacoes();
         }
     }
-    if (existe == false)
-    {
-        cout << "Produto nao existe!" << endl;
+    if (existe == false){
+        cout << "Produto nao existe! \n";
     }
     else {
-        cout << "Produto modificado com sucesso!" << endl;
+        cout << "Produto modificado com sucesso! \n" ;
     }
 }
 
@@ -370,12 +360,12 @@ void GerirProduto::dimunirQuantidadeStock(int idProduto,int quantidade) {
                 guardaInformacoes(); // Volta  a guardar informaçoes de stock na Ficheiro Produtos.csv
             }
             else {
-                cout << "Produto sem stock disponível." << endl;
+                cout << "Produto sem stock disponível. \n";
             }
             return;
         }
     }
-    cout << "Produto não encontrado." << endl;
+    cout << "Produto não encontrado. \n";
 }
 
 int GerirProduto::obterQuantidadeDisponivel(int idProduto) {

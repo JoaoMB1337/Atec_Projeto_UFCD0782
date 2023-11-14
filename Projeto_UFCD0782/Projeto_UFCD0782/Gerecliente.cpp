@@ -8,7 +8,7 @@ const string NOME_FICHEIRO = "cliente.csv";
 void Gerecliente::updateClasseCliente(){
 	ifstream arquivo(NOME_FICHEIRO);
 	if (!arquivo.is_open()) {
-		cout << "Arquivo de clientes n�o encontrado. \n ";
+		cout << "Arquivo de clientes nao encontrado. \n ";
 		contador = 0;
 		pessoa = nullptr;
 		return;
@@ -55,7 +55,7 @@ bool Gerecliente::validaNome(string nome) {
 		//verifica se tem numeros ou caracteres especiais respetivamente
 		if (isdigit(c) || ispunct(c))
 		{
-			cout << "Nome nao pode conter numeros ou caracteres especiais!" << endl << "Insira novamente: ";
+			cout << "Nome nao pode conter numeros ou caracteres especiais! \n Insira novamente: ";
 			return false;
 		}
 	}
@@ -69,7 +69,7 @@ bool Gerecliente::validaTelefone(string telefone)
 	{
 		if (!isdigit(c))
 		{
-			cout << "Telefone so pode conter numeros!" << endl << "Insira novamente: ";
+			cout << "Telefone so pode conter numeros! \n Insira novamente: ";
 			return false;
 		}
 	}
@@ -81,14 +81,14 @@ bool Gerecliente::validaEmail(string email)
 {
 	if (email.find("@") == string::npos || email.find(".") == string::npos)
 	{
-		cout << "Email tem de conter @ e . !" << endl << "Insira novamente: ";
+		cout << "Email tem de conter @ e . ! \n Insira novamente: ";
 		return false;
 	}
 	for (int i = 0; i < contador; i++)
 	{
 		if (pessoa[i].getEmail() == email)
 		{
-			cout << "Email ja existe!" << endl << "Insira novamente: ";
+			cout << "Email ja existe! \n Insira novamente: ";
 			return false;
 		}
 	}
@@ -236,7 +236,7 @@ void  Gerecliente::adicionaCliente() {
 			}
 		}
 	}
-	//cria id unico que n�o pode ser alterado mesmo que o cliente seja removido
+	//cria id unico que nao pode ser alterado mesmo que o cliente seja removido
 	if (contador == 0) {
 		id = 1;
 	}
