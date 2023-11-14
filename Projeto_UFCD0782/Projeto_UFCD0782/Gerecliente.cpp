@@ -350,3 +350,13 @@ bool Gerecliente::verificaCliente(int idCliente) {
 	cout << "Cliente nao existe!! \n";
 	return false;
 }
+
+string Gerecliente::obterNomeCliente(int idCliente)
+{
+	for (int i = 0; i < contador; i++) {
+		if (pessoa[i].getId() == idCliente) {
+			return pessoa[i].getNome();
+		}
+	}
+	return "Nao Existe!";
+}

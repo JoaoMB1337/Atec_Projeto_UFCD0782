@@ -23,5 +23,6 @@ class Gerecliente
 		void modificadadoCliente();
 		void listaClientes();
 		bool verificaCliente(int idCliente);
+		string obterNomeCliente(int idCliente);
 
 };

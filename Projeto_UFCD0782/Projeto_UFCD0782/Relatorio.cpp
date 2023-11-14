@@ -64,11 +64,13 @@ void Relatorio::imprimeMaisMenosVendido() {
     string produtomaisvendido = "";
     string produtomenosvendido = "";
     string clientemaisativo = "";
+    int idCliente = 0;
     int quantidademaisvendido = 0;
     int quantidademenosvendido = INT_MAX;
     int idProdutoMaiorLucro = gestorVenda.produtoComMaiorLucro();
     string getNomePorId = gestorProduto.obterNomeProduto(idProdutoMaiorLucro);
     double maiorLucro = gestorProduto.obterPrecoProduto(idProdutoMaiorLucro);
+    string getNomeCliente = gestorCliente.obterNomeCliente(idCliente);
 
     map<string, int> vendasporproduto;
     map<string, int> vendasporcliente;
@@ -89,11 +91,11 @@ void Relatorio::imprimeMaisMenosVendido() {
         if (idprodutocsv != "-1") {
             if (vendasporproduto[idprodutocsv] > quantidademaisvendido) {
                 quantidademaisvendido = vendasporproduto[idprodutocsv];
-                produtomaisvendido = idprodutocsv;
+                produtomaisvendido = gestorProduto.obterNomeProduto(stoi(idprodutocsv));
             }
             if (vendasporproduto[idprodutocsv] < quantidademenosvendido) {
                 quantidademenosvendido = vendasporproduto[idprodutocsv];
-                produtomenosvendido = idprodutocsv;
+                produtomenosvendido = gestorProduto.obterNomeProduto(stoi(idprodutocsv));
             }
         }
 
@@ -102,6 +104,7 @@ void Relatorio::imprimeMaisMenosVendido() {
 
         if (vendasporcliente[idclientecsv] > vendasporcliente[clientemaisativo]) {
             clientemaisativo = idclientecsv;
+            clientemaisativo = gestorCliente.obterNomeCliente(stoi(idclientecsv));
         }
 
         // lucro por produto
@@ -119,7 +122,7 @@ void Relatorio::imprimeMaisMenosVendido() {
     cout << "+----------------------------------+\n";
     cout << "| Produto mais vendido: " <<setw(30) << left << produtomaisvendido << "| Quantidade: " << setw(10) <<right << quantidademaisvendido << "|\n";
     cout << "| Produto menos vendido: " << setw(28) <<left << produtomenosvendido << "| Quantidade: " << setw(10) << right << quantidademenosvendido << "|\n";
-    cout << "| Produto com maior lucro: " << setw(27) << left << getNomePorId << "| Lucro: " << setw(14) << right << maiorLucro << "|\n";
+    cout << "| Produto com maior lucro: " << setw(27) << left << getNomePorId << "| Lucro: " << setw(14) << right << maiorLucro << " Euros |\n";
     cout << "| Cliente mais ativo: " << setw(31) << left << clientemaisativo << "| Quantidade: " <<setw(10) <<right << vendasporcliente[clientemaisativo] << "|\n";
     cout << "+----------------------------------+\n";
 
