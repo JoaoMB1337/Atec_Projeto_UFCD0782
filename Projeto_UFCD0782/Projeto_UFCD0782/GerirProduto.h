@@ -15,6 +15,7 @@ class GerirProduto {
         #pragma endregion
 
         #pragma region Funcoes de Acesso Exterior
+        void produtosComStock();
         void obterNomesQuantidades(string*& nomes, int*& quantidades, int& tamanho);
         bool verificaProduto(int idProduto);
         int obterQuantidadeDisponivel(int idProduto);

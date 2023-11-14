@@ -236,6 +236,7 @@ void GerirVenda::adicionaVenda() {
 	}
 
 	resultadoSorteio = gerarSorteio(ultimoIdVenda);
+	produtos.produtosComStock();
 
 	// Loop para adicionar produtos � venda
 	do {

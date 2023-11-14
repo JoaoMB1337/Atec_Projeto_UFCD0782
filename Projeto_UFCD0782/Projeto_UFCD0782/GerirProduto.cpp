@@ -330,6 +330,15 @@ void GerirProduto::mostrarProdutos() {
     }
 }
 
+void GerirProduto::produtosComStock(){
+    for (int i = 0; i < numItem; i++) {
+        if (item[i].getStock() >0) {
+            cout << "Id: " << item[i].getId() << " Nome: " << item[i].getNome() << " Quantidade: " << item[i].getStock() << " Preço: " << item[i].calcularPrecoVenda(item[i].getPrecoCusto(), item[i].getIva()) << "\n";
+        }
+    }
+    cout << "\n";
+}
+
 void GerirProduto::obterNomesQuantidades(string*& nomes, int*& quantidades, int& tamanho){
     tamanho = numItem;
     nomes = new string[tamanho];

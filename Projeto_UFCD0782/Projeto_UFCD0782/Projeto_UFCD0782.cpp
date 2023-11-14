@@ -1,8 +1,12 @@
+#include <Windows.h>
 #include <iostream>
 #include "Interface.h"
 int main()
 {
-    Interface interface;
-    interface.menuPrincipal();
+    SetConsoleCP(1252);
+    SetConsoleOutputCP(1252);
+
+    Interface interfaces;
+    interfaces.menuPrincipal();
     return 0;
 }
