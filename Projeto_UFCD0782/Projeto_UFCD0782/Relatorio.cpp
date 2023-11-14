@@ -17,6 +17,8 @@ void Relatorio::updatesClasses(){
     gestorVenda.updatingClasses();
 }
 
+
+//com stock
 void Relatorio::imprimirNomesQuantidades() {
     updatesClasses();
     string* nomes;
@@ -30,7 +32,7 @@ void Relatorio::imprimirNomesQuantidades() {
     cout << "+----------------------------------+\n";
 
     for (int i = 0; i < tamanho; i++) {
-        cout << "| Nome: " << nomes[i] << ", Quantidade: " << quantidades[i] << "           |\n";
+        cout << "| Nome: " << nomes[i] << ", Quantidade: " << quantidades[i] << "\n";
     }
     cout << "+----------------------------------+\n";
 
@@ -39,6 +41,7 @@ void Relatorio::imprimirNomesQuantidades() {
     delete[] quantidades;
 }
 
+//sem stock
 void Relatorio::imprimeSemStock() {
     updatesClasses();
     string* nomes;
@@ -62,6 +65,9 @@ void Relatorio::imprimeSemStock() {
     delete[] quantidades;
 }
 
+
+
+//relatorio total
 void Relatorio::imprimeMaisMenosVendido() {
     ifstream arquivo("venda.csv");
     if (!arquivo.is_open()) {
@@ -126,12 +132,12 @@ void Relatorio::imprimeMaisMenosVendido() {
     arquivo.close();
 
     cout << "+----------------------------------+\n";
-    cout << "|      Produto mais e menos vendido|\n";
+    cout << "|      Relatorio Total             |\n";
     cout << "+----------------------------------+\n";
-    cout << "| Produto mais vendido: " <<setw(30) << left << produtomaisvendido << "| Quantidade: " << setw(10) <<right << quantidademaisvendido << "|\n";
-    cout << "| Produto menos vendido: " << setw(28) <<left << produtomenosvendido << "| Quantidade: " << setw(10) << right << quantidademenosvendido << "|\n";
-    cout << "| Produto com maior lucro: " << setw(27) << left << getNomePorId << "| Lucro: " << setw(14) << right << maiorLucro << " Euros |\n";
-    cout << "| Cliente mais ativo: " << setw(31) << left << clientemaisativo << "| Quantidade: " <<setw(10) <<right << vendasporcliente[clientemaisativo] << "|\n";
+    cout << "| Produto mais vendido: " <<setw(30) << left << produtomaisvendido <<endl<< "| Quantidade: " << quantidademaisvendido << "\n";
+    cout << "| Produto menos vendido: " << setw(28) <<left << produtomenosvendido <<endl<< "| Quantidade: " << quantidademenosvendido << "\n";
+    cout << "| Produto com maior lucro: " << setw(27) << left << getNomePorId <<endl<< "| Lucro: " << maiorLucro << " Euros \n";
+    cout << "| Cliente mais ativo: " << setw(31) << left << clientemaisativo <<endl<< "| Quantidade: " << vendasporcliente[clientemaisativo] << "\n";
     cout << "+----------------------------------+\n";
 
 }

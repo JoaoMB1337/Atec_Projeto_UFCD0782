@@ -65,7 +65,7 @@ void Interface::menuProduto(GerirProduto gerirProduto) {
 			return;
 
 		default:
-			cout << "!!Opção Invalida!! \n";
+			cout << "!!Opcao Invalida!! \n";
 			break;
 		}
 
@@ -120,7 +120,7 @@ void Interface::menuCliente(Gerecliente gerirCliente) {
 			return;
 
 		default:
-			cout << "!!Opção Invalida!! \n";
+			cout << "!!Opcao Invalida!! \n";
 			break;
 		}
 
@@ -208,7 +208,7 @@ void Interface::menuRelatorios(Relatorio relatorio, GerirProduto gerirProduto, G
 			return;
 
 		default:
-			cout << "!!Opção Invalida!! \n";
+			cout << "!!Opcao Invalida!! \n";
 			break;
 		}
 
@@ -265,7 +265,7 @@ void Interface::menuPrincipal() {
 			return;
 
 		default:
-			cout << "!!Opção Invalida!! \n";
+			cout << "!!Opcao Invalida!! \n";
 			break;
 		}
 	} while (true);
