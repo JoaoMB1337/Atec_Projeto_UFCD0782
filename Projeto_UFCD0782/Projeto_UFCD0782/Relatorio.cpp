@@ -11,7 +11,14 @@ Relatorio::Relatorio(){
 
 }
 
+void Relatorio::updatesClasses(){
+    gestorCliente.updateClasseCliente();
+    gestorProduto.updateClasseProduto();
+    gestorVenda.updatingClasses();
+}
+
 void Relatorio::imprimirNomesQuantidades() {
+    updatesClasses();
     string* nomes;
     int* quantidades;
     int tamanho;
@@ -33,6 +40,7 @@ void Relatorio::imprimirNomesQuantidades() {
 }
 
 void Relatorio::imprimeSemStock() {
+    updatesClasses();
     string* nomes;
     int* quantidades;
     int tamanho;

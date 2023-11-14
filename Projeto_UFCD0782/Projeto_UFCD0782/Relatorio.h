@@ -16,6 +16,7 @@ private:
 public:
 
 	Relatorio();
+	void updatesClasses();
 	void imprimirNomesQuantidades();
 	void imprimeSemStock();
 	void imprimeMaisMenosVendido();

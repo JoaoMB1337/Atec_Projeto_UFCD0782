@@ -5,7 +5,6 @@
 
 class GerirVenda {
 	private:
-		void updatingClasses();
 		int converterStringToInt(string str);
 		double converterStringToDouble(string str);
 		void updateClasseVenda();
@@ -22,6 +21,7 @@ class GerirVenda {
 
 	public:
 		GerirVenda();
+		void updatingClasses();
 		void adicionaVenda();
 		void imprimirTalao(int idcompra);
 		void imprimeVendaPorProduto();
