@@ -340,7 +340,6 @@ void GerirProduto::mostrarProdutos() {
     for (int i = 0; i < numItem; i++) {
         item[i].mostrarInformacoes();
     }
-
 }
 
 void GerirProduto::produtosComStock(){
