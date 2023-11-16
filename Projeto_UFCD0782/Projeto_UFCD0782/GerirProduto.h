@@ -1,5 +1,9 @@
 #pragma once
 #include "Produto.h"
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+
 
 class GerirProduto {
     public:

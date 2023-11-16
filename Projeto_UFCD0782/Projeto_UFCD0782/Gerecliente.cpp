@@ -1,8 +1,5 @@
 ﻿#include "Gerecliente.h"
-#include <cctype>
-#include <fstream>
-#include <sstream>
-#include <iomanip>
+
 
 const string NOME_FICHEIRO = "cliente.csv";
 
@@ -271,7 +268,6 @@ void Gerecliente::removeCliente() {
 			pessoa[i] = pessoa[contador - 1];
 			contador--;
 			existe = true;
-			guardaInformacoes();
 		}
 	}
 	if (existe == false)
@@ -280,6 +276,8 @@ void Gerecliente::removeCliente() {
 	}
 	else {
 		cout << "Cliente removido com sucesso! \n";
+		guardaInformacoes();
+
 	}
 }
 
@@ -326,8 +324,6 @@ void Gerecliente::modificadadoCliente() {
 			pessoa[i].setEmail(email);
 			pessoa[i].setNif(nif);
 			existe = true;
-			guardaInformacoes();
-			return;
 		}
 	}
 	if (existe == false)
@@ -335,11 +331,17 @@ void Gerecliente::modificadadoCliente() {
 		cout << "Cliente nao existe!" << endl;
 	}
 	else {
+		guardaInformacoes();
 		cout << "Cliente modificado com sucesso!" << endl;
 	}
 }
 
 void Gerecliente::listaClientes() {
+	cout << "+---------------------------------------------------------------------------------------+\n";
+	cout << "|                                      Lista de Clientes                                |\n";
+	cout << "+---------------------------------------------------------------------------------------+\n";
+	cout << "|  Id  |          Nome             |   NIF      |   Morada     | Telefone  |    Email   |\n";
+	cout << "+---------------------------------------------------------------------------------------+\n";
 	for (int i = 0; i < contador; i++)
 	{
 		pessoa[i].mostrarClientes();
@@ -367,15 +369,17 @@ string Gerecliente::obterNomeCliente(int idCliente)
 }
 
 void Gerecliente::mostrarCliente(){
-	cout << "+----------------------------------+\n";
-	cout << "|      Lista de Clientes           |\n";
-	cout << "+----------------------------------+\n";
-	cout << "|  Id  |          Nome             |\n";
-	cout << "+----------------------------------+\n";
+	cout << "+-----------------------------------------------+\n";
+	cout << "|            Lista de Clientes                  |\n";
+	cout << "+-----------------------------------------------+\n";
+	cout << "|  Id  |          Nome             |   NIF      |\n";
+	cout << "+-----------------------------------------------+\n";
 
 	for (int i = 0; i < contador; i++) {
-		cout << "| " << setw(4) << pessoa[i].getId() << " | " << setw(25) << pessoa[i].getNome() << " |\n";
+		cout << "| " << setw(4) << pessoa[i].getId() << " | " << setw(25) << pessoa[i].getNome()
+			<< " | " << setw(10) << pessoa[i].getNif() << " |\n";
 	}
 
-	cout << "+----------------------------------+\n";
+	cout << "+-----------------------------------------------+\n";
+
 }

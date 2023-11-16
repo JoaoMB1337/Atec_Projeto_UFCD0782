@@ -1,11 +1,13 @@
 #pragma once
 #include "Gerecliente.h"
 #include "GerirProduto.h"
+#include "GerirVenda.h"
+#include "Relatorio.h"
+#include <Windows.h>
+#include <iostream>
 #include <stdlib.h>
 #include <cctype>
 #include <string>
-#include "GerirVenda.h"
-#include "Relatorio.h"
 class Interface
 {
 public:

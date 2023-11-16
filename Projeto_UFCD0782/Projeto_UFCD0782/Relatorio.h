@@ -2,9 +2,13 @@
 #include "GereCliente.h"
 #include "GerirProduto.h"
 #include "GerirVenda.h"
-#include <cctype>
 #include <fstream>
 #include <sstream>
+#include <iostream>
+#include <iomanip>
+#include <cctype>
+#include <limits>
+#include <map>
 
 class Relatorio {
 private:

@@ -1,6 +1,11 @@
 #pragma once
 #include "cliente.h"
 #include <string>
+#include <cctype>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+
 class Gerecliente
 {
 	private:

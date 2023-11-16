@@ -1,5 +1,3 @@
-#include <Windows.h>
-#include <iostream>
 #include "Interface.h"
 int main()
 {

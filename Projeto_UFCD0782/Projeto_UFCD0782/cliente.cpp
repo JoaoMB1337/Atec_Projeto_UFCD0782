@@ -82,13 +82,9 @@ void Cliente::setId(int id)
 }
 
 void Cliente::mostrarClientes() {
-	cout << "ID: " << this->id << "\n";
-	cout << "Nome: " << this->nome << "\n";
-	cout << "Morada: " << this->morada << "\n";
-	cout << "Telefone: " << this->telefone << "\n";
-	cout << "Email: " << this->email << "\n";
-	cout << "NIF: " << this->nif << "\n";
-	cout << "+------------------------------------+ \n";
+	cout << "| " << setw(4) << this->id << " | " << setw(25) << this->nome
+		<< " | " << setw(10) << this->nif << " | " << setw(12) << this->morada
+		<< " | " << setw(9) << this->telefone << " | " << setw(10) <<this->email << " |\n";
 }
 
 

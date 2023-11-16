@@ -70,6 +70,7 @@ bool Venda::getSorteio()
 	return sorteio;
 }
 
+
 void Venda::setIdCliente(int idCliente)
 {
 	this->idCliente = idCliente;
@@ -113,16 +114,11 @@ void Venda::setSorteio(bool sorteio){
 	this->sorteio = sorteio;
 }
 
-void Venda::mostrarVendas()
-{
-	cout << "ID Cliente: " << idCliente << endl;
-	cout << "ID Produto: " << idProduto << endl;
-	cout << "Quantidade: " << quantidade << endl;
-	cout << "ID Venda: " << idVenda << endl;
-	cout << "Data: " << data << endl;
-	cout << "Total: " << total << endl;
-	cout << "Valor Entrege: " << valorEntrege << endl;
-	cout << "Troco: " << troco << endl;
+
+void Venda::mostrarVendas(){
+	cout << "| " << setw(11) << left << idCliente << "| " << setw(11) << left << idProduto << "| " << setw(11) << left << quantidade << "| " 
+		<< setw(9) << left << idVenda << "| " << setw(15) << left << data << "| " << setw(14) << left << total << "| " << setw(15) << left 
+		<< valorEntrege << "| " << setw(8) << left << troco << "|\n";
 }
 
 double Venda::calcularLucro(double precoVenda, double precoCusto, int quantidade) {

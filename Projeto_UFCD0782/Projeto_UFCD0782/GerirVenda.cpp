@@ -1,13 +1,5 @@
 #include "GerirVenda.h"
-#include <iostream>
-#include <iomanip>
-#include <cctype>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <stdlib.h>
-#include <map>
-#include <ctime>
+
 
 const string NOME_FICHEIRO = "venda.csv";
 const int MAX_ID_VENDA = 100;
@@ -174,7 +166,7 @@ void GerirVenda::imprimirTalao(int idcompra) {
 	cout << setw(40) << right << "Numero Cliente: " << numeroCliente << "\n";
 	cout << setw(40) << right << "+--------------------------------------------------------------+\n";
 	cout << setw(4) << right << "| No |" << right << "Nome Produto" << setw(15) << right << " | Quantidade |"
-		<< setw(12) << right << "Preco s/IVA |" << setw(2) << right << "IVA |" << setw(10) << right << "Total C/IVA |\n";
+		<< setw(12) << right << "Preco s/IVA |" << right << "IVA |" << setw(10) << right << "Total C/IVA |\n";
 	cout << setw(40) << right << "+--------------------------------------------------------------+\n";
 
 	for (int i = 0; i < contador; i++) {
@@ -247,20 +239,26 @@ void GerirVenda::adicionaVenda() {
 	// Loop para adicionar produtos à venda
 	do {
 		cout << "ID Produto (insira 0 para encerrar a compra): ";
-		cin >> idProduto;
 
-		if (idProduto != 0 || !produtos.verificaProduto(idProduto)) {
+		cin >> idProdutoString;
+		idProduto = converterStringToInt(idProdutoString);
+		if (idProduto != 0 || !produtos.verificaProduto(idProduto) ) {
 			// Verifica se idProduto é igual ao id do produto Produtos.csv
 			if (!produtos.verificaProduto(idProduto)) {
-				cout << "ID Produto inválido. Tente novamente.\n";
+				cout << "ID Produto invalido. Tente novamente.\n";
+				continue;
+			}
+
+			if (produtos.obterQuantidadeDisponivel(idProduto) == 0){
+				cout << "Produto inserido sem stock!!\n";
 				continue;
 			}
 
 			cout << "Quantidade: ";
-			cin >> quantidade;
-
+			cin >> quantidadeString;
+			quantidade=converterStringToInt(quantidadeString);
 			while (quantidade > produtos.obterQuantidadeDisponivel(idProduto)) {
-				cout << "Quantidade Indisponível. Tente Novamente!!\n";
+				cout << "Quantidade Indisponivel. Tente Novamente!!\n";
 				cout << "Quantidade: ";
 				cin >> quantidade;
 			}
@@ -285,7 +283,7 @@ void GerirVenda::adicionaVenda() {
 			cin >> quantiaEntregueString;
 
 			while (!converterStringToDouble(quantiaEntregueString) > totalCompra) {
-				cout << "Valor inválido. Insira um valor igual ou superior ao total da compra: ";
+				cout << "Valor invalido. Insira um valor igual ou superior ao total da compra: ";
 				cin >> quantiaEntregueString;
 			}
 
@@ -313,15 +311,16 @@ void GerirVenda::imprimeVendaPorProduto() {
 	cout << "Insira o nome do produto: ";
 	cin >> nomeProduto;
 
-	cout << "+--------------------------------------+\n";
-	cout << "|    Relatorio de Vendas por Produto   |\n";
-	cout << "+--------------------------------------+\n";
+	cout << "+-----------------------------------------------------------------------------------------------------------------+\n";
+	cout << "|                                              Relatorio de Vendas por Produto                                    |\n";
+	cout << "+-----------------------------------------------------------------------------------------------------------------+\n";
+	cout << "| ID Cliente | ID Produto | Quantidade | ID Venda | Data               | Total         | Valor Entrege  | Troco   |\n";
+	cout << "+-----------------------------------------------------------------------------------------------------------------+\n";
 
 	for (int i = 0; i < contador; ++i) {
 		if (nomeProduto == produtos.obterNomeProduto(venda[i].getIdProduto())) {
 			venda[i].mostrarVendas();
-			cout << "-------------------------------\n";
-
+			cout << "+-----------------------------------------------------------------------------------------------------------------+\n";
 			encontrou = true;
 		}
 	}
@@ -341,7 +340,7 @@ int GerirVenda::produtoComMaiorLucro(){
 
 	for (int i = 0; i < contador; ++i) {
 		int idProduto = venda[i].getIdProduto();
-		int quantidade = venda[i].getQuantidade();  // Add this line to get the quantity
+		int quantidade = venda[i].getQuantidade();
 
 		if (idProduto != -1) {
 			double precoVenda = produtos.obterPrecoProduto(idProduto);

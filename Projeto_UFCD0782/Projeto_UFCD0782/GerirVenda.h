@@ -2,6 +2,15 @@
 #include "Venda.h"
 #include "Gerecliente.h"
 #include "GerirProduto.h"
+#include <iostream>
+#include <iomanip>
+#include <cctype>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <stdlib.h>
+#include <map>
+#include <ctime>
 
 class GerirVenda {
 	private:

@@ -1,7 +1,4 @@
 ﻿#include "GerirProduto.h"
-#include <fstream>
-#include <sstream>
-#include <iomanip>
 
 const string NOME_FICHEIRO = "produtos.csv";
 
@@ -222,16 +219,17 @@ void GerirProduto::adicionarProduto() {
     item = newitem;
 
     numItem++;
-
-    guardaInformacoes();
+   
     cout << "Produto Adicionado com sucesso!!! \n" ;
+    guardaInformacoes();
     updateClasseProduto();
 }
 
 void GerirProduto::removerProduto() {
+    mostrarProdutos();
     string nome;
     bool existe = false;
-    cout << "Nome: ";
+    cout << "\n\nIndique o nome do produto a remover: ";
     cin >> nome;
     for (int i = 0; i < numItem; i++){
         if (item[i].getNome() == nome)
@@ -239,8 +237,8 @@ void GerirProduto::removerProduto() {
             item[i] = item[numItem - 1];
             numItem--;
             existe = true;
-            updateClasseProduto();
             guardaInformacoes();
+            updateClasseProduto();
         }
     }
     if (existe == false){
@@ -252,11 +250,12 @@ void GerirProduto::removerProduto() {
 }
 
 void GerirProduto::modificarProduto() {
+    mostrarProdutos();
     string nome;
     int stock;
     double precoCusto, iva;
     bool existe = false;
-    cout << "Insira o nome do produto que pretende modificar: ";
+    cout << "\n\nInsira o nome do produto que pretende modificar: ";
     cin >> nome;
     for (int i = 0; i < numItem; i++){
         if (item[i].getNome() == nome){
@@ -285,24 +284,27 @@ void GerirProduto::modificarProduto() {
             item[i].setPrecoCusto(precoCusto);
             item[i].setIva(iva);
             existe = true;
-            updateClasseProduto();
-            guardaInformacoes();
+      
+           
         }
     }
     if (existe == false){
         cout << "Produto nao existe! \n";
     }
     else {
+        guardaInformacoes();
+        updateClasseProduto();
         cout << "Produto modificado com sucesso! \n";
     }
 }
 
 void GerirProduto::atualizarStockProduto(){
+    mostrarProdutos();
     string nome;
     int stock;
     double precoCusto, iva;
     bool existe = false;
-    cout << "Insira o nome do produto que pretende atulizar o stock: ";
+    cout << "\n\nInsira o nome do produto que pretende atulizar o stock: ";
     cin >> nome;
     for (int i = 0; i < numItem; i++){
         if (item[i].getNome() == nome){
@@ -313,14 +315,16 @@ void GerirProduto::atualizarStockProduto(){
             } while (!validaStock(stock));
             item[i].setStock(stock);
             existe = true;
-            updateClasseProduto();
-            guardaInformacoes();
+           
+            
         }
     }
     if (existe == false){
         cout << "Produto nao existe! \n";
     }
     else {
+        guardaInformacoes();
+        updateClasseProduto();
         cout << "Produto modificado com sucesso! \n" ;
     }
 }
@@ -398,7 +402,7 @@ int GerirProduto::obterQuantidadeDisponivel(int idProduto) {
             return item[i].getStock();
         }
     }
-    return -1;
+    return 0;
 }
 
 double GerirProduto::obterPrecoProduto(int idProduto){

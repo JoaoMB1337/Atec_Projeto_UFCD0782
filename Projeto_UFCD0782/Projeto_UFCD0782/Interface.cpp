@@ -1,5 +1,5 @@
 #include "Interface.h"
-#include "GerirProduto.h"
+
 
 int Interface::converteStringParaInt(string opcaoString) {
 	if (opcaoString.size() == 1 && isdigit(opcaoString[0])) {
