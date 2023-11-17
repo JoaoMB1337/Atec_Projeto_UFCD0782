@@ -40,7 +40,7 @@ void GerirProduto::updateClasseProduto() {
 
     ifstream arquivo(NOME_FICHEIRO);
     if (!arquivo.is_open()) {
-        cout << "Arquivo de produtos não encontrado." << endl;
+        ofstream novoArquivo(NOME_FICHEIRO, ios::out); //cria o ficheiro caso nao exista
         numItem = 0;
         item = nullptr;
         return;

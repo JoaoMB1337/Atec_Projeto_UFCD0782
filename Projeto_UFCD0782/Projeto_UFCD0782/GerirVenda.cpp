@@ -32,7 +32,7 @@ double GerirVenda::converterStringToDouble(string str){
 void GerirVenda::updateClasseVenda(){
 	ifstream arquivo(NOME_FICHEIRO);
 	if (!arquivo.is_open()) {
-		cout << "Arquivo de vendas n�o encontrado." << endl;
+		ofstream novoArquivo(NOME_FICHEIRO, ios::out); //cria o ficheiro caso nao exista
 		contador = 0;
 		venda = nullptr;
 		return;

@@ -6,7 +6,7 @@ const string NOME_FICHEIRO = "cliente.csv";
 void Gerecliente::updateClasseCliente(){
 	ifstream arquivo(NOME_FICHEIRO);
 	if (!arquivo.is_open()) {
-		cout << "Arquivo de clientes nao encontrado. \n ";
+		ofstream novoArquivo(NOME_FICHEIRO, ios::out); //cria o ficheiro caso nao exista
 		contador = 0;
 		pessoa = nullptr;
 		return;
