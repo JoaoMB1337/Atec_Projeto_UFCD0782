@@ -96,6 +96,7 @@ void Interface::menuCliente(Gerecliente gerirCliente) {
 		switch (opcaoInt) {
 		case 1:
 			gerirCliente.adicionaCliente();
+			system("pause");
 			system("cls");
 
 			break;
@@ -107,6 +108,7 @@ void Interface::menuCliente(Gerecliente gerirCliente) {
 			break;
 		case 3:
 			gerirCliente.modificadadoCliente();
+			system("pause");
 			system("cls");
 			break;
 

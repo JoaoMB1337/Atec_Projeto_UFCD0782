@@ -90,12 +90,13 @@ GerirProduto::GerirProduto() {
 
 //valida nome
 bool GerirProduto::validaNome(string nome){
+   
     if (nome.length() < 3) {
         cout << "Nome invalido! O nome deve ter pelo menos 3 caracteres.\nInsira novamente: ";
         return false;
     }
     for (char c : nome)
-    {
+    { 
         if (isdigit(c))                                                                                     // isdigit verifica se é um digito e retorna true caso seja
         {
             cout << "Nome invalido! O nome deve conter apenas letras.\nInsira novamente: ";
@@ -166,8 +167,9 @@ void GerirProduto::adicionarProduto() {
     string nome;
 
     cout << "Nome: ";
+    cin.ignore();
     do {
-        cin >> nome;
+        getline(cin,nome);
     } while (!validaNome(nome));
 
     cout << "Stock: ";
@@ -229,8 +231,9 @@ void GerirProduto::removerProduto() {
     mostrarProdutos();
     string nome;
     bool existe = false;
+    cin.ignore();
     cout << "\n\nIndique o nome do produto a remover: ";
-    cin >> nome;
+    getline(cin, nome);
     for (int i = 0; i < numItem; i++){
         if (item[i].getNome() == nome)
         {
@@ -250,18 +253,19 @@ void GerirProduto::removerProduto() {
 }
 
 void GerirProduto::modificarProduto() {
+    cin.ignore();
     mostrarProdutos();
     string nome;
     int stock;
     double precoCusto, iva;
     bool existe = false;
     cout << "\n\nInsira o nome do produto que pretende modificar: ";
-    cin >> nome;
+    getline(cin, nome);
     for (int i = 0; i < numItem; i++){
         if (item[i].getNome() == nome){
             cout << "Insira os novos dados\nNome: ";
             do {
-                cin >> nome;
+                getline(cin, nome);
             } while (!validaNome(nome));
 
             cout << "Stock: ";

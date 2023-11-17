@@ -188,16 +188,17 @@ Gerecliente::Gerecliente() {
 
 //Adiciona um cliente
 void  Gerecliente::adicionaCliente() {
+	cin.ignore();
 	int id;
 	string nome, morada, telefone, email, nif;
 
 	cout << "Nome: ";
 	do {
-		cin >> nome;
+		getline(cin, nome);
 	} while (!validaNome(nome));
 
 	cout << "Morada: ";
-	cin >> morada;
+	getline(cin, morada);
 
 	cout << "Telefone: ";
 	do {
@@ -253,12 +254,12 @@ void  Gerecliente::adicionaCliente() {
 
 //Remove um cliente pelo nome e nif
 void Gerecliente::removeCliente() {
-
+	cin.ignore();
 	mostrarCliente();
 	string nome, nif;
 	bool existe = false;
 	cout << "Nome: ";
-	cin >> nome;
+	getline(cin, nome);
 	cout << "Nif: ";
 	cin >> nif;
 	for (int i = 0; i < contador; i++)
@@ -283,13 +284,14 @@ void Gerecliente::removeCliente() {
 
 //Modifica o procurando o cliente por o nome e o NIF cliente 
 void Gerecliente::modificadadoCliente() {
-
+	
 	mostrarCliente();
 	string nome, nif;
 	bool existe = false;
+	cin.ignore();
 	cout << "Insira o nome do cliente que pretende modificar: ";
 	do {
-		cin >> nome;
+		getline(cin, nome);
 	} while (!validaNome(nome));
 	cout << "Insira o nif do cliente que pretende modificar: ";
 	do {
@@ -299,13 +301,15 @@ void Gerecliente::modificadadoCliente() {
 	{
 		if (pessoa[i].getNome() == nome && pessoa[i].getNif() == nif)
 		{
+			cin.ignore();
 			string nome, morada, telefone, email, nif;
 			cout << "Nome: ";
 			do {
-				cin >> nome;
+				getline(cin, nome);
 			} while (!validaNome(nome));
+
 			cout << "Morada: ";
-			cin >> morada;
+			getline(cin, morada);
 			cout << "Telefone: ";
 			do {
 				cin >> telefone;
