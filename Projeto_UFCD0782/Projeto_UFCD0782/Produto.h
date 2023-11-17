@@ -25,14 +25,14 @@ public:
     void setNome(string nome);
     void setStock(int stock);
     void setPrecoCusto(double precoCusto);
-    void setIva(double iva);
+    void setIva(int iva);
 
 private:
     int id;
     string nome;
     int stock;
     double precoCusto;
-    double iva;
+    int iva;
     double precoVenda; // +30% + iva
     Produto* item;
 };

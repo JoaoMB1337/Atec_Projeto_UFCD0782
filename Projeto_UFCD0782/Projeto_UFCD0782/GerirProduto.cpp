@@ -332,11 +332,11 @@ void GerirProduto::atualizarStockProduto(){
 #pragma region Acesso Exterior da classe
 
 void GerirProduto::mostrarProdutos() {
-    cout << "+--------------------------------------------------------------------------------------+\n";
-    cout << "|    Informações sobre Produtos Disponíveis                                            |\n";
-    cout << "+--------------------------------------------------------------------------------------+\n";
-    cout << "|  Id  |     Nome      | Quantidade  | Preço Custo | Preço Venda | IVA | Preço Sem IVA |\n";
-    cout << "+--------------------------------------------------------------------------------------+\n";
+    cout << "+----------------------------------------------------------------------------------------+\n";
+    cout << "|    Informações sobre Produtos Disponíveis                                              |\n";
+    cout << "+----------------------------------------------------------------------------------------+\n";
+    cout << "|  Id  |     Nome      | Quantidade  | Preço Custo |  Iva  | Preço Sem IVA | Preço Venda |\n";
+    cout << "+----------------------------------------------------------------------------------------+\n";
     for (int i = 0; i < numItem; i++) {
         item[i].mostrarInformacoes();
     }

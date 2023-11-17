@@ -72,7 +72,7 @@ void Produto::setPrecoCusto(double precoCusto) {
     this->precoCusto = precoCusto;
 }
 
-void Produto::setIva(double iva) {
+void Produto::setIva(int iva) {
     if (iva < 0) {
         cout << "O IVA do produto não pode ser menor que zero!";
     }
@@ -93,18 +93,10 @@ double Produto::calcularPrecoSemIva(double precoVenda, double iva){
 
 void Produto::mostrarInformacoes() {
 
-   /* cout << "ID: " << this->id << "\n";
-    cout << "Nome: " << this->nome << "\n";
-    cout << "Stock: " << this->stock << "\n";
-    cout << "Preço de Custo: " << fixed << setprecision(2) << this->precoCusto << "\n";
-    cout << "IVA: " << this->iva << "%" << "\n";
-    cout << "Preço de Venda: " << this->calcularPrecoVenda(precoCusto, iva) << "\n";
-    cout << "Preço Sem IVA: " << this->calcularPrecoSemIva(precoCusto, iva) << "\n";
-    cout << "+------------------------+\n";*/
-
-    cout << "| " << setw(4) << this->id << " | " << setw(13) << this->nome << " | " << setw(10) << this->stock << " | " << setw(10) << this->precoVenda << " | " 
-        << setw(8) << this->iva << " | " << setw(8) <<this->calcularPrecoSemIva(this->precoCusto, this->iva) << setw(8) << " | "
-        << fixed << setprecision(2)  << this->calcularPrecoVenda(this->precoCusto, this->iva) << " \n";
+    cout << fixed << setprecision(2) << "| " << setw(4) << this->id << " | " << setw(13) << this->nome << " | "
+        << setw(11) << this->stock << " | " << setw(11) << this->precoCusto << " | " 
+        << setw(4) << this->iva << "% | " << setw(8) <<this->calcularPrecoSemIva(this->precoCusto, this->iva) << setw(8) << " | "
+        << this->calcularPrecoVenda(this->precoCusto, this->iva) << " \n";
 }
 
 

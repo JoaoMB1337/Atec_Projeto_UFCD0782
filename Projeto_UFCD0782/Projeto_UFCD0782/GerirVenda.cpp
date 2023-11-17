@@ -1,6 +1,5 @@
 #include "GerirVenda.h"
 
-
 const string NOME_FICHEIRO = "venda.csv";
 const int MAX_ID_VENDA = 100;
 
@@ -157,27 +156,40 @@ GerirVenda::GerirVenda(){
 
 void GerirVenda::imprimirTalao(int idcompra) {
 	int numeroCliente = encontrarClientePorIdVenda(idcompra);
-	double totalSemIVA = 0,totalComIVA = 0,valorEntregue = 0,valorTroco = 0;
+	double totalSemIVA = 0, totalComIVA = 0, valorEntregue = 0, valorTroco = 0;
 	int numeroLinha = 1;
 	bool sorteioEncontrado = encontrarSorteioPorIdVenda(idcompra);
+	bool* produtoRegistrado = new bool[contador]();
 
 	cout << setw(40) << right << "Talao da Fatura - Numero: " << idcompra << "\n";
-	cout << setw(40) << right << "+--------------------------------------------------------------+\n";
+	cout << setw(40) << right << "+---------------------------------------------------------------+\n";
 	cout << setw(40) << right << "Numero Cliente: " << numeroCliente << "\n";
-	cout << setw(40) << right << "+--------------------------------------------------------------+\n";
-	cout << setw(4) << right << "| No |" << right << "Nome Produto" << setw(15) << right << " | Quantidade |"
-		<< setw(12) << right << "Preco s/IVA |" << right << "IVA |" << setw(10) << right << "Total C/IVA |\n";
-	cout << setw(40) << right << "+--------------------------------------------------------------+\n";
+	cout << setw(40) << right << "+---------------------------------------------------------------+\n";
+	cout << setw(4) << right << "| No |" << " Nome Produto" << setw(15) << right << " | QTD |"
+		<< setw(12) << right << "Preco s/IVA |" << right << "IVA  |" << setw(9) << right << "Total C/IVA|\n";
+	cout << setw(40) << right << "+---------------------------------------------------------------+\n";
 
-	for (int i = 0; i < contador; i++) {
+	for (int i = 0; i < contador; ++i) {
 		if (venda[i].getIdVenda() == idcompra) {
-			if (venda[i].getIdProduto() != -1) {
-				cout << "|" << setw(3) << numeroLinha << " | " << setw(11) << produtos.obterNomeProduto(venda[i].getIdProduto())
-					<< " | " << setw(10) << venda[i].getQuantidade() << " | " << setw(10) << produtos.obterPrecoSemIva(venda[i].getIdProduto())
-					<< " | " << setw(5) << produtos.obterIvaProduto(venda[i].getIdProduto()) << "% | " << setw(9) << venda[i].getTotal() << " |\n";
+			if (venda[i].getIdProduto() != -1 && !produtoRegistrado[i]) {
+				int idProduto = venda[i].getIdProduto();
+				double totalProduto = venda[i].getTotal();
+				int quantidadeTotal = venda[i].getQuantidade();
 
+				for (int j = i + 1; j < contador; ++j) {
+					if (venda[j].getIdVenda() == idcompra && venda[j].getIdProduto() == idProduto) {
+						totalProduto += venda[j].getTotal();
+						quantidadeTotal += venda[j].getQuantidade();
+						produtoRegistrado[j] = true;
+					}
+				}
+
+				cout << "|" << setw(3) << numeroLinha << " | " << setw(19) << produtos.obterNomeProduto(idProduto)
+					<< " | " << setw(3) << quantidadeTotal << " | " << setw(10) << produtos.obterPrecoSemIva(idProduto)
+					<< " | " << setw(1) << produtos.obterIvaProduto(idProduto) << "% | " << setw(10) << totalProduto << "|\n";
+				
 				totalSemIVA += venda[i].getQuantidade() * produtos.obterPrecoSemIva(venda[i].getIdProduto());
-				totalComIVA += venda[i].getTotal();
+				totalComIVA += totalProduto;
 				numeroLinha++;
 			}
 			else {
@@ -188,18 +200,20 @@ void GerirVenda::imprimirTalao(int idcompra) {
 	}
 
 	if (!sorteioEncontrado) {
-		cout << setw(40) << right << "+--------------------------------------------------------------+\n";
-		cout << setw(40) << "Total s/IVA:" << setw(14) << totalSemIVA << setw(11) << "|\n";
-		cout << setw(40) << "Total c/IVA:" << setw(14) << totalComIVA << setw(11) << "|\n";
-		cout << setw(40) << "Valor Entregue:" << setw(14) << valorEntregue << setw(11) << "|\n";
-		cout << setw(40) << "Troco:" << setw(14) << valorTroco << setw(11) << "|\n";
-		cout << setw(40) << right << "+--------------------------------------------------------------+\n";
+		cout << setw(40) << right << "+---------------------------------------------------------------+\n";
+		cout << "|" << setw(40) << "Total s/IVA:" << setw(14) << totalSemIVA << setw(11) << "|\n";
+		cout << "|" << setw(40) << "Total c/IVA:" << setw(14) << totalComIVA << setw(11) << "|\n";
+		cout << "|" << setw(40) << "Valor Entregue:" << setw(14) << valorEntregue << setw(11) << "|\n";
+		cout << "|" << setw(40) << "Troco:" << setw(14) << valorTroco << setw(11) << "|\n";
+		cout << setw(40) << right << "+---------------------------------------------------------------+\n";
 	}
 	else {
 		cout << setw(40) << right << "+--------------------------------------------------------------+\n";
 		cout << setw(40) << "Esta venda foi sorteada!!\n";
-		cout << setw(40) << right << "+--------------------------------------------------------------+\n";
+		cout << setw(40) << right << "+---------------------------------------------------------------+\n";
 	}
+
+	delete[] produtoRegistrado; // Liberando a memória alocada dinamicamente
 }
 
 void GerirVenda::adicionaVenda() {
@@ -222,9 +236,14 @@ void GerirVenda::adicionaVenda() {
 	// Verifica se idCliente é igual ao id de algum cliente guardado na classe
 	clientes.mostrarCliente();
 	do {
-		cout << "ID Cliente: ";
+		cout << "ID Cliente (insira 0 para cancelar a compra): ";
 		cin >> IdClienteString;
 		idCliente = converterStringToInt(IdClienteString);
+		if (idCliente == 0){
+			cout << "Venda cancelada! \n";
+			return;
+		}
+		
 	} while (!clientes.verificaCliente(idCliente));
 
 	ofstream arquivo(NOME_FICHEIRO, ios::app);
@@ -245,7 +264,9 @@ void GerirVenda::adicionaVenda() {
 		if (idProduto != 0 || !produtos.verificaProduto(idProduto) ) {
 			// Verifica se idProduto é igual ao id do produto Produtos.csv
 			if (!produtos.verificaProduto(idProduto)) {
-				cout << "ID Produto invalido. Tente novamente.\n";
+				if (idProduto != 0){
+					cout << "ID Produto invalido. Tente novamente.\n";
+				}
 				continue;
 			}
 
@@ -281,13 +302,10 @@ void GerirVenda::adicionaVenda() {
 		do {
 			cout << "Valor entregue: ";
 			cin >> quantiaEntregueString;
-
-			while (!converterStringToDouble(quantiaEntregueString) > totalCompra) {
+			quantiaEntregue = converterStringToDouble(quantiaEntregueString);
+			if (quantiaEntregue < totalCompra){
 				cout << "Valor invalido. Insira um valor igual ou superior ao total da compra: ";
-				cin >> quantiaEntregueString;
 			}
-
-			quantiaEntregue = stod(quantiaEntregueString);
 			troco = quantiaEntregue - totalCompra;
 			if (troco < 0) {
 				troco = 0;

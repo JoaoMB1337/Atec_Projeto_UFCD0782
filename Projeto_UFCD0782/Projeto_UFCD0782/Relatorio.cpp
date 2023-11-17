@@ -107,7 +107,6 @@ void Relatorio::imprimeMaisMenosVendido() {
             if (vendasporproduto[idprodutocsv] > quantidademaisvendido) {
                 quantidademaisvendido = vendasporproduto[idprodutocsv];
                 produtomaisvendido = gestorProduto.obterNomeProduto(stoi(idprodutocsv));
-                cout << "aqui!!: " << produtomaisvendido << "\n";
             }
 
             if (vendasporproduto[idprodutocsv] < quantidademenosvendido) {
